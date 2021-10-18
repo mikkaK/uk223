@@ -22,7 +22,7 @@ public class Role {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             joinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"),
