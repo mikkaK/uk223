@@ -14,12 +14,11 @@ You can change the username and password that hibernate uses in application.prop
 
 
 # Setup
-To initialize the correct DB schema, run the app using:\
-`spring.jpa.hibernate.ddl-auto=create`\
-in application.properties. In some cases, you may need to run it **two times** for it to work.
-this option will drop and recreate your DB shema each time you restart the backend. 
-If you want to persist data between resstartss of the backend, change this value to `validate` or `update`. 
-If you do, you may need to remove code that tries to add data to the DB in AppStartupRunner.run().
+Open the applicaiton in IntelliJ. you should be able to execute the application after IntelliJ has finished indexing all the files and building the gradle project.
+Build & Run the application (e.g. by clicking the play button next to the projects main method).
+
+the application should start and run now. You should see a message similar to this at the end of a long console log:\
+`2021-09-14 14:31:15.056  INFO 27988 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 4.122 seconds (JVM running for 4.991)`
 
 
 If you've set up the project correctly you should be able to access the endpoint `http://localhost:8080/api/` after logging in with the following user:
@@ -30,8 +29,15 @@ password: bond
 The site should display the text "Hello World"
 
 
+# Common Issues & Fixes
+* Restart the PostGreSQL container & check the container is running
+*	Confirm connection to the DB (e.g. in DBeaver)
+*	Restart IntelliJ & your Spring Boot application
+
 
 # Hints
 
-* You can add mock data using an SQL script named `data.sql` placed in the resources folder.
-* You can execute statements at startup by adding them to `AppStartupRunner.run()`.
+* You can add mock data to your database on startup using an SQL script named `data.sql` placed in the resources folder
+* You can execute statements at startup by adding them to `AppStartupRunner.run()`
+
+
