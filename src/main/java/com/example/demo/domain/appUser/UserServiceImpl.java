@@ -38,8 +38,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         else {
 //          Construct a valid set of Authorities (needs to implement Granted Authorities)
             Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-            user.getRoles().forEach(roles -> {
-                roles.getAuthorities().forEach(authority -> {
+            user.getRoles().forEach(role -> {
+                authorities.add(new SimpleGrantedAuthority("ROLE"+role.getName()));
+                role.getAuthorities().forEach(authority -> {
                     authorities.add(new SimpleGrantedAuthority(authority.getName()));
                 });
             });

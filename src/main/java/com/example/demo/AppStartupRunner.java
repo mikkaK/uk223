@@ -40,11 +40,13 @@ class AppStartupRunner implements ApplicationRunner {
         authorityRepository.save(read_auth);
 
 //        Roles
-        Role default_role = new Role(null, "DEFAULT",Arrays.asList(read_auth));
+        Role default_role = new Role(null, "ROLE_DEFAULT",Arrays.asList(read_auth));
         roleRepository.save(default_role);
 
-        userService.saveUser(new User(null, "james","james.bond@mi6.com","bond", Set.of(default_role)));
-        userService.addRoleToUser("james", "DEFAULT");
+        User default_user = new User(null, "james","james.bond@mi6.com","bond", Set.of(default_role));
+        userService.saveUser(default_user);
+
+        userService.addRoleToUser(default_user.getUsername(), default_role.getName());
     }
 }
 
