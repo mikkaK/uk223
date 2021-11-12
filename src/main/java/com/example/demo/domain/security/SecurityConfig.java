@@ -17,18 +17,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
      private final UserDetailsService userDetailsService;
      private final PasswordEncoder passwordEncoder;
 
+     @Override
+     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+         auth.userDetailsService(userDetailsService);
+
+     }
 
      @Autowired
      public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-
-                 auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
      }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().and()
                 .authorizeRequests()
-                .antMatchers("/**").hasAuthority("READ")
+                .antMatchers("/**").hasRole("DEFAULT")
                 .and()
                 // some more method calls
                 .formLogin();
