@@ -10,13 +10,25 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
- @EnableWebSecurity @RequiredArgsConstructor @EnableGlobalMethodSecurity(prePostEnabled = true)
-
+ @EnableWebSecurity
+ @EnableGlobalMethodSecurity(prePostEnabled = true)
  public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
      private final UserDetailsService userDetailsService;
      private final PasswordEncoder passwordEncoder;
 
+     public SecurityConfig(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+         this.userDetailsService = userDetailsService;
+         this.passwordEncoder = passwordEncoder;
+     }
+
+     public SecurityConfig(boolean disableDefaults, UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+         super(disableDefaults);
+         this.userDetailsService = userDetailsService;
+         this.passwordEncoder = passwordEncoder;
+     }
+
+     //     uses userdata service to authenticate requests
      @Override
      protected void configure(AuthenticationManagerBuilder auth) throws Exception {
          auth.userDetailsService(userDetailsService);
