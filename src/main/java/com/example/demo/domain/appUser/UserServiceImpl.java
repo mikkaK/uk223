@@ -4,7 +4,6 @@ import com.example.demo.domain.role.Role;
 import com.example.demo.domain.role.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,26 +39,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
             user.getRoles().forEach(role -> {
                 authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));
-                role.getAuthorities().forEach(authority -> {
-                    authorities.add(new SimpleGrantedAuthority(authority.getName()));
-                });
+                role.getAuthorities().forEach(authority ->
+                    authorities.add(new SimpleGrantedAuthority(authority.getName())));
             });
 //            return a spring internal user object that contains authorities and roles
             return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
         }
-    }
-
-    private Collection<? extends GrantedAuthority> getAuthorities(
-            Collection<Role> roles) {
-        List<GrantedAuthority> authorities
-                = new ArrayList<>();
-        for (Role role: roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-            role.getAuthorities().stream()
-                    .map(authority -> new SimpleGrantedAuthority(authority.getName()))
-                    .forEach(authorities::add);
-        }
-        return authorities;
     }
 
     @Override
