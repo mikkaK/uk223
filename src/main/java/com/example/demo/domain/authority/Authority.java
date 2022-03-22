@@ -8,18 +8,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
-@Table(name = "authority")
-@AllArgsConstructor
-@Getter
-@Setter
-@NoArgsConstructor
+@Data@Entity
 public class Authority  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
     private String name;
 
 }

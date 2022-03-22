@@ -1,20 +1,13 @@
 package com.example.demo.domain.role;
 
-import com.example.demo.domain.appUser.User;
 import com.example.demo.domain.authority.Authority;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
-//#from lombok
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data@Entity
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
