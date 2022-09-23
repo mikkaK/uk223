@@ -1,39 +1,54 @@
 package com.example.demo.domain.role;
 
-import com.example.demo.domain.appUser.User;
+import com.example.demo.core.generic.ExtendedEntity;
 import com.example.demo.domain.authority.Authority;
-import lombok.*;
-
-import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
-//#from lombok
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
-    @Column(nullable = false)
-    private String name;
+@Table(name = "role")
+public class Role extends ExtendedEntity {
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            joinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "authority_id", referencedColumnName = "id"))
-    private List<Authority> authorities;
+  @Column(name = "name", nullable = false, unique = true)
+  private String name;
 
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "role_authority", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+  private Set<Authority> authorities = new HashSet<>();
 
-    public String toString() {
-        return getName();
-    }
+  public Role() {
+  }
 
+  public Role(UUID id, String name, Set<Authority> authorities) {
+    super(id);
+    this.name = name;
+    this.authorities = authorities;
+  }
 
+  public String getName() {
+    return name;
+  }
+
+  public Role setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public Set<Authority> getAuthorities() {
+    return authorities;
+  }
+
+  public Role setAuthorities(Set<Authority> authorities) {
+    this.authorities = authorities;
+    return this;
+  }
 }

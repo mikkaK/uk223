@@ -1,25 +1,32 @@
 package com.example.demo.domain.authority;
 
-import com.example.demo.domain.role.Role;
-import lombok.*;
-
-import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
+import com.example.demo.core.generic.ExtendedEntity;
 import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "authority")
-@AllArgsConstructor
-@Getter
-@Setter
-@NoArgsConstructor
-public class Authority  {
+public class Authority extends ExtendedEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+  @Column(name = "name", nullable = false, unique = true)
+  private String name;
 
-    private String name;
+  public Authority() {
+  }
 
+  public Authority(UUID id, String name) {
+    super(id);
+    this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public Authority setName(String name) {
+    this.name = name;
+    return this;
+  }
 }
