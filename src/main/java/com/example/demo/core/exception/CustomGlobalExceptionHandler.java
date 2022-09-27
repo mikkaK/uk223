@@ -5,7 +5,9 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -30,8 +32,8 @@ public class CustomGlobalExceptionHandler {
                               .setErrors(ex.getBindingResult()
                                            .getFieldErrors()
                                            .stream()
-                                           .collect(Collectors.toMap(error -> error.getField(),
-                                               error -> error.getDefaultMessage())))
+                                           .collect(Collectors.toMap(FieldError::getField,
+                                               DefaultMessageSourceResolvable::getDefaultMessage)))
                               .build();
   }
 

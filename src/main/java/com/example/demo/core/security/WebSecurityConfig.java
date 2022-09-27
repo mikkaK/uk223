@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
@@ -14,7 +13,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -24,32 +23,28 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@EnableJpaAuditing(auditorAwareRef = "userAware")
 public class WebSecurityConfig {
 
   private final UserService userService;
-  private final BCryptPasswordEncoder bCryptPasswordEncoder;
+  private final PasswordEncoder passwordEncoder;
   private final JwtProperties jwtProperties;
 
   @Autowired
-  public WebSecurityConfig(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder,
-                           JwtProperties jwtProperties) {
+  public WebSecurityConfig(UserService userService, PasswordEncoder passwordEncoder, JwtProperties jwtProperties) {
     this.userService = userService;
-    this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    this.passwordEncoder = passwordEncoder;
     this.jwtProperties = jwtProperties;
   }
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http.authorizeRequests(requests -> requests.antMatchers(HttpMethod.POST, "/users/login")
-                                                      .permitAll()
-                                                      .antMatchers(HttpMethod.POST, "/users/register")
+    return http.authorizeRequests(requests -> requests.antMatchers(HttpMethod.POST, "/users/login","/users/register")
                                                       .permitAll()
                                                       .anyRequest()
                                                       .authenticated())
-               .addFilterAfter(new CustomAuthenticationFilter(new AntPathRequestMatcher("/users/login", "POST"),
+               .addFilterAfter(new JWTAuthenticationFilter(new AntPathRequestMatcher("/users/login", "POST"),
                    authenticationManager(), jwtProperties), UsernamePasswordAuthenticationFilter.class)
-               .addFilterAfter(new CustomAuthorizationFilter(userService, jwtProperties),
+               .addFilterAfter(new JWTAuthorizationFilter(userService, jwtProperties),
                    UsernamePasswordAuthenticationFilter.class)
                .sessionManagement()
                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -78,7 +73,7 @@ public class WebSecurityConfig {
   @Bean
   public AuthenticationManager authenticationManager() {
     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-    provider.setPasswordEncoder(bCryptPasswordEncoder);
+    provider.setPasswordEncoder(passwordEncoder);
     provider.setUserDetailsService(userService);
     return new ProviderManager(provider);
   }
