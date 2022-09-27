@@ -14,6 +14,8 @@ import java.util.Map;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,12 +26,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-public class CustomAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
   private final JwtProperties jwtProperties;
+  private static final Logger JWT_LOGGER = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
 
-  public CustomAuthenticationFilter(RequestMatcher requestMatcher, AuthenticationManager authenticationManager,
-                                    JwtProperties jwtProperties) {
+
+  public JWTAuthenticationFilter(RequestMatcher requestMatcher, AuthenticationManager authenticationManager,
+                                 JwtProperties jwtProperties) {
     super(requestMatcher, authenticationManager);
     this.jwtProperties = jwtProperties;
   }
@@ -51,9 +55,15 @@ public class CustomAuthenticationFilter extends AbstractAuthenticationProcessing
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
       throws AuthenticationException, IOException {
-    Credentials credentials = new ObjectMapper().readValue(request.getInputStream(), Credentials.class);
-    return getAuthenticationManager().authenticate(
-        new UsernamePasswordAuthenticationToken(credentials.getEmail(), credentials.getPassword()));
+    try {
+      Credentials credentials = new ObjectMapper().readValue(request.getInputStream(), Credentials.class);
+      return getAuthenticationManager().authenticate(
+          new UsernamePasswordAuthenticationToken(credentials.getEmail(), credentials.getPassword()));
+    }
+    catch (IOException e) {
+      JWT_LOGGER.error("Exception while Authentication thrown.", e);
+      return null;
+    }
   }
 
   @Override

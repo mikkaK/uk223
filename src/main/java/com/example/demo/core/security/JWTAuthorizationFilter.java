@@ -19,12 +19,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-public class CustomAuthorizationFilter extends OncePerRequestFilter {
+public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
   private final UserService userService;
   private final JwtProperties jwtProperties;
 
-  public CustomAuthorizationFilter(UserService userService, JwtProperties jwtProperties) {
+  public JWTAuthorizationFilter(UserService userService, JwtProperties jwtProperties) {
     this.userService = userService;
     this.jwtProperties = jwtProperties;
   }
