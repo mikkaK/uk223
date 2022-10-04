@@ -38,11 +38,11 @@ public class WebSecurityConfig {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http.authorizeRequests(requests -> requests.antMatchers(HttpMethod.POST, "/users/login","/users/register")
+    return http.authorizeRequests(requests -> requests.antMatchers(HttpMethod.POST, "/user/login","/user/register")
                                                       .permitAll()
                                                       .anyRequest()
                                                       .authenticated())
-               .addFilterAfter(new JWTAuthenticationFilter(new AntPathRequestMatcher("/users/login", "POST"),
+               .addFilterAfter(new JWTAuthenticationFilter(new AntPathRequestMatcher("/user/login", "POST"),
                    authenticationManager(), jwtProperties), UsernamePasswordAuthenticationFilter.class)
                .addFilterAfter(new JWTAuthorizationFilter(userService, jwtProperties),
                    UsernamePasswordAuthenticationFilter.class)
@@ -63,6 +63,7 @@ public class WebSecurityConfig {
     configuration.setAllowedOrigins(List.of("*"));
     configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
     configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+    configuration.setExposedHeaders(List.of("Authorization"));
 
     UrlBasedCorsConfigurationSource configurationSource = new UrlBasedCorsConfigurationSource();
     configurationSource.registerCorsConfiguration("/**", configuration);

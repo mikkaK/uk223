@@ -1,11 +1,6 @@
 import api from '../config/Api';
 import { User } from '../types/models/User.model';
 
-type AvatarResponse = {
-  id: string;
-  avatar: string;
-};
-
 const UserService = {
   getUser: (id: string) => {
     return api.get(`/users/${id}`);
