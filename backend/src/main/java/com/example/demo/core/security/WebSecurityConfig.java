@@ -38,7 +38,7 @@ public class WebSecurityConfig {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http.authorizeRequests(requests -> requests.antMatchers(HttpMethod.POST, "/user/login","/user/register")
+    return http.authorizeRequests(requests -> requests.antMatchers(HttpMethod.POST, "/user/login", "/user/register")
                                                       .permitAll()
                                                       .anyRequest()
                                                       .authenticated())
@@ -54,6 +54,8 @@ public class WebSecurityConfig {
                .and()
                .csrf()
                .disable()
+               .formLogin()
+               .and()
                .build();
   }
 
