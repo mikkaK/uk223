@@ -1,8 +1,9 @@
-package com.example.demo.core.logging.domain.user;
+package com.example.demo.domain.user;
 
 import com.example.demo.core.generic.ExtendedEntity;
-import com.example.demo.core.logging.domain.group.Group;
-import com.example.demo.core.logging.domain.role.Role;
+import com.example.demo.domain.group.Group;
+import com.example.demo.domain.role.Role;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;

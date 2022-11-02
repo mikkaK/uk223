@@ -1,4 +1,4 @@
-package com.example.demo.core.logging.domain.group;
+package com.example.demo.domain.group;
 
 import com.example.demo.core.generic.ExtendedEntity;
 

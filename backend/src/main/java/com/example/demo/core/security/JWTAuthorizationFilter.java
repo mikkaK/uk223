@@ -2,8 +2,8 @@ package com.example.demo.core.security;
 
 import com.example.demo.core.security.helpers.AuthorizationSchemas;
 import com.example.demo.core.security.helpers.JwtProperties;
-import com.example.demo.core.logging.domain.user.UserDetailsImpl;
-import com.example.demo.core.logging.domain.user.UserService;
+import com.example.demo.domain.user.UserDetailsImpl;
+import com.example.demo.domain.user.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

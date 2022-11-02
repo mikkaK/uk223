@@ -1,8 +1,8 @@
-package com.example.demo.core.logging.domain.user;
+package com.example.demo.domain.user;
 
-import com.example.demo.core.logging.domain.user.dto.UserDTO;
-import com.example.demo.core.logging.domain.user.dto.UserMapper;
-import com.example.demo.core.logging.domain.user.dto.UserRegisterDTO;
+import com.example.demo.domain.user.dto.UserDTO;
+import com.example.demo.domain.user.dto.UserMapper;
+import com.example.demo.domain.user.dto.UserRegisterDTO;
 import java.util.List;
 import java.util.UUID;
 import javax.validation.Valid;

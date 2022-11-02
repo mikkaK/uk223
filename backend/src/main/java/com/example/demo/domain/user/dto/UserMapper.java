@@ -1,8 +1,8 @@
-package com.example.demo.core.logging.domain.user.dto;
+package com.example.demo.domain.user.dto;
 
 
 import com.example.demo.core.generic.ExtendedMapper;
-import com.example.demo.core.logging.domain.user.User;
+import com.example.demo.domain.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

@@ -1,7 +1,7 @@
-package com.example.demo.core.logging.domain.role;
+package com.example.demo.domain.role;
 
 import com.example.demo.core.generic.ExtendedEntity;
-import com.example.demo.core.logging.domain.authority.Authority;
+import com.example.demo.domain.authority.Authority;
 
 import java.util.HashSet;
 import java.util.Set;

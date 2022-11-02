@@ -1,4 +1,4 @@
-package com.example.demo.core.logging.domain.user;
+package com.example.demo.domain.user;
 
 import com.example.demo.core.generic.ExtendedService;
 import org.springframework.security.core.userdetails.UserDetailsService;

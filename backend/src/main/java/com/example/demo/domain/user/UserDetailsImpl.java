@@ -1,4 +1,4 @@
-package com.example.demo.core.logging.domain.user;
+package com.example.demo.domain.user;
 
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;

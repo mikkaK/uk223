@@ -1,4 +1,4 @@
-package com.example.demo.core.logging.domain.user.dto;
+package com.example.demo.domain.user.dto;
 
 import com.example.demo.core.generic.ExtendedDTO;
 import java.util.UUID;

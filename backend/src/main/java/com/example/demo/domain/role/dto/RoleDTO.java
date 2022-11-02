@@ -1,7 +1,7 @@
-package com.example.demo.core.logging.domain.role.dto;
+package com.example.demo.domain.role.dto;
 
 import com.example.demo.core.generic.ExtendedDTO;
-import com.example.demo.core.logging.domain.authority.dto.AuthorityDTO;
+import com.example.demo.domain.authority.dto.AuthorityDTO;
 import java.util.Set;
 import java.util.UUID;
 import javax.validation.Valid;
