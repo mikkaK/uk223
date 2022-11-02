@@ -2,8 +2,8 @@ package com.example.demo.core.security;
 
 import com.example.demo.core.security.helpers.AuthorizationSchemas;
 import com.example.demo.core.security.helpers.JwtProperties;
-import com.example.demo.domain.user.UserDetailsImpl;
-import com.example.demo.domain.user.UserService;
+import com.example.demo.core.logging.domain.user.UserDetailsImpl;
+import com.example.demo.core.logging.domain.user.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -19,7 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-public class JWTAuthorizationFilter extends OncePerRequestFilter {
+public class  JWTAuthorizationFilter extends OncePerRequestFilter {
 
   private final UserService userService;
   private final JwtProperties jwtProperties;

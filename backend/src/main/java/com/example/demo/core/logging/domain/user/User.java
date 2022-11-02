@@ -1,7 +1,8 @@
-package com.example.demo.domain.user;
+package com.example.demo.core.logging.domain.user;
 
 import com.example.demo.core.generic.ExtendedEntity;
-import com.example.demo.domain.role.Role;
+import com.example.demo.core.logging.domain.group.Group;
+import com.example.demo.core.logging.domain.role.Role;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -33,6 +34,11 @@ public class User extends ExtendedEntity {
   @JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
              inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
   private Set<Role> roles = new HashSet<>();
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "users_group", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
+          inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"))
+  private Set<Group> groups = new HashSet<>();
 
   public User() {
   }

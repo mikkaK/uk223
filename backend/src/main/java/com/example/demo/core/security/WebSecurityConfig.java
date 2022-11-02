@@ -1,7 +1,7 @@
 package com.example.demo.core.security;
 
 import com.example.demo.core.security.helpers.JwtProperties;
-import com.example.demo.domain.user.UserService;
+import com.example.demo.core.logging.domain.user.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

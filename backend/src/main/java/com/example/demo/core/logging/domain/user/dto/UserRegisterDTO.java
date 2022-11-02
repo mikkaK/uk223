@@ -1,13 +1,10 @@
-package com.example.demo.domain.user.dto;
+package com.example.demo.core.logging.domain.user.dto;
 
 import com.example.demo.core.generic.ExtendedDTO;
-import com.example.demo.domain.role.dto.RoleDTO;
-import java.util.Set;
 import java.util.UUID;
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 
-public class UserDTO extends ExtendedDTO {
+public class UserRegisterDTO extends ExtendedDTO {
 
   private String firstName;
 
@@ -16,25 +13,25 @@ public class UserDTO extends ExtendedDTO {
   @Email
   private String email;
 
-  @Valid
-  private Set<RoleDTO> roles;
+  private String password;
 
-  public UserDTO() {
+
+  public UserRegisterDTO() {
   }
 
-  public UserDTO(UUID id, String firstName, String lastName, String email, Set<RoleDTO> roles) {
+  public UserRegisterDTO(UUID id, String firstName, String lastName, String email, String password) {
     super(id);
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    this.roles = roles;
+    this.password = password;
   }
 
   public String getFirstName() {
     return firstName;
   }
 
-  public UserDTO setFirstName(String firstName) {
+  public UserRegisterDTO setFirstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -43,7 +40,7 @@ public class UserDTO extends ExtendedDTO {
     return lastName;
   }
 
-  public UserDTO setLastName(String lastName) {
+  public UserRegisterDTO setLastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -52,17 +49,17 @@ public class UserDTO extends ExtendedDTO {
     return email;
   }
 
-  public UserDTO setEmail(String email) {
+  public UserRegisterDTO setEmail(String email) {
     this.email = email;
     return this;
   }
 
-  public Set<RoleDTO> getRoles() {
-    return roles;
+  public String getPassword() {
+    return password;
   }
 
-  public UserDTO setRoles(Set<RoleDTO> roles) {
-    this.roles = roles;
+  public UserRegisterDTO setPassword(String password) {
+    this.password = password;
     return this;
   }
 }

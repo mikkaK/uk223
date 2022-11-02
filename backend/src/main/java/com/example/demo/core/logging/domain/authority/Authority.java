@@ -1,4 +1,4 @@
-package com.example.demo.domain.authority;
+package com.example.demo.core.logging.domain.authority;
 
 import com.example.demo.core.generic.ExtendedEntity;
 import java.util.UUID;

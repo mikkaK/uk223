@@ -1,7 +1,7 @@
-package com.example.demo.domain.role.dto;
+package com.example.demo.core.logging.domain.role.dto;
 
 import com.example.demo.core.generic.ExtendedMapper;
-import com.example.demo.domain.role.Role;
+import com.example.demo.core.logging.domain.role.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

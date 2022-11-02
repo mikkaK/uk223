@@ -1,10 +1,14 @@
-package com.example.demo.domain.user.dto;
+package com.example.demo.core.logging.domain.user.dto;
 
 import com.example.demo.core.generic.ExtendedDTO;
+import com.example.demo.core.logging.domain.role.dto.RoleDTO;
+
+import java.util.Set;
 import java.util.UUID;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 
-public class UserRegisterDTO extends ExtendedDTO {
+public class UserDTO extends ExtendedDTO {
 
   private String firstName;
 
@@ -13,25 +17,25 @@ public class UserRegisterDTO extends ExtendedDTO {
   @Email
   private String email;
 
-  private String password;
+  @Valid
+  private Set<RoleDTO> roles;
 
-
-  public UserRegisterDTO() {
+  public UserDTO() {
   }
 
-  public UserRegisterDTO(UUID id, String firstName, String lastName, String email, String password) {
+  public UserDTO(UUID id, String firstName, String lastName, String email, Set<RoleDTO> roles) {
     super(id);
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    this.password = password;
+    this.roles = roles;
   }
 
   public String getFirstName() {
     return firstName;
   }
 
-  public UserRegisterDTO setFirstName(String firstName) {
+  public UserDTO setFirstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -40,7 +44,7 @@ public class UserRegisterDTO extends ExtendedDTO {
     return lastName;
   }
 
-  public UserRegisterDTO setLastName(String lastName) {
+  public UserDTO setLastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -49,17 +53,17 @@ public class UserRegisterDTO extends ExtendedDTO {
     return email;
   }
 
-  public UserRegisterDTO setEmail(String email) {
+  public UserDTO setEmail(String email) {
     this.email = email;
     return this;
   }
 
-  public String getPassword() {
-    return password;
+  public Set<RoleDTO> getRoles() {
+    return roles;
   }
 
-  public UserRegisterDTO setPassword(String password) {
-    this.password = password;
+  public UserDTO setRoles(Set<RoleDTO> roles) {
+    this.roles = roles;
     return this;
   }
 }

@@ -1,6 +1,6 @@
 package com.example.demo.core.security.permissionEvaluators;
 
-import com.example.demo.domain.user.User;
+import com.example.demo.core.logging.domain.user.User;
 import org.springframework.stereotype.Component;
 
 @Component
