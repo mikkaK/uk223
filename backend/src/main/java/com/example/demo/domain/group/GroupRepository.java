@@ -1,4 +1,9 @@
 package com.example.demo.domain.group;
 
-public interface GroupRepository {
+import com.example.demo.core.generic.ExtendedRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface GroupRepository extends ExtendedRepository<Group> {
+
 }
