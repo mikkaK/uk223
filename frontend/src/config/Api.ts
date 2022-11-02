@@ -24,7 +24,9 @@ const api: AxiosInstance = createAPI();
 api.interceptors.request.use(
   (request) => {
     const token = localStorage.getItem("token");
+    
     if (token) {
+      //@ts-ignore
       request.headers.Authorization = token;
     }
     return request;
