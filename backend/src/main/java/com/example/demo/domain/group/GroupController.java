@@ -44,6 +44,11 @@ public class GroupController {
         Group group = groupMapper.fromDTO(groupDTO);
         return new ResponseEntity<>(groupService.createGroup(group), HttpStatus.OK);
     }
+    @PutMapping({"/", ""})
+    public ResponseEntity<Group> editGroup(@RequestBody GroupDTO groupDTO){
+        Group group = groupMapper.fromDTO(groupDTO);
+        return new ResponseEntity<>(groupService.updateById(group.getId(), group), HttpStatus.OK);
+    }
 
     @DeleteMapping("/{groupId}")
     public ResponseEntity<Void> deleteGroup(@PathVariable UUID groupId){
