@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.management.InstanceNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,8 +34,9 @@ public class GroupController {
         return new ResponseEntity<>(groupMapper.toDTOs(groups), HttpStatus.CREATED);
     }
 
-    @GetMapping(/:id)
-    public ResponseEntity<Group> retrieveById(){
-        Group group = groupService.
+    @GetMapping("/user/{id}")
+    public ResponseEntity<GroupDTO> retrieveById(@PathVariable UUID id) throws InstanceNotFoundException {
+        Group group = groupService.findByUserId(id);
+        return new ResponseEntity<>(groupMapper.toDTO(group), HttpStatus.OK);
     }
 }
