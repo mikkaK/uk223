@@ -1,8 +1,10 @@
+//Notes: Finished
 import React from "react";
 
 interface Props {
   setText: (params: string) => any;
   text: string;
+  label: string;
 }
 const imageStyle: React.CSSProperties = {
   // width: "100%",
