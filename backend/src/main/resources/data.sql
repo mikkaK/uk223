@@ -23,7 +23,7 @@ ON CONFLICT DO NOTHING;
 --GROUPS
 INSERT INTO groups(id, group_logo, group_motto, group_name)
 VALUES ('406a23f2-a483-481d-9564-54c13061e683', 'https://example.com', 'example', 'example'),
-       ('4f2ee6c0-189d-4d79-9056-d56917d4d8ac', ('https://example2.com', 'example2', 'example2'))
+       ('4f2ee6c0-189d-4d79-9056-d56917d4d8ac', 'https://example2.com', 'example2', 'example2')
 ON CONFLICT DO NOTHING;
 
 --assign roles to users
