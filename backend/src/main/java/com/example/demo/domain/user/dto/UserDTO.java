@@ -1,6 +1,7 @@
 package com.example.demo.domain.user.dto;
 
 import com.example.demo.core.generic.ExtendedDTO;
+import com.example.demo.domain.group.Group;
 import com.example.demo.domain.role.dto.RoleDTO;
 
 import java.util.Set;
@@ -20,15 +21,18 @@ public class UserDTO extends ExtendedDTO {
   @Valid
   private Set<RoleDTO> roles;
 
+  private UUID groupId;
+
   public UserDTO() {
   }
 
-  public UserDTO(UUID id, String firstName, String lastName, String email, Set<RoleDTO> roles) {
+  public UserDTO(UUID id, String firstName, String lastName, String email, Set<RoleDTO> roles, UUID groupId) {
     super(id);
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.roles = roles;
+    this.groupId = groupId;
   }
 
   public String getFirstName() {
@@ -64,6 +68,15 @@ public class UserDTO extends ExtendedDTO {
 
   public UserDTO setRoles(Set<RoleDTO> roles) {
     this.roles = roles;
+    return this;
+  }
+
+  public UUID getGroupId() {
+    return groupId;
+  }
+
+  public UserDTO setGroupId(UUID groupId) {
+    this.groupId = groupId;
     return this;
   }
 }
