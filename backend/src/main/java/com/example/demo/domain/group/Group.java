@@ -1,11 +1,14 @@
 package com.example.demo.domain.group;
 
 import com.example.demo.core.generic.ExtendedEntity;
+import com.example.demo.domain.user.User;
 
+import java.util.Set;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -22,7 +25,8 @@ public class Group extends ExtendedEntity {
     @Column(name = "group_logo")
     private String groupLogo;
 
-
+    @OneToMany(mappedBy="group")
+    private Set<User> members;
     public Group() {
     }
 
