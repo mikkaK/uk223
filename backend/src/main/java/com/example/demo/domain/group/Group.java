@@ -21,7 +21,7 @@ public class Group extends ExtendedEntity {
     @Size(min = 1, max = 100)
     @Column(name = "group_motto")
     private String groupMotto;
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 255)
     @Column(name = "group_logo")
     private String groupLogo;
 

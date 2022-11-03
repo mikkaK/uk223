@@ -1,10 +1,13 @@
 package com.example.demo.domain.user;
 
+import com.example.demo.domain.user.dto.JoinGroupDTO;
 import com.example.demo.domain.user.dto.UserDTO;
 import com.example.demo.domain.user.dto.UserMapper;
 import com.example.demo.domain.user.dto.UserRegisterDTO;
 import java.util.List;
 import java.util.UUID;
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,6 +53,11 @@ public class UserController {
   public ResponseEntity<UserDTO> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
     User user = userService.register(userMapper.fromUserRegisterDTO(userRegisterDTO));
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.CREATED);
+  }
+  @PostMapping("/")
+  public ResponseEntity<UserDTO> addPlayerToGroup(@RequestBody JoinGroupDTO dto) throws InstanceAlreadyExistsException, InstanceNotFoundException {
+    User user = userService.addUserToGroup(dto.getUserId(), dto.getGroupId());
+    return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }
 
   @PutMapping("/{id}")

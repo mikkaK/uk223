@@ -91,4 +91,13 @@ public class User extends ExtendedEntity {
     this.roles = roles;
     return this;
   }
+
+  public Group getGroup() {
+    return group;
+  }
+
+  public User setGroup(Group group) {
+    this.group = group;
+    return this;
+  }
 }
