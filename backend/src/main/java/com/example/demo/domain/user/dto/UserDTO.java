@@ -2,6 +2,7 @@ package com.example.demo.domain.user.dto;
 
 import com.example.demo.core.generic.ExtendedDTO;
 import com.example.demo.domain.role.dto.RoleDTO;
+
 import java.util.Set;
 import java.util.UUID;
 import javax.validation.Valid;

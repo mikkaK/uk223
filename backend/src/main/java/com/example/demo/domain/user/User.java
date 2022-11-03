@@ -1,17 +1,13 @@
 package com.example.demo.domain.user;
 
 import com.example.demo.core.generic.ExtendedEntity;
+import com.example.demo.domain.group.Group;
 import com.example.demo.domain.role.Role;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -33,6 +29,11 @@ public class User extends ExtendedEntity {
   @JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
              inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
   private Set<Role> roles = new HashSet<>();
+
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinTable(name = "users_group", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
+          inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"))
+  private Group group;
 
   public User() {
   }
