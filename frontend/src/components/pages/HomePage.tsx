@@ -1,3 +1,9 @@
+import Navbar from "../Atoms/Navbar";
+
 export default function HomePage() {
-  return <div></div>;
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 }

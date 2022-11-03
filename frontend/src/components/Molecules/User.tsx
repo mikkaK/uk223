@@ -23,7 +23,7 @@ const userName: React.CSSProperties = {
   width: "12.5vw",
 };
 
-export function User(props: UserData) {
+export function UserElement(props: UserData) {
   return (
     <div style={flex}>
       <div style={image}>

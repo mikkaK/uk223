@@ -1,11 +1,15 @@
 import api from "../../config/Api";
 import React, { useEffect, useState } from "react";
 import { ActiveButton } from "../Atoms/ActiveButton";
-import { RoundImg } from "../Atoms/RoundImg";
-import { Text } from "../Atoms/Text";
 import { GroupDisplay } from "../Molecules/GroupDisplay";
-import jwt from "jsonwebtoken";
-import { TOKEN_LOCAL_STORAGE_KEY } from "../../Contexts/ActiveUserContext";
+import Navbar from "../Atoms/Navbar";
+import { User } from "../../types/Database/User";
+
+interface Props {
+  setUser: (params: any) => any;
+  user: User;
+}
+
 interface ResponseData {
   id: string;
   name: string;
@@ -18,41 +22,36 @@ const flex: React.CSSProperties = {
   display: "flex",
 };
 
-export function groupUserPage() {
-  const [groups, setGroups] = useState();
-  const [userData, setUserData] = useState();
+export function GroupUserPage(props: Props) {
+  const [groups, setGroups] = useState([]);
   useEffect(() => {
     const getGroups = async function () {
       //Res should contain a list of groups
       //A group contains an id, name, moto, urlForImg and a boolean based on if the user has joined the group
-      const res = await api({
+      api({
         method: "GET",
         url: "http://localhost:5000/group",
-      });
+      })
+        .then((res) => {
+          setGroups(res.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     };
-    const getUser = async function () {
-      //Res should contain a list of groups
-      //A group contains an id, name, moto, urlForImg and a boolean based on if the user has joined the group
-      const res = await api({
-        method: "GET",
-        url: "http://localhost:5000/user/" + getUserId(),
-      });
-
-      setGroups(res.data[0]);
-    };
-    getUser();
     getGroups();
   });
 
   return (
     <div>
+      <Navbar />
       {groups.map((value: ResponseData, index: Number) => {
         return (
           <div style={flex}>
             <div>
               <ActiveButton
-                isActive={value.id === userData.roomId}
-                onClick={() => changeSubscription(index)}
+                isActive={value.id === props.user.groupId}
+                onClick={() => changeSubscription(value.id)}
               />
             </div>
             <div>
@@ -68,17 +67,23 @@ export function groupUserPage() {
     </div>
   );
 
-  function changeSubscription(newRoom: Number) {
-    let userCopy = userData;
-    userCopy.roomId = newRoom;
+  function changeSubscription(newGroup: string) {
+    let userCopy = props.user;
+    userCopy.groupId = newGroup;
 
-    //make update request for user
-    //.then function setUserData
-  }
-
-  function getUserId() {
-    const token = localStorage.getItem(TOKEN_LOCAL_STORAGE_KEY);
-    const decodedToken = jwt.decode(token!);
-    return decodedToken?.sub;
+    api({
+      method: "PUT",
+      url: "http://localhost:5000/user",
+      data: {
+        userId: userCopy.id,
+        newRoom: newGroup,
+      },
+    })
+      .then((res) => {
+        props.setUser(userCopy);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 }
