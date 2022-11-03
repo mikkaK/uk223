@@ -4,10 +4,10 @@ import com.example.demo.core.generic.ExtendedEntity;
 import com.example.demo.domain.group.Group;
 import com.example.demo.domain.role.Role;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -25,14 +25,14 @@ public class User extends ExtendedEntity {
   @Column(name = "password")
   private String password;
 
+  private UUID groupId;
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
              inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
   private Set<Role> roles = new HashSet<>();
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinTable(name = "users_group", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
-          inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"))
+  @JoinTable(name = "group_id")
   private Group group;
 
   public User() {
@@ -45,6 +45,7 @@ public class User extends ExtendedEntity {
     this.email = email;
     this.password = password;
     this.roles = roles;
+    this.groupId = group.getId();
   }
 
   public String getFirstName() {
@@ -100,4 +101,5 @@ public class User extends ExtendedEntity {
     this.group = group;
     return this;
   }
+
 }

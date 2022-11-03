@@ -1,7 +1,6 @@
 package com.example.demo.domain.user;
 
 import com.example.demo.core.generic.ExtendedServiceImpl;
-import com.example.demo.domain.group.Group;
 import com.example.demo.domain.group.GroupService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,12 +45,8 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
     Optional<User> optionalUser= repository.findById(userId);
     if (optionalUser.isPresent()) {
       User user = optionalUser.get();
-      if (user.getGroup() != null) {
         user.setGroup(groupService.findById(groupId));
         return save(user);
-      }else{
-        throw new InstanceAlreadyExistsException();
-      }
     }
     throw new InstanceNotFoundException();
   }

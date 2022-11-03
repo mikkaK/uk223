@@ -1,13 +1,13 @@
 package com.example.demo.domain.user.dto;
 
 import com.example.demo.core.generic.ExtendedDTO;
-import com.example.demo.domain.group.Group;
 import com.example.demo.domain.role.dto.RoleDTO;
 
-import java.util.Set;
-import java.util.UUID;
+import javax.management.InstanceNotFoundException;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import java.util.Set;
+import java.util.UUID;
 
 public class UserDTO extends ExtendedDTO {
 
@@ -26,7 +26,7 @@ public class UserDTO extends ExtendedDTO {
   public UserDTO() {
   }
 
-  public UserDTO(UUID id, String firstName, String lastName, String email, Set<RoleDTO> roles, UUID groupId) {
+  public UserDTO(UUID id, String firstName, String lastName, String email, Set<RoleDTO> roles, UUID groupId) throws InstanceNotFoundException {
     super(id);
     this.firstName = firstName;
     this.lastName = lastName;
