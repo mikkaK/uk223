@@ -10,6 +10,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,13 +40,14 @@ public class GroupController {
     }
     @PreAuthorize("hasAuthority('USER_CREATE')")
     @PostMapping({"/", ""})
-    public ResponseEntity<Group> createGroup(@RequestBody GroupDTO groupDTO) throws InstanceAlreadyExistsException {
+    public ResponseEntity<Group> createGroup(@Valid @RequestBody GroupDTO groupDTO) throws InstanceAlreadyExistsException {
         Group group = groupMapper.fromDTO(groupDTO);
-        return new ResponseEntity<>(groupService.createGroup(group), HttpStatus.OK);
+        groupService.createGroup(group);
+        return new ResponseEntity<>(group, HttpStatus.OK);
     }
     @PreAuthorize("hasAuthority('USER_MODIFY')")
     @PutMapping({"/", ""})
-    public ResponseEntity<Group> editGroup(@RequestBody GroupDTO groupDTO){
+    public ResponseEntity<Group> editGroup(@Valid @RequestBody GroupDTO groupDTO){
         Group group = groupMapper.fromDTO(groupDTO);
         return new ResponseEntity<>(groupService.updateById(group.getId(), group), HttpStatus.OK);
     }
@@ -54,5 +57,11 @@ public class GroupController {
     public ResponseEntity<Void> deleteGroup(@PathVariable UUID groupId){
         groupService.deleteById(groupId);
         return new ResponseEntity<>(HttpStatus.OK);
+        //todo check 500 error
+    }
+
+    @ExceptionHandler(InstanceNotFoundException.class)
+    public void handleInstanceNotFound(){
+
     }
 }

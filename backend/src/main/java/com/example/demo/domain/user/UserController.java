@@ -49,7 +49,7 @@ public class UserController {
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.CREATED);
   }
   @PutMapping("/")
-  public ResponseEntity<UserDTO> addUserToGroup(@RequestBody JoinGroupDTO dto) throws InstanceAlreadyExistsException, InstanceNotFoundException {
+  public ResponseEntity<UserDTO> addUserToGroup(@Valid @RequestBody JoinGroupDTO dto) throws InstanceAlreadyExistsException, InstanceNotFoundException {
     User user = userService.addUserToGroup(dto.getUserId(), dto.getGroupId());
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,6 +30,7 @@ public class GroupDTO extends ExtendedDTO implements Serializable {
     private String groupMotto;
     @Size(min = 1, max = 255)
     @NotNull
+    @URL
     private String groupLogo;
     private Set<UserGroupDTO> members;
 }

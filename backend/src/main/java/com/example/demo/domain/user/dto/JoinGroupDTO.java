@@ -1,9 +1,15 @@
 package com.example.demo.domain.user.dto;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.UUID;
 
 public class JoinGroupDTO{
+    @Min(1)
+    @Max(60)
     private UUID userId;
+    @Min(1)
+    @Max(60)
     private UUID groupId;
 
     public JoinGroupDTO(UUID userId, UUID groupId) {
