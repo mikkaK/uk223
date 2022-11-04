@@ -21,9 +21,4 @@ public class UserPermissionEvaluator {
   public boolean hasSameId(User principal, UUID userId){
     return principal.getId().equals(userId);
   }
-
-  public boolean isUserAboveAge(User principal, int age) {
-    return true;
-  }
-
 }
