@@ -36,7 +36,6 @@ public class GroupController {
         Group group = groupService.findById(groupId);
         return new ResponseEntity<>(groupMapper.toDTO(group), HttpStatus.OK);
     }
-
     @PreAuthorize("hasAuthority('USER_CREATE')")
     @PostMapping({"/", ""})
     public ResponseEntity<Group> createGroup(@RequestBody GroupDTO groupDTO) throws InstanceAlreadyExistsException {
