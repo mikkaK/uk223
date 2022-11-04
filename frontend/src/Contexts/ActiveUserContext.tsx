@@ -1,18 +1,18 @@
-import { createContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from '../config/Api';
-import roles from '../config/Roles';
-import AuthorityService from '../Services/AuthorityService';
-import UserService from '../Services/UserService';
-import { User } from '../types/models/User.model';
-import { Nullable } from '../types/Nullable';
+import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../config/Api";
+import roles from "../config/Roles";
+import AuthorityService from "../Services/AuthorityService";
+import UserService from "../Services/UserService";
+import { User } from "../types/models/User.model";
+import { Nullable } from "../types/Nullable";
 
 /**
  * USER_DATA_LOCAL_STORAGE_KEY defines the localStorageKey in which the
  * activeUser gets stored.
  */
-export const USER_DATA_LOCAL_STORAGE_KEY = 'user';
-export const TOKEN_LOCAL_STORAGE_KEY = 'token';
+export const USER_DATA_LOCAL_STORAGE_KEY = "user";
+export const TOKEN_LOCAL_STORAGE_KEY = "token";
 
 /**
  * ActiveUserContextType defines the provided values
@@ -31,7 +31,7 @@ export type ActiveUserContextType = {
  * inside the defaultContextValue
  */
 const noContextProviderFound = () => {
-  throw new Error('No provider for the ActiveUserContext found');
+  throw new Error("No provider for the ActiveUserContext found");
 };
 
 /**
@@ -89,6 +89,8 @@ export const ActiveUserContextProvider = ({
    * @param updatedUser
    */
   const setActiveUser = (updatedUser: User) => {
+    console.log("set active user");
+    console.log(updatedUser);
     setUser(updatedUser);
     localStorage.setItem(
       USER_DATA_LOCAL_STORAGE_KEY,
@@ -119,9 +121,9 @@ export const ActiveUserContextProvider = ({
       return;
     }
     // If a token is present send a logout-request and clear the localStorage afterwards
-    api.get('/logout').finally(resetAuthorization);
+    api.get("/logout").finally(resetAuthorization);
     //navigate to login page
-    navigate('/login');
+    navigate("/login");
   };
 
   /**
@@ -132,12 +134,14 @@ export const ActiveUserContextProvider = ({
    * @param password
    */
   const login = async (email: string, password: string) => {
-    await api.post('user/login', { email, password }).then((response: any) => {
+    await api.post("user/login", { email, password }).then((response: any) => {
       console.log(response.headers.authorization);
       localStorage.setItem(
         TOKEN_LOCAL_STORAGE_KEY,
         response.headers.authorization
       );
+      console.log("response data login");
+      console.log(response.data);
       setActiveUser(response.data);
       return true;
     });

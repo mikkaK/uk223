@@ -8,6 +8,7 @@ import api from "../../config/Api";
 interface Props {
   group?: Group;
   quit: () => void;
+  reload: () => void;
 }
 
 export default function EditAddGroup(props: Props) {
@@ -92,6 +93,7 @@ export default function EditAddGroup(props: Props) {
     })
       .then((res) => {
         console.log(res);
+        props.reload();
       })
       .catch((e) => {
         console.log(e);

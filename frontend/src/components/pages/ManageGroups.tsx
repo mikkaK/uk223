@@ -1,11 +1,11 @@
 import api from "../../config/Api";
-import Navbar from "../Atoms/Navbar";
 import React, { useEffect, useState } from "react";
 import { Group } from "../../types/Database/Group";
 import { GroupDisplay } from "../Molecules/GroupDisplay";
 import { Text } from "../Atoms/Text";
 
 import EditAddGroup from "../Organism/EditAddGroup";
+import AdminPageNav from "../Organism/AdminPageNav";
 export default function ManageGroups() {
   const [groups, setGroups] = useState<[Group]>();
   const [input, setInput] = useState("");
@@ -16,12 +16,12 @@ export default function ManageGroups() {
   let inputElement = generateInputElement();
   return (
     <>
-      <Navbar />
+      <AdminPageNav />
       <div style={root}>
         <button onClick={() => openInputField("add")}>Add a new Group</button>
         <div style={flex}>
-          <div style={leftFlexItem}>{groupsElement}</div>
-          <div style={rightFlexItem}>{inputElement}</div>
+          <div>{groupsElement}</div>
+          <div style={rightItem}>{inputElement}</div>
         </div>
       </div>
     </>
@@ -36,6 +36,10 @@ export default function ManageGroups() {
               <button style={button} onClick={() => openInputField(value.id!)}>
                 Edit: {value.groupName}
               </button>
+              <br />
+              <button style={button} onClick={() => deleteGroup(value.id!)}>
+                Delete: {value.groupName}
+              </button>
             </div>
             <div>
               <GroupDisplay
@@ -44,6 +48,7 @@ export default function ManageGroups() {
                 logo={value.groupLogo}
               />
             </div>
+            <div></div>
           </div>
         );
       });
@@ -59,9 +64,11 @@ export default function ManageGroups() {
       case "":
         return <></>;
       case "add":
-        return <EditAddGroup quit={quitInput} />;
+        return <EditAddGroup quit={quitInput} reload={getGroups} />;
       default:
-        return <EditAddGroup group={group} quit={quitInput} />;
+        return (
+          <EditAddGroup group={group} quit={quitInput} reload={getGroups} />
+        );
     }
   }
   function openInputField(target: string) {
@@ -95,7 +102,22 @@ export default function ManageGroups() {
       .then((res) => {
         setGroups(res.data);
       })
-      .catch((e) => {});
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  function deleteGroup(groupId: string) {
+    api({
+      method: "DELETE",
+      url: "http://localhost:8080/group/" + groupId,
+    })
+      .then((res) => {
+        getGroups();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 }
 
@@ -109,12 +131,8 @@ const button: React.CSSProperties = {
   marginRight: "2vw",
 };
 
-const rightFlexItem: React.CSSProperties = {
-  marginLeft: "auto",
-};
-
-const leftFlexItem: React.CSSProperties = {
-  marginRight: "auto",
+const rightItem: React.CSSProperties = {
+  marginLeft: "10vw",
 };
 
 const root: React.CSSProperties = {

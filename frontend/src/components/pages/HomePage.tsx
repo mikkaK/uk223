@@ -1,4 +1,4 @@
-import Navbar from "../Atoms/Navbar";
+import Navbar from "../Molecules/Navigation/Navbar";
 
 export default function HomePage() {
   return (

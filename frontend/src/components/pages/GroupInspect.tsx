@@ -3,10 +3,10 @@ import api from "../../config/Api";
 import React, { useEffect, useState } from "react";
 import { GroupDisplay } from "../Molecules/GroupDisplay";
 import { useParams } from "react-router-dom";
-import Navbar from "../Atoms/Navbar";
 import { User } from "../../types/Database/User";
 import { Text } from "../Atoms/Text";
-import { UserElement } from "../Molecules/User";
+import { UserDisplay } from "../Molecules/UserDisplay";
+import Navbar from "../Molecules/Navigation/Navbar";
 
 export function GroupInspect() {
   let { groupId } = useParams();
@@ -73,7 +73,7 @@ export function GroupInspect() {
           {users.map((user) => {
             return (
               <div>
-                <UserElement username={user.firstName + " " + user.lastName} />
+                <UserDisplay username={user.firstName + " " + user.lastName} />
               </div>
             );
           })}

@@ -2,20 +2,12 @@ import api from "../../config/Api";
 import React, { useEffect, useState } from "react";
 import { ActiveButton } from "../Atoms/ActiveButton";
 import { GroupDisplay } from "../Molecules/GroupDisplay";
-import Navbar from "../Atoms/Navbar";
+
 import { User } from "../../types/Database/User";
 import { Group } from "../../types/Database/Group";
 import { TOKEN_LOCAL_STORAGE_KEY } from "../../Contexts/ActiveUserContext";
 import { decode } from "jsonwebtoken";
-
-const buttonSize: React.CSSProperties = {
-  width: "3.5vw",
-};
-
-const flex: React.CSSProperties = {
-  display: "flex",
-  marginBottom: "0.3vh",
-};
+import Navbar from "../Molecules/Navigation/Navbar";
 
 export function GroupUserPage() {
   const [groups, setGroups] = useState<Group[]>();
@@ -52,6 +44,7 @@ export function GroupUserPage() {
     getUser();
     getGroups();
   }, []);
+
   if (groups && user) {
     return (
       <div>
@@ -66,11 +59,13 @@ export function GroupUserPage() {
                 />
               </div>
               <div>
-                <GroupDisplay
-                  name={group.groupName}
-                  motto={group.groupMotto}
-                  logo={group.groupLogo}
-                />
+                <a style={removeATagStyle} href={"/group/" + group.id}>
+                  <GroupDisplay
+                    name={group.groupName}
+                    motto={group.groupMotto}
+                    logo={group.groupLogo}
+                  />
+                </a>
               </div>
             </div>
           );
@@ -82,19 +77,20 @@ export function GroupUserPage() {
   }
 
   //note needs to be tested
-  function changeSubscription(newGroup: string) {
+  function changeSubscription(newGroupId: string) {
     let userCopy = user!;
-    userCopy.id = newGroup;
+    userCopy.groupId = newGroupId;
 
     api({
       method: "PUT",
-      url: "http://localhost:8080/user",
+      url: "http://localhost:8080/user/",
       data: {
         userId: userCopy.id,
-        newRoom: newGroup,
+        groupId: newGroupId,
       },
     })
       .then((res) => {
+        console.log("set user");
         setUser(userCopy);
       })
       .catch((e) => {
@@ -109,3 +105,17 @@ function getUserId() {
   const decodedToken = decode(token!);
   return decodedToken?.sub;
 }
+
+const buttonSize: React.CSSProperties = {
+  width: "3.5vw",
+};
+
+const flex: React.CSSProperties = {
+  display: "flex",
+  marginBottom: "0.3vh",
+};
+
+const removeATagStyle: React.CSSProperties = {
+  color: "inherit",
+  textDecoration: "inherit",
+};
