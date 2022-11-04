@@ -8,10 +8,6 @@ import { User } from "../../types/Database/User";
 import { Text } from "../Atoms/Text";
 import { UserElement } from "../Molecules/User";
 
-const flex: React.CSSProperties = {
-  display: "flex",
-};
-
 export function GroupInspect() {
   let { groupId } = useParams();
   const [group, setGroup] = useState<Group>();
@@ -63,7 +59,7 @@ export function GroupInspect() {
             name={group.groupName}
           />
         </div>
-        <div></div>
+        <div>{usersElement}</div>
       </div>
     );
   } else {

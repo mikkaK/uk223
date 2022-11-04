@@ -11,5 +11,5 @@ const imageStyle: React.CSSProperties = {
 };
 
 export function RoundImg(props: ImageData) {
-  return <img style={imageStyle} src={props.logo}></img>;
+  return <img style={imageStyle} src={props.logo} alt={props.logo}></img>;
 }

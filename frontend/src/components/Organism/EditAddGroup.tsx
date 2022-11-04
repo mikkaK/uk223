@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { GroupDisplay } from "../Molecules/GroupDisplay";
 import { TextInput } from "../Atoms/TextInput";
 import api from "../../config/Api";
-import { TOKEN_LOCAL_STORAGE_KEY } from "../../Contexts/ActiveUserContext";
+
 interface Props {
   group?: Group;
   quit: () => void;

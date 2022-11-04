@@ -3,7 +3,6 @@ import Navbar from "../Atoms/Navbar";
 import React, { useEffect, useState } from "react";
 import { Group } from "../../types/Database/Group";
 import { GroupDisplay } from "../Molecules/GroupDisplay";
-import { Link } from "react-router-dom";
 import { Text } from "../Atoms/Text";
 
 import EditAddGroup from "../Organism/EditAddGroup";
@@ -63,7 +62,6 @@ export default function ManageGroups() {
         return <EditAddGroup quit={quitInput} />;
       default:
         return <EditAddGroup group={group} quit={quitInput} />;
-        break;
     }
   }
   function openInputField(target: string) {
@@ -74,12 +72,12 @@ export default function ManageGroups() {
   function getGroupById(id: string): Group | undefined {
     if (groups) {
       for (let i = 0; i < groups.length; i++) {
-        if (groups[i].id == id) {
+        if (groups[i].id === id) {
           console.log("found");
           return groups[i];
         }
       }
-    } else if (input != "") {
+    } else if (input !== "") {
       setInput("");
       return;
     }
