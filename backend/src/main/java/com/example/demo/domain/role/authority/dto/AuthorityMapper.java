@@ -1,7 +1,7 @@
-package com.example.demo.domain.authority.dto;
+package com.example.demo.domain.role.authority.dto;
 
 import com.example.demo.core.generic.ExtendedMapper;
-import com.example.demo.domain.authority.Authority;
+import com.example.demo.domain.role.authority.Authority;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
