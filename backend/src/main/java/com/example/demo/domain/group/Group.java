@@ -3,25 +3,28 @@ package com.example.demo.domain.group;
 import com.example.demo.core.generic.ExtendedEntity;
 import com.example.demo.domain.user.User;
 
-import java.util.Set;
-import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "groups")
 public class Group extends ExtendedEntity {
     @Size(min = 1, max = 100)
+    @NotNull
     @Column(name = "group_name")
     private String groupName;
     @Size(min = 1, max = 100)
+    @NotNull
     @Column(name = "group_motto")
     private String groupMotto;
     @Size(min = 1, max = 255)
+    @NotNull
     @Column(name = "group_logo")
     private String groupLogo;
 
@@ -59,5 +62,13 @@ public class Group extends ExtendedEntity {
 
     public void setGroupLogo(String groupLogo) {
         this.groupLogo = groupLogo;
+    }
+
+    public Set<User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(Set<User> members) {
+        this.members = members;
     }
 }
