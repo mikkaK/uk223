@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { GroupDisplay } from "../Molecules/GroupDisplay";
 import { TextInput } from "../Atoms/TextInput";
 import api from "../../config/Api";
+import { TOKEN_LOCAL_STORAGE_KEY } from "../../Contexts/ActiveUserContext";
 interface Props {
   group?: Group;
   quit: () => void;
@@ -63,12 +64,38 @@ export default function EditAddGroup(props: Props) {
   }
 
   function save() {
+    let method;
+    let data;
     if (props.group) {
       //is Editing group
-      api({ method: "POST", data: {} });
+      method = "PUT";
+      data = {
+        id: props.group.id,
+        groupName: group?.groupName,
+        groupLogo: group?.groupLogo,
+        groupMotto: group?.groupMotto,
+      };
     } else {
-      //is adding new group
+      //is adding group
+      method = "POST";
+      data = {
+        groupName: group?.groupName,
+        groupLogo: group?.groupLogo,
+        groupMotto: group?.groupMotto,
+      };
     }
+
+    api({
+      method: method,
+      url: "http://localhost:8080/group",
+      data: data,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   function modifyGroup(newValue: string, field?: string) {
