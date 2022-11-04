@@ -1,9 +1,9 @@
 //Notes: Finished
 import { Group } from "../../types/Database/Group";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GroupDisplay } from "../Molecules/GroupDisplay";
 import { TextInput } from "../Atoms/TextInput";
-import React, { useEffect } from "react";
+import api from "../../config/Api";
 interface Props {
   group?: Group;
   quit: () => void;
@@ -11,6 +11,11 @@ interface Props {
 
 export default function EditAddGroup(props: Props) {
   const [group, setGroup] = useState<Group>();
+  useEffect(() => {
+    console.log("state update editAddG");
+    setGroup(undefined);
+  }, [props]);
+
   if (props.group && !group) {
     setGroup(props.group);
   } else if (!group) {
@@ -57,7 +62,14 @@ export default function EditAddGroup(props: Props) {
     return <div>Error</div>;
   }
 
-  function save() {}
+  function save() {
+    if (props.group) {
+      //is Editing group
+      api({ method: "POST", data: {} });
+    } else {
+      //is adding new group
+    }
+  }
 
   function modifyGroup(newValue: string, field?: string) {
     let modifiedGroup: Group = {

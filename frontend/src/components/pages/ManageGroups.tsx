@@ -55,6 +55,7 @@ export default function ManageGroups() {
 
   function generateInputElement() {
     let group: Group = getGroupById(input)!;
+    console.log("update input element");
     switch (input) {
       case "":
         return <></>;
