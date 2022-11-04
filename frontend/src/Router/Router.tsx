@@ -22,33 +22,15 @@ const Router = () => {
 
   /** navigate to different "home"-locations depending on Role the user have */
 
-  const [user, setUser] = useState<User>({ imageUrl: "", name: "" });
-
-  useEffect(() => {
-    const getUser = async function () {
-      api({
-        method: "GET",
-        url: "http://localhost:5000/user/" + getUserId(),
-      })
-        .then((res) => {
-          setUser(res.data[0]);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    };
-    getUser();
-  });
-
   return (
     <Routes>
       <Route path={"/"} element={<HomePage />} />
       <Route path={"/login"} element={<LoginPage />} />
+      <Route path={"/group"} element={<GroupUserPage />} />
       <Route
-        path={"/group"}
-        element={<GroupUserPage setUser={setUser} user={user} />}
+        path={"/admin/group"}
+        element={<PrivateRoute authorities={[]} element={<ManageGroups />} />}
       />
-      <Route path={"/test"} element={<ManageGroups />} />
       <Route
         path={"/users"}
         element={
@@ -79,11 +61,5 @@ const Router = () => {
     </Routes>
   );
 };
-
-function getUserId() {
-  const token = localStorage.getItem(TOKEN_LOCAL_STORAGE_KEY);
-  const decodedToken = decode(token!);
-  return decodedToken?.sub;
-}
 
 export default Router;

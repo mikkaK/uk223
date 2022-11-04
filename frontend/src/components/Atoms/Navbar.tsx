@@ -23,7 +23,7 @@ export default function Navbar() {
         <Link to={"/profile"}>Profile</Link>
       </div>
       <div style={useMaxWidth}>
-        <Link to={"/group/admin"}>Admin Groups</Link>
+        <Link to={"/admin/group"}>Admin Groups</Link>
       </div>
     </div>
   );
