@@ -4,7 +4,6 @@ import { Text } from "../Atoms/Text";
 
 interface UserData {
   username: string;
-  profilePicture: string;
 }
 
 const flex: React.CSSProperties = {
@@ -27,7 +26,11 @@ export function UserElement(props: UserData) {
   return (
     <div style={flex}>
       <div style={image}>
-        <RoundImg logo={props.profilePicture} />
+        <RoundImg
+          logo={
+            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+          }
+        />
       </div>
       <div style={userName}>
         <Text text={props.username} isBold={true} />
