@@ -4,12 +4,13 @@ import { Text } from "../Atoms/Text";
 
 interface Groupdata {
   name: string;
-  moto: string;
+  motto: string;
   logo: string;
   otherDisplay?: Boolean;
 }
 const flex: React.CSSProperties = {
   display: "flex",
+  height: "10vh",
 };
 const image: React.CSSProperties = {
   marginRight: "20px",
@@ -19,7 +20,7 @@ const centerVertical: React.CSSProperties = {
   marginBottom: "auto",
 };
 
-const otherMotoStyle: React.CSSProperties = {
+const othermottoStyle: React.CSSProperties = {
   // marginTop: "2vh",
   marginLeft: "7.5vw",
 };
@@ -31,8 +32,8 @@ export function GroupDisplay(props: Groupdata) {
         <div style={flex}>
           <div style={image}>
             <RoundImg logo={props.logo} />
-            <div style={otherMotoStyle}>
-              <Text text={"[" + props.moto + "]"} />
+            <div style={othermottoStyle}>
+              <Text text={"[" + props.motto + "]"} />
             </div>
           </div>
           <div style={centerVertical}>
@@ -49,7 +50,7 @@ export function GroupDisplay(props: Groupdata) {
         </div>
         <div>
           <Text text={props.name} isTitle={true} isBold={true} />
-          <Text text={"[" + props.moto + "]"} />
+          <Text text={"[" + props.motto + "]"} />
         </div>
       </div>
     );

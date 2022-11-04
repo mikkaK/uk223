@@ -2,22 +2,22 @@
 import React from "react";
 
 interface Props {
-  setText: (params: string) => any;
+  setText: (value: string, field?: string) => any;
   text: string;
   label: string;
+  field?: string;
 }
-const imageStyle: React.CSSProperties = {
-  // width: "100%",
-  // height: "100%",
-  borderRadius: "50%",
-};
 
 export function TextInput(props: Props) {
   return (
-    <input
-      type="text"
-      value={props.text}
-      onChange={(e) => props.setText(e.target.value)}
-    />
+    <div>
+      <label htmlFor={props.label}>{props.label}</label>
+      <input
+        name={props.label}
+        type="text"
+        value={props.text}
+        onChange={(e) => props.setText(e.target.value, props.field)}
+      />
+    </div>
   );
 }
