@@ -3,11 +3,12 @@ package com.example.demo.domain.user;
 import com.example.demo.core.generic.ExtendedEntity;
 import com.example.demo.domain.group.Group;
 import com.example.demo.domain.role.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -24,27 +25,27 @@ public class User extends ExtendedEntity {
 
   @Column(name = "password")
   private String password;
-
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
              inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
   private Set<Role> roles = new HashSet<>();
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinTable(name = "users_group", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
-          inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"))
+  @JoinColumn(name = "group_id")
+  @JsonBackReference
   private Group group;
 
   public User() {
   }
 
-  public User(UUID id, String firstName, String lastName, String email, String password, Set<Role> roles) {
+  public User(UUID id, String firstName, String lastName, String email, String password, Set<Role> roles, Group group) {
     super(id);
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.password = password;
     this.roles = roles;
+    this.group = group;
   }
 
   public String getFirstName() {
@@ -100,4 +101,5 @@ public class User extends ExtendedEntity {
     this.group = group;
     return this;
   }
+
 }
