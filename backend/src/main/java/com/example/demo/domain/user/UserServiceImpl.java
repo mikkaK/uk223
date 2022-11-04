@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 import java.util.Optional;
 import java.util.UUID;
@@ -41,7 +40,7 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     return save(user);
   }
-  public User addUserToGroup(UUID userId, UUID groupId) throws InstanceNotFoundException, InstanceAlreadyExistsException {
+  public User addUserToGroup(UUID userId, UUID groupId) throws InstanceNotFoundException {
     Optional<User> optionalUser= repository.findById(userId);
     if (optionalUser.isPresent()) {
       User user = optionalUser.get();

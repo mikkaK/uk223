@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 import java.util.UUID;
@@ -15,12 +16,15 @@ import java.util.UUID;
 @Table(name = "groups")
 public class Group extends ExtendedEntity {
     @Size(min = 1, max = 100)
+    @NotNull
     @Column(name = "group_name")
     private String groupName;
     @Size(min = 1, max = 100)
+    @NotNull
     @Column(name = "group_motto")
     private String groupMotto;
     @Size(min = 1, max = 255)
+    @NotNull
     @Column(name = "group_logo")
     private String groupLogo;
 

@@ -10,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.management.InstanceAlreadyExistsException;
-import javax.management.InstanceNotFoundException;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,11 +37,6 @@ public class GroupController {
         return new ResponseEntity<>(groupMapper.toDTO(group), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<GroupDTO> retrieveByUserId(@PathVariable UUID userId) throws InstanceNotFoundException {
-        Group group = groupService.findByUserId(userId);
-        return new ResponseEntity<>(groupMapper.toDTO(group), HttpStatus.OK);
-    }
     @PreAuthorize("hasAuthority('USER_CREATE')")
     @PostMapping({"/", ""})
     public ResponseEntity<Group> createGroup(@RequestBody GroupDTO groupDTO) throws InstanceAlreadyExistsException {
