@@ -22,7 +22,7 @@ export function GroupInspect() {
     const getGroup = async function () {
       api({
         method: "GET",
-        url: "http://localhost:5000/group/" + groupId,
+        url: "http://localhost:8080/group/" + groupId,
       })
         .then((res) => {
           setGroup(res.data[0]);
@@ -36,7 +36,7 @@ export function GroupInspect() {
     const getUsers = async function () {
       api({
         method: "GET",
-        url: "http://localhost:5000/user/partof/" + groupId,
+        url: "http://localhost:8080/user/partof/" + groupId,
       })
         .then((res) => {
           setUsers(res.data);
@@ -58,9 +58,9 @@ export function GroupInspect() {
         <div>
           <GroupDisplay
             otherDisplay={true}
-            logo={group.name}
-            moto={group.moto}
-            name={group.name}
+            logo={group.groupLogo}
+            motto={group.groupMotto}
+            name={group.groupName}
           />
         </div>
         <div></div>
@@ -77,10 +77,7 @@ export function GroupInspect() {
           {users.map((user) => {
             return (
               <div>
-                <UserElement
-                  username={user.name}
-                  profilePicture={user.imageUrl}
-                />
+                <UserElement username={user.firstName + " " + user.lastName} />
               </div>
             );
           })}

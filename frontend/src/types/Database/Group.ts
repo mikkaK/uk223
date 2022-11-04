@@ -1,7 +1,7 @@
 export type Group = {
-    id: string;
-    imageUrl: string;
-    name:string;
-    moto:string
+    id?: string;
+    groupLogo: string;
+    groupName:string;
+    groupMotto:string
   };
   
