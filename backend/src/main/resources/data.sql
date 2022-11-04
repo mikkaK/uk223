@@ -1,3 +1,8 @@
+--GROUPS
+INSERT INTO groups(id, group_logo, group_motto, group_name)
+VALUES ('406a23f2-a483-481d-9564-54c13061e683', 'https://example.com', 'example', 'example'),
+       ('4f2ee6c0-189d-4d79-9056-d56917d4d8ac', 'https://example2.com', 'example2', 'example2')
+ON CONFLICT DO NOTHING;
 --USERS
 insert into users (id, email,first_name,last_name, password, group_id)
 values  ('6a46c002-f5d5-4a80-9dac-55f97ed97c7b','admin@example.com','James','Bond','$2a$10$ryJhl1vNecp5gk5MbHxmLO1ar5wBq3VT05v1JVisL7gnkI9uvZ3Ai','406a23f2-a483-481d-9564-54c13061e683'),
@@ -16,7 +21,7 @@ values  ('6a46c002-f5d5-4a80-9dac-55f97ed97c7b','admin@example.com','James','Bon
         ('14f55334-e47a-4a65-b1cd-4444376b6cdc','Dee.Schuster@yahoo.com','Adella','Bode','$2a$10$PznJVTJI4Xa92FVmAcNdXuLtGhBL.J2vz49xK1PO206RK30x.z4VK','406a23f2-a483-481d-9564-54c13061e683'),
         ('6d38cf17-19c8-40f5-8b23-c8d2c99d6579','Leonard36@hotmail.com','Dangelo','Doyle','$2a$10$ck8Spe83qpTGiLSEaVqC7ubqnxugG/eymcdy8U7XQqf/MabQ0Busi','406a23f2-a483-481d-9564-54c13061e683'),
         ('f4466ca3-f4ae-404c-bb87-8288dca54383','Fanny.Bogan21@yahoo.com','Ernest','Dietrich','$2a$10$Z14L4/37E3BtaOJF.QWJZuRUT4Put95d1se5PxW7hctG5oBk6AT4i','4f2ee6c0-189d-4d79-9056-d56917d4d8ac')
- ON CONFLICT DO NOTHING;
+ON CONFLICT DO NOTHING;
 
 
 --ROLES
@@ -31,12 +36,6 @@ VALUES 	 ('b4cca629-6b19-4ff9-803d-f7c5e4f30de8','USER_MODIFY'),
            ('1f03c639-fa5a-4d9f-819b-a0b49fb65299','USER_DELETE'),
            ('683b8ed3-0b82-4dc6-9a8a-ce3995a497f3','USER_CREATE'),
            ('7cce5810-81b3-487b-a5a0-4856ede2bf46','USER_READ')
-ON CONFLICT DO NOTHING;
-
---GROUPS
-INSERT INTO groups(id, group_logo, group_motto, group_name)
-VALUES ('406a23f2-a483-481d-9564-54c13061e683', 'https://example.com', 'example', 'example'),
-       ('4f2ee6c0-189d-4d79-9056-d56917d4d8ac', 'https://example2.com', 'example2', 'example2')
 ON CONFLICT DO NOTHING;
 
 --assign roles to users
@@ -56,18 +55,14 @@ values 	 ('25ad5636-e3fc-489f-83ad-25be0b126f43','54b17c6b-d95e-4c6c-8a37-e0b7fe
            ('4333b3b5-9c65-457f-801f-a4cf9e38938d','dd8b982f-c663-465b-b2c9-68c78e8a8840'),
            ('dc6ef408-0c29-4222-97e9-386c19d4e249','dd8b982f-c663-465b-b2c9-68c78e8a8840'),
            ('197d8b72-ca8d-4be1-ae51-3f4247b52adc','dd8b982f-c663-465b-b2c9-68c78e8a8840'),
-           ('f4466ca3-f4ae-404c-bb87-8288dca54383','dd8b982f-c663-465b-b2c9-68c78e8a8840'),
-           ('6a46c002-f5d5-4a80-9dac-55f97ed97c7b','d29e709c-0ff1-4f4c-a7ef-09f656c390f1')
- ON CONFLICT DO NOTHING;
+           ('f4466ca3-f4ae-404c-bb87-8288dca54383','dd8b982f-c663-465b-b2c9-68c78e8a8840')
+
+ON CONFLICT DO NOTHING;
 
 --assign authorities to roles
 INSERT INTO role_authority(role_id, authority_id)
 VALUES 	 ('54b17c6b-d95e-4c6c-8a37-e0b7feac797d','b4cca629-6b19-4ff9-803d-f7c5e4f30de8'),
            ('54b17c6b-d95e-4c6c-8a37-e0b7feac797d','1f03c639-fa5a-4d9f-819b-a0b49fb65299'),
            ('54b17c6b-d95e-4c6c-8a37-e0b7feac797d','683b8ed3-0b82-4dc6-9a8a-ce3995a497f3'),
-           ('54b17c6b-d95e-4c6c-8a37-e0b7feac797d','7cce5810-81b3-487b-a5a0-4856ede2bf46'),
-           ('d29e709c-0ff1-4f4c-a7ef-09f656c390f1','2ebf301e-6c61-4076-98e3-2a38b31daf86'),
-           ('54b17c6b-d95e-4c6c-8a37-e0b7feac797d','6b1a56bf-bb98-4413-b093-96dbd55cd043'),
-           ('54b17c6b-d95e-4c6c-8a37-e0b7feac797d','ef259518-ea09-4982-a87b-a0ac84c01d0b'),
-           ('54b17c6b-d95e-4c6c-8a37-e0b7feac797d','84af6f73-4bda-40e2-a559-1df36039cccc')
+           ('54b17c6b-d95e-4c6c-8a37-e0b7feac797d','7cce5810-81b3-487b-a5a0-4856ede2bf46')
 ON CONFLICT DO NOTHING;
