@@ -4,86 +4,108 @@ import { ActiveButton } from "../Atoms/ActiveButton";
 import { GroupDisplay } from "../Molecules/GroupDisplay";
 import Navbar from "../Atoms/Navbar";
 import { User } from "../../types/Database/User";
+import { Group } from "../../types/Database/Group";
+import { TOKEN_LOCAL_STORAGE_KEY } from "../../Contexts/ActiveUserContext";
+import { decode } from "jsonwebtoken";
 
-interface Props {
-  setUser: (params: any) => any;
-  user: User;
-}
-
-interface ResponseData {
-  id: string;
-  name: string;
-  moto: string;
-  url: string;
-  isSubed: Boolean;
-}
+const buttonSize: React.CSSProperties = {
+  width: "3.5vw",
+};
 
 const flex: React.CSSProperties = {
   display: "flex",
+  marginBottom: "0.3vh",
 };
 
-export function GroupUserPage(props: Props) {
-  const [groups, setGroups] = useState([]);
+export function GroupUserPage() {
+  const [groups, setGroups] = useState<Group[]>();
+  const [user, setUser] = useState<User>();
   useEffect(() => {
     const getGroups = async function () {
       //Res should contain a list of groups
-      //A group contains an id, name, moto, urlForImg and a boolean based on if the user has joined the group
+      //A group contains an id, name, motto, urlForImg and a boolean based on if the user has joined the group
       api({
         method: "GET",
-        url: "http://localhost:5000/group",
+        url: "http://localhost:8080/group",
       })
         .then((res) => {
+          console.log(res.data);
           setGroups(res.data);
         })
         .catch((e) => {
           console.log(e);
         });
     };
+    const getUser = async function () {
+      api({
+        method: "GET",
+        url: "http://localhost:8080/user/" + getUserId(),
+      })
+        .then((res) => {
+          console.log(res);
+          setUser(res.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    };
+    getUser();
     getGroups();
-  });
-
-  return (
-    <div>
-      <Navbar />
-      {groups.map((value: ResponseData, index: Number) => {
-        return (
-          <div style={flex}>
-            <div>
-              <ActiveButton
-                isActive={value.id === props.user.groupId}
-                onClick={() => changeSubscription(value.id)}
-              />
+  }, []);
+  if (groups && user) {
+    return (
+      <div>
+        <Navbar />
+        {groups.map((group: Group, index: Number) => {
+          return (
+            <div style={flex}>
+              <div style={buttonSize}>
+                <ActiveButton
+                  isActive={group.id === user.groupId}
+                  onClick={() => changeSubscription(group.id!)}
+                />
+              </div>
+              <div>
+                <GroupDisplay
+                  name={group.groupName}
+                  motto={group.groupMotto}
+                  logo={group.groupLogo}
+                />
+              </div>
             </div>
-            <div>
-              <GroupDisplay
-                name={value.name}
-                moto={value.moto}
-                logo={value.url}
-              />
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
+          );
+        })}
+      </div>
+    );
+  } else {
+    return <></>;
+  }
 
+  //note needs to be tested
   function changeSubscription(newGroup: string) {
-    let userCopy = props.user;
-    userCopy.groupId = newGroup;
+    let userCopy = user!;
+    userCopy.id = newGroup;
 
     api({
       method: "PUT",
-      url: "http://localhost:5000/user",
+      url: "http://localhost:8080/user",
       data: {
         userId: userCopy.id,
         newRoom: newGroup,
       },
     })
       .then((res) => {
-        props.setUser(userCopy);
+        setUser(userCopy);
       })
       .catch((e) => {
         console.log(e);
       });
   }
+}
+
+function getUserId() {
+  const bearerToken = localStorage.getItem(TOKEN_LOCAL_STORAGE_KEY);
+  const token = bearerToken?.split(" ")[1];
+  const decodedToken = decode(token!);
+  return decodedToken?.sub;
 }
