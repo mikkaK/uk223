@@ -48,8 +48,8 @@ public class UserController {
     User user = userService.register(userMapper.fromUserRegisterDTO(userRegisterDTO));
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.CREATED);
   }
-  @PostMapping("/")
-  public ResponseEntity<UserDTO> addPlayerToGroup(@RequestBody JoinGroupDTO dto) throws InstanceAlreadyExistsException, InstanceNotFoundException {
+  @PutMapping("/")
+  public ResponseEntity<UserDTO> addUserToGroup(@RequestBody JoinGroupDTO dto) throws InstanceAlreadyExistsException, InstanceNotFoundException {
     User user = userService.addUserToGroup(dto.getUserId(), dto.getGroupId());
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }

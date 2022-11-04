@@ -35,6 +35,13 @@ public class User extends ExtendedEntity {
   @JsonBackReference
   private Group group;
 
+  public void addRole(Role role){
+    if (this.roles == null){
+      this.roles = new HashSet<>();
+    }
+    this.roles.add(role);
+  }
+
   public User() {
   }
 

@@ -1,12 +1,13 @@
 package com.example.demo.domain.role.dto;
 
 import com.example.demo.core.generic.ExtendedDTO;
-import com.example.demo.domain.authority.dto.AuthorityDTO;
-import java.util.Set;
-import java.util.UUID;
+import com.example.demo.domain.role.authority.dto.AuthorityDTO;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
+import java.util.UUID;
 
 public class RoleDTO extends ExtendedDTO {
 

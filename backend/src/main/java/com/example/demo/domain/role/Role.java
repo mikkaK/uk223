@@ -1,18 +1,12 @@
 package com.example.demo.domain.role;
 
 import com.example.demo.core.generic.ExtendedEntity;
-import com.example.demo.domain.authority.Authority;
+import com.example.demo.domain.role.authority.Authority;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "role")
