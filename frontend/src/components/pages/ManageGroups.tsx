@@ -59,7 +59,6 @@ export default function ManageGroups() {
 
   function generateInputElement() {
     let group: Group = getGroupById(input)!;
-    console.log("update input element");
     switch (input) {
       case "":
         return <></>;
@@ -72,7 +71,6 @@ export default function ManageGroups() {
     }
   }
   function openInputField(target: string) {
-    console.log("target:" + target);
     setInput(target);
   }
 
@@ -80,7 +78,6 @@ export default function ManageGroups() {
     if (groups) {
       for (let i = 0; i < groups.length; i++) {
         if (groups[i].id === id) {
-          console.log("found");
           return groups[i];
         }
       }

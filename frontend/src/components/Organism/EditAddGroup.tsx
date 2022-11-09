@@ -14,7 +14,6 @@ interface Props {
 export default function EditAddGroup(props: Props) {
   const [group, setGroup] = useState<Group>();
   useEffect(() => {
-    console.log("state update editAddG");
     setGroup(undefined);
   }, [props]);
 
@@ -69,6 +68,7 @@ export default function EditAddGroup(props: Props) {
     let data;
     if (props.group) {
       //is Editing group
+
       method = "PUT";
       data = {
         id: props.group.id,
@@ -92,7 +92,6 @@ export default function EditAddGroup(props: Props) {
       data: data,
     })
       .then((res) => {
-        console.log(res);
         props.reload();
       })
       .catch((e) => {

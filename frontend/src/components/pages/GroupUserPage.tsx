@@ -8,10 +8,12 @@ import { Group } from "../../types/Database/Group";
 import { TOKEN_LOCAL_STORAGE_KEY } from "../../Contexts/ActiveUserContext";
 import { decode } from "jsonwebtoken";
 import Navbar from "../Molecules/Navigation/Navbar";
+import { useNavigate } from "react-router-dom";
 
 export function GroupUserPage() {
   const [groups, setGroups] = useState<Group[]>();
   const [user, setUser] = useState<User>();
+  const navigate = useNavigate();
   useEffect(() => {
     const getGroups = async function () {
       //Res should contain a list of groups
@@ -21,7 +23,6 @@ export function GroupUserPage() {
         url: "http://localhost:8080/group",
       })
         .then((res) => {
-          console.log(res.data);
           setGroups(res.data);
         })
         .catch((e) => {
@@ -34,8 +35,11 @@ export function GroupUserPage() {
         url: "http://localhost:8080/user/" + getUserId(),
       })
         .then((res) => {
-          console.log(res);
-          setUser(res.data);
+          if (typeof res.data == "string") {
+            navigate("/login");
+          } else {
+            setUser(res.data);
+          }
         })
         .catch((e) => {
           console.log(e);
@@ -54,7 +58,7 @@ export function GroupUserPage() {
             <div style={flex}>
               <div style={buttonSize}>
                 <ActiveButton
-                  isActive={group.id === user.groupId}
+                  isActive={group.id === user.group?.id}
                   onClick={() => changeSubscription(group.id!)}
                 />
               </div>
@@ -77,20 +81,19 @@ export function GroupUserPage() {
   }
 
   //note needs to be tested
-  function changeSubscription(newGroupId: string) {
+  function changeSubscription(newgroup: string) {
     let userCopy = user!;
-    userCopy.groupId = newGroupId;
+    userCopy.group!.id = newgroup;
 
     api({
       method: "PUT",
       url: "http://localhost:8080/user/",
       data: {
         userId: userCopy.id,
-        groupId: newGroupId,
+        group: newgroup,
       },
     })
       .then((res) => {
-        console.log("set user");
         setUser(userCopy);
       })
       .catch((e) => {

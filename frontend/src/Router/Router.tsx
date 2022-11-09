@@ -14,6 +14,12 @@ import { UserList } from "../components/pages/UserList";
 /**
  * Router component renders a route switch with all available pages
  */
+const adminAuthorities = [
+  "USER_CREATE",
+  "USER_READ",
+  "USER_DELETE",
+  "USER_MODIFY",
+];
 
 const Router = () => {
   //const { checkRole } = useContext(ActiveUserContext);
@@ -30,19 +36,25 @@ const Router = () => {
       <Route
         path={"/admin"}
         element={
-          <PrivateRoute authorities={["DEFAULT"]} element={<AdminPageNav />} />
+          <PrivateRoute
+            authorities={adminAuthorities}
+            element={<AdminPageNav />}
+          />
         }
       />
       <Route
         path={"/admin/group"}
         element={
-          <PrivateRoute authorities={["DEFAULT"]} element={<ManageGroups />} />
+          <PrivateRoute
+            authorities={adminAuthorities}
+            element={<ManageGroups />}
+          />
         }
       />
       <Route
         path={"/admin/user"}
         element={
-          <PrivateRoute authorities={["DEFAULT"]} element={<UserList />} />
+          <PrivateRoute authorities={adminAuthorities} element={<UserList />} />
         }
       />
       <Route

@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import * as jwt from "jsonwebtoken";
-import ActiveUserContext from "../Contexts/ActiveUserContext";
+import ActiveUserContext, {
+  TOKEN_LOCAL_STORAGE_KEY,
+} from "../Contexts/ActiveUserContext";
 import AuthorityService from "../Services/AuthorityService";
 import { Authority } from "../types/models/Authority.model";
 

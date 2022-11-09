@@ -16,7 +16,6 @@ export function UserList() {
         url: "http://localhost:8080/user",
       })
         .then((res) => {
-          console.log(res.data);
           setUsers(res.data);
         })
         .catch((e) => {
@@ -50,12 +49,12 @@ export function UserList() {
         <div style={flex}>
           {users.map((user: User, index: Number) => {
             return (
-              <div>
+              <div style={displayContainer}>
                 <UserDisplay
                   username={user.firstName + " " + user.lastName}
                   userId={user.id}
                   email={user.email}
-                  group={groupMap?.get(user.groupId!)?.groupName}
+                  group={groupMap?.get(user.group?.id!)?.groupName}
                 />
               </div>
             );
@@ -75,6 +74,6 @@ const flex: React.CSSProperties = {
   flex: 4,
 };
 
-const user: React.CSSProperties = {
-  flex: "1",
+const displayContainer: React.CSSProperties = {
+  marginBottom: "2vh",
 };

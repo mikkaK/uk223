@@ -9,6 +9,7 @@ export default function Navbar() {
   };
   const useMaxWidth: React.CSSProperties = {
     width: "100%",
+    textAlign: "center",
   };
 
   return (

@@ -11,7 +11,7 @@ import Navbar from "../Molecules/Navigation/Navbar";
 export function GroupInspect() {
   let { groupId } = useParams();
   const [group, setGroup] = useState<Group>();
-  const [users, setUsers] = useState<[User]>();
+  const [users, setUsers] = useState<User[]>();
   let usersElement;
   useEffect(() => {
     //Gets the group using the id
@@ -21,29 +21,20 @@ export function GroupInspect() {
         url: "http://localhost:8080/group/" + groupId,
       })
         .then((res) => {
-          setGroup(res.data[0]);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    };
-    //Gets all usres that are part of group with group ID
-    //User should only contain Name and Profile picture URL
-    const getUsers = async function () {
-      api({
-        method: "GET",
-        url: "http://localhost:8080/user/partof/" + groupId,
-      })
-        .then((res) => {
-          setUsers(res.data);
+          setGroup({
+            id: res.data.id,
+            groupName: res.data.groupName,
+            groupMotto: res.data.groupMotto,
+            groupLogo: res.data.groupLogo,
+          });
+          setUsers(res.data.members);
         })
         .catch((e) => {
           console.log(e);
         });
     };
     getGroup();
-    getUsers();
-  });
+  }, []);
 
   usersElement = generateUsersElement();
 
