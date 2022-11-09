@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.management.InstanceAlreadyExistsException;
-import javax.management.InstanceNotFoundException;
 import java.util.Set;
 import java.util.UUID;
 
@@ -34,13 +32,13 @@ public class GroupServiceImpl extends ExtendedServiceImpl<Group> implements Grou
     }
 
     @Override
-    public Group findByUserId(UUID userId) throws InstanceNotFoundException {
+    public Group findByUserId(UUID userId){
         logger.trace("Searching group from user: {}", userId);
         return groupRepository.findByMembers_Id(userId);
     }
 
     @Override
-    public Group createGroup(Group group) throws InstanceAlreadyExistsException {
+    public Group createGroup(Group group){
         return save(group);
     }
 
