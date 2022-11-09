@@ -37,6 +37,16 @@ If you've set up the project correctly you should be able to access the endpoint
 * You can add mock data to your database on startup using an SQL script named `data.sql` placed in the resources folder
 * You can execute statements at startup by adding them to `AppStartupRunner.run()`
 
+# ERD Diagram
+<img src="IMG/ERD.png" alt="ERD-Diagram"> 
+
+
+# Domain Model
+<img src="IMG/Domänenmodell.jpg" alt="Domain-Model">
+
+
+
+
 
 
 
