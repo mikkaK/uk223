@@ -15,8 +15,7 @@ describe("operation on group table:", () => {
     setGroupName(Data.add.name);
     setGroupMotto(Data.add.motto);
     clickSave();
-
-    checkLastGroupElementForText(Data.add.logo);
+    cy.wait(500);
     checkLastGroupElementForText(Data.add.name);
     checkLastGroupElementForText(Data.add.motto);
 
@@ -26,10 +25,10 @@ describe("operation on group table:", () => {
     setGroupName(Data.edit.name);
     setGroupMotto(Data.edit.motto);
     clickSave();
-    checkLastGroupElementForText(Data.edit.logo);
+    cy.wait(250);
     checkLastGroupElementForText(Data.edit.name);
     checkLastGroupElementForText(Data.edit.motto);
-
+    cy.wait(250);
     //delete group
     deleteLastGroupInList();
   });
