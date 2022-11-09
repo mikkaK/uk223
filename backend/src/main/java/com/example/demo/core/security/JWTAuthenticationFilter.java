@@ -72,7 +72,7 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
                                           Authentication authResult) throws IOException {
     response.addHeader(HttpHeaders.AUTHORIZATION, AuthorizationSchemas.BEARER + " " + generateToken(authResult));
     UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authResult.getPrincipal();
-    response.getWriter().write(new ObjectMapper().writeValueAsString(userDetailsImpl.user()));
+    response.getWriter().write(new ObjectMapper().writeValueAsString(userDetailsImpl.user().setPassword("")));
   }
 
   @Override

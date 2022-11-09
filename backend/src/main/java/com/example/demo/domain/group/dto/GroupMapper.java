@@ -12,6 +12,8 @@ public interface GroupMapper extends ExtendedMapper<Group, GroupDTO> {
 
     @AfterMapping
     default void linkMembers(@MappingTarget Group group) {
-        group.getMembers().forEach(member -> member.setGroup(group));
+        if (group.getMembers() != null) {
+            group.getMembers().forEach(member -> member.setGroup(group));
+        }
     }
 }

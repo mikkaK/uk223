@@ -20,18 +20,21 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
   private final BCryptPasswordEncoder passwordEncoder;
   private final GroupService groupService;
 
+  private final UserRepository userRepository;
+
   private RoleService roleService;
 
   @Autowired
-  public UserServiceImpl(UserRepository repository,
-                         Logger logger,
+  public UserServiceImpl(Logger logger,
                          BCryptPasswordEncoder passwordEncoder,
                          GroupService groupService,
-                         RoleService roleService) {
-    super(repository, logger);
+                         RoleService roleService,
+                         UserRepository userRepository) {
+    super(userRepository,logger);
     this.passwordEncoder = passwordEncoder;
     this.groupService = groupService;
     this.roleService = roleService;
+    this.userRepository = userRepository;
   }
 
   @Override
@@ -55,4 +58,5 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
     }
     throw new InstanceNotFoundException();
   }
+
 }

@@ -40,8 +40,9 @@ ON CONFLICT DO NOTHING;
 
 --assign roles to users
 insert into users_role (users_id, role_id)
-values 	 ('25ad5636-e3fc-489f-83ad-25be0b126f43','54b17c6b-d95e-4c6c-8a37-e0b7feac797d'),
+values 	 ('25ad5636-e3fc-489f-83ad-25be0b126f43','dd8b982f-c663-465b-b2c9-68c78e8a8840'),
            ('6a46c002-f5d5-4a80-9dac-55f97ed97c7b','dd8b982f-c663-465b-b2c9-68c78e8a8840'),
+           ('6a46c002-f5d5-4a80-9dac-55f97ed97c7b','54b17c6b-d95e-4c6c-8a37-e0b7feac797d'),
            ('233c019c-e0c0-4893-bfc1-d0aab176a8ae','dd8b982f-c663-465b-b2c9-68c78e8a8840'),
            ('4b1789ff-fd7a-4151-90e0-555587701229','dd8b982f-c663-465b-b2c9-68c78e8a8840'),
            ('08c3512d-16fb-4a12-acfc-08379ec06720','dd8b982f-c663-465b-b2c9-68c78e8a8840'),

@@ -7,8 +7,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -17,22 +16,17 @@ import java.util.UUID;
 @Table(name = "users")
 public class User extends ExtendedEntity {
 
-  @Min(1)
-  @Max(40)
+  @Size(min = 2, max = 50)
   @Column(name = "first_name", nullable = false)
   private String firstName;
-  @Min(1)
-  @Max(40)
+  @Size(min = 2, max = 60)
   @Column(name = "last_name", nullable = false)
   private String lastName;
-
-  @Min(1)
-  @Max(50)
+  @Size(min = 2, max = 60)
   @Email
   @Column(name = "email", unique = true, nullable = false)
   private String email;
-  @Min(1)
-  @Max(40)
+  @Size(min = 2, max = 80)
   @Column(name = "password", nullable = false)
   private String password;
   @ManyToMany(fetch = FetchType.EAGER)
