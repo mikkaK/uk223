@@ -31,13 +31,21 @@ export default function ManageGroups() {
     if (groups) {
       return groups.map((value: Group, index: Number) => {
         return (
-          <div style={flex}>
+          <div className={"group"} style={flex}>
             <div>
-              <button style={button} onClick={() => openInputField(value.id!)}>
+              <button
+                className={"edit_button"}
+                style={button}
+                onClick={() => openInputField(value.id!)}
+              >
                 Edit: {value.groupName}
               </button>
               <br />
-              <button style={button} onClick={() => deleteGroup(value.id!)}>
+              <button
+                className={"delete_button"}
+                style={button}
+                onClick={() => deleteGroup(value.id!)}
+              >
                 Delete: {value.groupName}
               </button>
             </div>

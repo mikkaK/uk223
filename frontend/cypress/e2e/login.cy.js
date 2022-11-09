@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-const { Wysiwyg } = require("@mui/icons-material");
-
 describe("Login as admin", () => {
   beforeEach(() => {
     cy.loginAsAdmin();
