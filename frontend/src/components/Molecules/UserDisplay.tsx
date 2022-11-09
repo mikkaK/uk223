@@ -47,6 +47,8 @@ const flex: React.CSSProperties = {
   boxShadow: "0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%)",
   padding: "5px",
   height: "100%",
+  background: "#575252",
+  margin: "5px",
 };
 
 const image: React.CSSProperties = {
