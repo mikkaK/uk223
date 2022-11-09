@@ -12,26 +12,18 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+Cypress.Commands.add("loginAsAdmin", () => {
+  cy.visit("http://localhost:3000/login");
+  cy.get("[id=email]").type("admin@example.com");
+  cy.get("[id=password]").type("1234");
+  cy.get("button[type=submit]").click();
+  cy.wait(500);
+});
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      loginAsAdmin(email: string, password: string): Chainable<void>;
+    }
+  }
+}
