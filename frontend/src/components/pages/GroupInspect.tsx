@@ -19,13 +19,7 @@ export function GroupInspect() {
   const getGroup = async function () {
     api({
       method: "GET",
-      url:
-        "http://localhost:8080/group/members" +
-        groupId +
-        "?page=" +
-        (page - 1) +
-        "&size=" +
-        imagesPerPage,
+      url: "http://localhost:8080/group/" + groupId,
     })
       .then((res) => {
         setGroup({
@@ -34,7 +28,25 @@ export function GroupInspect() {
           groupMotto: res.data.groupMotto,
           groupLogo: res.data.groupLogo,
         });
-        setUsers(res.data.members);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const getUsers = async function () {
+    api({
+      method: "GET",
+      url:
+        "http://localhost:8080/group/members/" +
+        groupId +
+        "?page=" +
+        (page - 1) +
+        "&size=" +
+        imagesPerPage,
+    })
+      .then((res) => {
+        setUsers(res.data);
       })
       .catch((e) => {
         console.log(e);
@@ -42,9 +54,10 @@ export function GroupInspect() {
   };
   useEffect(() => {
     getGroup();
+    getUsers();
   }, []);
   useEffect(() => {
-    getGroup();
+    getUsers();
   }, [page, imagesPerPage]);
 
   usersElement = generateUsersElement();

@@ -49,6 +49,10 @@ export function GroupUserPage() {
     getGroups();
   }, []);
 
+  useEffect(() => {
+    console.log("user changed");
+  }, [user]);
+
   if (groups && user) {
     return (
       <div>
@@ -82,15 +86,20 @@ export function GroupUserPage() {
 
   //note needs to be tested
   function changeSubscription(newgroup: string) {
-    let userCopy = user!;
-    userCopy.group!.id = newgroup;
+    let userCopy: User = {
+      firstName: user?.firstName!,
+      lastName: user?.lastName!,
+      email: user?.email!,
+      id: user?.id!,
+      group: { id: newgroup },
+    };
 
     api({
       method: "PUT",
       url: "http://localhost:8080/user/",
       data: {
         userId: userCopy.id,
-        group: newgroup,
+        groupId: newgroup,
       },
     })
       .then((res) => {
