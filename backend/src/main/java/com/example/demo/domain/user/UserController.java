@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -36,7 +37,8 @@ public class UserController {
     this.userMapper = userMapper;
     this.logger = logger;
   }
-
+  @PreAuthorize(
+          "hasAuthority('USER_READ') || @userPermissionEvaluator.hasSameId(authentication.principal.user, id)")
   @GetMapping("/{id}")
   public ResponseEntity<UserDTO> retrieveById(@PathVariable UUID id) {
     logger.trace("fetching user with id: {}", id);
@@ -52,7 +54,7 @@ public class UserController {
     logger.trace("returning all users");
     return new ResponseEntity<>(userMapper.toDTOs(users), HttpStatus.OK);
   }
-
+  @Transactional
   @PostMapping("/register")
   public ResponseEntity<UserDTO> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
     logger.trace("creating new user {} {} with email: {}", userRegisterDTO.getFirstName(), userRegisterDTO.getLastName(), userRegisterDTO.getEmail());
@@ -60,6 +62,7 @@ public class UserController {
     logger.info("created new user with id: {}", user.getId());
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.CREATED);
   }
+  @Transactional
   @PutMapping("/")
   public ResponseEntity<UserDTO> addUserToGroup(@Valid @RequestBody JoinGroupDTO dto) throws InstanceAlreadyExistsException, InstanceNotFoundException {
     logger.trace("adding user with id: {} to group with id: {}", dto.getUserId(), dto.getGroupId());
@@ -67,7 +70,7 @@ public class UserController {
     logger.info("added user with id: {} to group with id: {}",dto.getUserId(), dto.getGroupId());
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }
-
+  @Transactional
   @PutMapping("/{id}")
   @PreAuthorize(
       "hasAuthority('USER_MODIFY') || @userPermissionEvaluator.hasSameId(authentication.principal.user, id)")
@@ -77,7 +80,7 @@ public class UserController {
     logger.info("updated user with id: {}", user.getId());
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }
-
+  @Transactional
   @DeleteMapping("/{id}")
   @PreAuthorize("hasAuthority('USER_DELETE')")
   public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
