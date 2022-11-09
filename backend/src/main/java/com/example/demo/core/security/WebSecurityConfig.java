@@ -26,61 +26,61 @@ import java.util.List;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 
-  private final UserService userService;
-  private final BCryptPasswordEncoder passwordEncoder;
-  private final JwtProperties jwtProperties;
+    private final UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder;
+    private final JwtProperties jwtProperties;
 
-  @Autowired
-  public WebSecurityConfig(UserService userService, BCryptPasswordEncoder passwordEncoder, JwtProperties jwtProperties) {
-    this.userService = userService;
-    this.passwordEncoder = passwordEncoder;
-    this.jwtProperties = jwtProperties;
-  }
+    @Autowired
+    public WebSecurityConfig(UserService userService, BCryptPasswordEncoder passwordEncoder, JwtProperties jwtProperties) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtProperties = jwtProperties;
+    }
 
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http.authorizeRequests(requests -> requests.antMatchers(HttpMethod.POST, "/user/login", "/user/register")
-                                                      .permitAll()
-                                                      .antMatchers("/v3/api-docs", "/v3/api-docs/swagger-config", "/swagger-ui/*").permitAll()
-                                                      .anyRequest()
-                                                      .authenticated())
-               .addFilterAfter(new JWTAuthenticationFilter(new AntPathRequestMatcher("/user/login", "POST"),
-                   authenticationManager(), jwtProperties), UsernamePasswordAuthenticationFilter.class)
-               .addFilterAfter(new JWTAuthorizationFilter(userService, jwtProperties),
-                   UsernamePasswordAuthenticationFilter.class)
-               .sessionManagement()
-               .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-               .and()
-               .cors()
-               .configurationSource(corsConfigurationSource())
-               .and()
-               .csrf()
-               .disable()
-               .formLogin()
-               .and()
-               .build();
-  }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http.authorizeRequests(requests -> requests.antMatchers(HttpMethod.POST, "/user/login", "/user/register")
+                        .permitAll()
+                        .antMatchers("/v3/api-docs", "/v3/api-docs/swagger-config", "/swagger-ui/*").permitAll()
+                        .anyRequest()
+                        .authenticated())
+                .addFilterAfter(new JWTAuthenticationFilter(new AntPathRequestMatcher("/user/login", "POST"),
+                        authenticationManager(), jwtProperties), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(new JWTAuthorizationFilter(userService, jwtProperties),
+                        UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .cors()
+                .configurationSource(corsConfigurationSource())
+                .and()
+                .csrf()
+                .disable()
+                .formLogin()
+                .and()
+                .build();
+    }
 
-  @Bean
-  public CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(List.of("*"));
-    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-    configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
-    configuration.setExposedHeaders(List.of("Authorization"));
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+        configuration.setExposedHeaders(List.of("Authorization"));
 
-    UrlBasedCorsConfigurationSource configurationSource = new UrlBasedCorsConfigurationSource();
-    configurationSource.registerCorsConfiguration("/**", configuration);
+        UrlBasedCorsConfigurationSource configurationSource = new UrlBasedCorsConfigurationSource();
+        configurationSource.registerCorsConfiguration("/**", configuration);
 
-    return configurationSource;
-  }
+        return configurationSource;
+    }
 
-  @Bean
-  public AuthenticationManager authenticationManager() {
-    DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-    provider.setPasswordEncoder(passwordEncoder);
-    provider.setUserDetailsService(userService);
-    return new ProviderManager(provider);
-  }
+    @Bean
+    public AuthenticationManager authenticationManager() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder);
+        provider.setUserDetailsService(userService);
+        return new ProviderManager(provider);
+    }
 
 }

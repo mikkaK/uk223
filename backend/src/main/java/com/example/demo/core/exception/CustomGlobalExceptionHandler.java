@@ -1,8 +1,5 @@
 package com.example.demo.core.exception;
 
-import java.time.LocalDate;
-import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -12,6 +9,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class CustomGlobalExceptionHandler {
@@ -35,6 +38,18 @@ public class CustomGlobalExceptionHandler {
                                            .collect(Collectors.toMap(FieldError::getField,
                                                DefaultMessageSourceResolvable::getDefaultMessage)))
                               .build();
+  }
+
+  @ExceptionHandler(InstanceNotFoundException.class)
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  public ResponseError handleInstanceNotFound(InstanceNotFoundException ex, HttpServletRequest request){
+    return new ResponseError().setTimeStamp(LocalDate.now()).build();
+  }
+
+  @ExceptionHandler(InstanceAlreadyExistsException.class)
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  public ResponseError handleInstanceAlreadyExists(InstanceAlreadyExistsException ex){
+    return new ResponseError().setTimeStamp(LocalDate.now()).build();
   }
 
 }
