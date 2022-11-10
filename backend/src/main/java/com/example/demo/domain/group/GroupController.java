@@ -53,7 +53,7 @@ public class GroupController {
        return new ResponseEntity<>(members,HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('USER_READ') || @userPermissionEvaluator.isMemberOfGroup(groupId, authentication.principal.user)")
+    @PreAuthorize("hasAuthority('USER_READ') || @userPermissionEvaluator.isMemberOfGroup(#groupId, authentication.principal.user)")
     @GetMapping("/{groupId}")
     public ResponseEntity<GroupDTO> retrieveGroupById(@PathVariable UUID groupId){
         logger.trace("fetching group by id: {}", groupId);

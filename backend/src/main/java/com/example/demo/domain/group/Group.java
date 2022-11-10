@@ -18,7 +18,7 @@ import java.util.UUID;
 public class Group extends ExtendedEntity {
     @Size(min = 1, max = 100)
     @NotNull
-    @Column(name = "group_name")
+    @Column(name = "group_name", unique = true)
     private String groupName;
     @Size(min = 1, max = 100)
     @NotNull
