@@ -20,6 +20,14 @@ Cypress.Commands.add("loginAsAdmin", () => {
   cy.wait(500);
 });
 
+Cypress.Commands.add("loginAsUser", () => {
+  cy.visit("http://localhost:3000/login");
+  cy.get("[id=email]").type("user@example.com");
+  cy.get("[id=password]").type("1234");
+  cy.get("button[type=submit]").click();
+  cy.wait(500);
+});
+
 declare global {
   namespace Cypress {
     interface Chainable {

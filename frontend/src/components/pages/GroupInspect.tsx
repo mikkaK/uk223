@@ -8,6 +8,7 @@ import { Text } from "../Atoms/Text";
 import { UserDisplay } from "../Molecules/UserDisplay";
 import Navbar from "../Molecules/Navigation/Navbar";
 import { number } from "prop-types";
+import { JsxElement } from "typescript";
 
 export function GroupInspect() {
   let { groupId } = useParams();
@@ -15,7 +16,9 @@ export function GroupInspect() {
   const [users, setUsers] = useState<User[]>();
   const [page, setPage] = useState<number>(1);
   const [imagesPerPage, setImagesPerPage] = useState<number>(10);
+  const [errorOccured, setErrorHasOccured] = useState(false);
   let usersElement;
+  let errorElement;
   const getGroup = async function () {
     api({
       method: "GET",
@@ -31,6 +34,7 @@ export function GroupInspect() {
       })
       .catch((e) => {
         console.log(e);
+        setErrorHasOccured(true);
       });
   };
 
@@ -50,6 +54,7 @@ export function GroupInspect() {
       })
       .catch((e) => {
         console.log(e);
+        setErrorHasOccured(true);
       });
   };
   useEffect(() => {
@@ -61,7 +66,7 @@ export function GroupInspect() {
   }, [page, imagesPerPage]);
 
   usersElement = generateUsersElement();
-
+  errorElement = <div>Error has occured</div>;
   if (group) {
     return (
       <div>
@@ -89,7 +94,12 @@ export function GroupInspect() {
       </div>
     );
   } else {
-    return <Navbar />;
+    return (
+      <>
+        <Navbar />
+        {errorElement}
+      </>
+    );
   }
   function decrementPage() {
     if (page !== 1) {

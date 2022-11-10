@@ -1,7 +1,14 @@
 /// <reference types="cypress" />
 import Data from "../fixtures/example.json";
 describe("operation on group table:", () => {
-  it("Admin Add,edit and delete new group", () => {
+  it("User tries to access admin/group redirects to unauthorized page", () => {
+    cy.loginAsUser();
+    cy.visit("http://localhost:3000/admin/group");
+    cy.wait(100);
+    cy.url().should("eq", "http://localhost:3000/unauthorized");
+  });
+
+  it("Admin Add,edit and delete new group works and is permitted", () => {
     cy.loginAsAdmin();
     cy.visit("http://localhost:3000/admin/group");
     cy.wait(350);
@@ -18,21 +25,28 @@ describe("operation on group table:", () => {
 
     //Edit Group
     editLastGroupInList();
+    cy.wait(100);
     setLogoText(Data.edit.logo);
     setGroupName(Data.edit.name);
     setGroupMotto(Data.edit.motto);
     clickSave();
-    cy.wait(250);
+    cy.wait(500);
     checkLastGroupElementForText(Data.edit.name);
     checkLastGroupElementForText(Data.edit.motto);
-    cy.wait(250);
     //delete group
     deleteLastGroupInList();
+    cy.wait(250);
+    checkLastGroupElementForNotContainingText(Data.edit.name);
+    checkLastGroupElementForNotContainingText(Data.edit.motto);
   });
 });
 
 function checkLastGroupElementForText(text) {
   cy.get(".group").last().should("contain.text", text);
+}
+
+function checkLastGroupElementForNotContainingText(text) {
+  cy.get(".group").last().should("not.contain.text", text);
 }
 
 function deleteLastGroupInList() {
@@ -63,22 +77,4 @@ function clickSave() {
   cy.get(
     '[style="display: flex; align-items: center;"] > :nth-child(2) > button'
   ).click();
-}
-
-function clickQuit() {
-  cy.get(
-    '[style="margin-left: 10vw;"] > [style="display: flex; align-items: center;"] > :nth-child(1) > button'
-  ).click();
-}
-
-function getGroupListLength() {
-  cy.get('[style="margin: 3vw;"] > :nth-child(2) > :nth-child(1) >').should(
-    "have.length",
-    2
-  );
-  var x = cy
-    .get('[style="margin: 3vw;"] > :nth-child(2) > :nth-child(1) >')
-    .its("length");
-  x.should("eq", 2);
-  console.log(x);
 }
