@@ -1,17 +1,6 @@
-//Notes: Finished
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  const flex: React.CSSProperties = {
-    display: "flex",
-    boxShadow: "0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%)",
-    padding: "5px",
-  };
-  const useMaxWidth: React.CSSProperties = {
-    width: "100%",
-    textAlign: "center",
-  };
-
   return (
     <div style={flex}>
       <div style={useMaxWidth}>
@@ -29,3 +18,13 @@ export default function Navbar() {
     </div>
   );
 }
+
+const flex: React.CSSProperties = {
+  display: "flex",
+  boxShadow: "0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%)",
+  padding: "5px",
+};
+const useMaxWidth: React.CSSProperties = {
+  width: "100%",
+  textAlign: "center",
+};

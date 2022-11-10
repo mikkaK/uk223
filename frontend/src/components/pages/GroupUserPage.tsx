@@ -2,7 +2,6 @@ import api from "../../config/Api";
 import React, { useEffect, useState } from "react";
 import { ActiveButton } from "../Atoms/ActiveButton";
 import { GroupDisplay } from "../Molecules/GroupDisplay";
-
 import { User } from "../../types/Database/User";
 import { Group } from "../../types/Database/Group";
 import { TOKEN_LOCAL_STORAGE_KEY } from "../../Contexts/ActiveUserContext";
@@ -16,8 +15,6 @@ export function GroupUserPage() {
   const navigate = useNavigate();
   useEffect(() => {
     const getGroups = async function () {
-      //Res should contain a list of groups
-      //A group contains an id, name, motto, urlForImg and a boolean based on if the user has joined the group
       api({
         method: "GET",
         url: "http://localhost:8080/group",
@@ -29,6 +26,7 @@ export function GroupUserPage() {
           console.log(e);
         });
     };
+
     const getUser = async function () {
       api({
         method: "GET",
@@ -45,6 +43,7 @@ export function GroupUserPage() {
           console.log(e);
         });
     };
+
     getUser();
     getGroups();
   }, []);
@@ -86,6 +85,25 @@ export function GroupUserPage() {
 
   //note needs to be tested
   function changeSubscription(newgroup: string) {
+    let url;
+    let data;
+    if (newgroup === user?.group?.id!) {
+      url = "http://localhost:8080/user/" + user?.id;
+      newgroup = "";
+      data = {
+        id: user?.id,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        email: user?.email,
+      };
+    } else {
+      url = "http://localhost:8080/user/";
+      data = {
+        userId: user?.id,
+        groupId: newgroup,
+      };
+    }
+
     let userCopy: User = {
       firstName: user?.firstName!,
       lastName: user?.lastName!,
@@ -96,11 +114,8 @@ export function GroupUserPage() {
 
     api({
       method: "PUT",
-      url: "http://localhost:8080/user/",
-      data: {
-        userId: userCopy.id,
-        groupId: newgroup,
-      },
+      url: url,
+      data: data,
     })
       .then((res) => {
         setUser(userCopy);

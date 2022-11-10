@@ -1,12 +1,11 @@
-//Notes: Finished
 import React from "react";
 
-interface ButtonData {
+interface Props {
   isActive: Boolean;
   onClick: Function;
 }
 
-export function ActiveButton(props: ButtonData) {
+export function ActiveButton(props: Props) {
   const buttonStyle: React.CSSProperties = {
     width: "100%",
     height: "100%",

@@ -7,8 +7,6 @@ import { User } from "../../types/Database/User";
 import { Text } from "../Atoms/Text";
 import { UserDisplay } from "../Molecules/UserDisplay";
 import Navbar from "../Molecules/Navigation/Navbar";
-import { number } from "prop-types";
-import { JsxElement } from "typescript";
 
 export function GroupInspect() {
   let { groupId } = useParams();

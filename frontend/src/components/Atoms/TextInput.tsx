@@ -1,6 +1,3 @@
-//Notes: Finished
-import React from "react";
-
 interface Props {
   setText: (value: string, field?: string) => any;
   text: string;

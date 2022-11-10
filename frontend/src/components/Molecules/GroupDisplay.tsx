@@ -2,30 +2,14 @@ import React from "react";
 import { RoundImg } from "../Atoms/RoundImg";
 import { Text } from "../Atoms/Text";
 
-interface Groupdata {
+interface Props {
   name: string;
   motto: string;
   logo: string;
   otherDisplay?: Boolean;
 }
-const flex: React.CSSProperties = {
-  display: "flex",
-  height: "10vh",
-};
-const image: React.CSSProperties = {
-  marginRight: "20px",
-};
-const centerVertical: React.CSSProperties = {
-  marginTop: "auto",
-  marginBottom: "auto",
-};
 
-const othermottoStyle: React.CSSProperties = {
-  // marginTop: "2vh",
-  marginLeft: "7.5vw",
-};
-
-export function GroupDisplay(props: Groupdata) {
+export function GroupDisplay(props: Props) {
   if (props.otherDisplay) {
     return (
       <>
@@ -56,3 +40,19 @@ export function GroupDisplay(props: Groupdata) {
     );
   }
 }
+
+const flex: React.CSSProperties = {
+  display: "flex",
+  height: "10vh",
+};
+const image: React.CSSProperties = {
+  marginRight: "20px",
+};
+const centerVertical: React.CSSProperties = {
+  marginTop: "auto",
+  marginBottom: "auto",
+};
+
+const othermottoStyle: React.CSSProperties = {
+  marginLeft: "7.5vw",
+};

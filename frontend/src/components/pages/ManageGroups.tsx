@@ -12,8 +12,10 @@ export default function ManageGroups() {
   useEffect(() => {
     getGroups();
   }, []);
+
   let groupsElement = generateGroupsElement();
   let inputElement = generateInputElement();
+
   return (
     <>
       <AdminPageNav />
@@ -98,7 +100,6 @@ export default function ManageGroups() {
     setInput("");
   }
 
-  //Gets the group using the id
   async function getGroups() {
     api({
       method: "GET",

@@ -2,6 +2,7 @@
 import group from "../fixtures/group.json";
 import error from "../fixtures/error.json";
 import user from "../fixtures/user.json";
+
 describe("User:", () => {
   beforeEach(() => {
     cy.request({

@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 import inputs from "../fixtures/inputs.json";
+
 describe("operation on group table:", () => {
   it("User tries to access admin/group redirects to unauthorized page", () => {
     cy.loginAsUser();

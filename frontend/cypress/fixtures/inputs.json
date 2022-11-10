@@ -1,12 +1,12 @@
 {
-  "add":{
-    "logo":"https://kottke.org/plus/misc/images/real-homer-simpson.jpg",
-    "name":"j;lkasdjfnearannsadmfsoer",
-    "motto":"masfmekralk"
+  "add": {
+    "logo": "https://kottke.org/plus/misc/images/real-homer-simpson.jpg",
+    "name": "j;lkasdjfnearannsadmfsoer",
+    "motto": "masfmekralk"
   },
-  "edit":{
-    "logo":"https://i.guim.co.uk/img/media/88f6b98714035656cb18fb282507b60e82edb0d7/0_57_2560_1536/master/2560.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=0f65e142d72b44c837382331ecbaaa51",
-    "name":"alksdfaosidfopa",
-    "motto":"opasdfker"
+  "edit": {
+    "logo": "https://i.guim.co.uk/img/media/88f6b98714035656cb18fb282507b60e82edb0d7/0_57_2560_1536/master/2560.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=0f65e142d72b44c837382331ecbaaa51",
+    "name": "alksdfaosidfopa",
+    "motto": "opasdfker"
   }
 }

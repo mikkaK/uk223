@@ -22,6 +22,7 @@ export function UserList() {
           console.log(e);
         });
     };
+
     const getGroups = async function () {
       api({
         method: "GET",
@@ -38,6 +39,7 @@ export function UserList() {
           console.log(e);
         });
     };
+
     getGroups();
     getUsers();
   }, []);
