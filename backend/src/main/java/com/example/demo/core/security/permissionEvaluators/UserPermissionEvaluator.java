@@ -16,32 +16,34 @@ import java.util.UUID;
 
 @Component
 public class UserPermissionEvaluator {
-  @Autowired
-  public UserPermissionEvaluator(Logger logger,GroupService groupService){
-    this.logger = logger;
-    this.groupService=groupService;
-  }
-  private final GroupService groupService;
+    @Autowired
+    public UserPermissionEvaluator(Logger logger, GroupService groupService) {
+        this.logger = logger;
+        this.groupService = groupService;
+    }
 
-  private final Logger logger;
-  public boolean isMemberOfGroup(UUID groupId, User principal) throws InstanceNotFoundException {
-    Optional<Group> group = groupService.findByGroupId(groupId);
-    if(group.isPresent()){
-        Set<User> members = group.get().getMembers();
-        User[] membersArray = new User[members.size()];
-        members.toArray(membersArray);
-        for (int i = 0; i < membersArray.length; i++) {
-            if(membersArray[i].getId().equals(principal.getId())){
-                logger.info("true");
-                return true;
+    private final GroupService groupService;
+
+    private final Logger logger;
+
+    public boolean isMemberOfGroup(UUID groupId, User principal) throws InstanceNotFoundException {
+        Optional<Group> group = groupService.findByGroupId(groupId);
+        if (group.isPresent()) {
+            Set<User> members = group.get().getMembers();
+            User[] membersArray = new User[members.size()];
+            members.toArray(membersArray);
+            for (int i = 0; i < membersArray.length; i++) {
+                if (membersArray[i].getId().equals(principal.getId())) {
+                    return true;
+                }
             }
+
         }
+        return false;
 
-    }return false;
+    }
 
-  }
-
-  public boolean hasSameId(User principal, UUID userId){
-    return principal.getId().equals(userId);
-  }
+    public boolean hasSameId(User principal, UUID userId) {
+        return principal.getId().equals(userId);
+    }
 }
