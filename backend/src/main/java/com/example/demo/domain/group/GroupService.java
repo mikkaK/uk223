@@ -5,11 +5,14 @@ import com.example.demo.domain.user.dto.UserDTO;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 public interface GroupService extends ExtendedService<Group> {
     Group findByUserId(UUID userId) throws InstanceNotFoundException;
+
+    Optional<Group> findByGroupId(UUID groupId) throws InstanceNotFoundException;
 
     Group createGroup(Group group) throws InstanceAlreadyExistsException;
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
@@ -52,7 +53,7 @@ public class GroupController {
        return new ResponseEntity<>(members,HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('USER_READ') || @userPermissionEvaluator.isMemberOfGroup(groupId, authentication.principal.user)")
+    @PreAuthorize("hasAuthority('USER_READ') || @userPermissionEvaluator.isMemberOfGroup(#groupId, authentication.principal.user)")
     @GetMapping("/{groupId}")
     public ResponseEntity<GroupDTO> retrieveGroupById(@PathVariable UUID groupId){
         logger.trace("fetching group by id: {}", groupId);
@@ -60,6 +61,7 @@ public class GroupController {
         logger.trace("returning group with id: {} and name: {}", groupId, group.getGroupName());
         return new ResponseEntity<>(groupMapper.toDTO(group), HttpStatus.OK);
     }
+    @Transactional
     @PreAuthorize("hasAuthority('USER_CREATE')")
     @PostMapping({"/", ""})
     public ResponseEntity<Group> createGroup(@Valid @RequestBody GroupDTO groupDTO) throws InstanceAlreadyExistsException {
@@ -69,6 +71,7 @@ public class GroupController {
         logger.info("created new group '{}' with id: {}", group.getGroupName(), group.getId());
         return new ResponseEntity<>(group, HttpStatus.OK);
     }
+    @Transactional
     @PreAuthorize("hasAuthority('USER_MODIFY')")
     @PutMapping({"/", ""})
     public ResponseEntity<Group> updateGroup(@Valid @RequestBody GroupDTO groupDTO){
@@ -78,7 +81,7 @@ public class GroupController {
         logger.info("updated group with id: {}", groupDTO.getId());
         return new ResponseEntity<>(updatedGroup, HttpStatus.OK);
     }
-
+    @Transactional
     @PreAuthorize("hasAuthority('USER_DELETE')")
     @DeleteMapping("/{groupId}")
     public ResponseEntity<Void> deleteGroup(@PathVariable UUID groupId){
