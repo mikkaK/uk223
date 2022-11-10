@@ -1,11 +1,8 @@
 /// <reference types="cypress" />
 import Data from "../fixtures/example.json";
 describe("operation on group table:", () => {
-  beforeEach(() => {
+  it("Admin Add,edit and delete new group", () => {
     cy.loginAsAdmin();
-  });
-
-  it("Add,edit and delete new group", () => {
     cy.visit("http://localhost:3000/admin/group");
     cy.wait(350);
 
