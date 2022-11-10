@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import adminSection from "../fixtures/adminSection.json";
+
 describe("Login as admin", () => {
   beforeEach(() => {
     cy.loginAsAdmin();
@@ -10,8 +12,8 @@ describe("Login as admin", () => {
 
   it("gives access to admin page", () => {
     cy.visit("http://localhost:3000/admin");
-    cy.get("dl > :nth-child(1)").should("contain.text", "User");
-    cy.get("dl > :nth-child(3)").should("contain.text", "Group");
+    cy.get("dl > :nth-child(1)").should("contain.text", adminSection.userDT);
+    cy.get("dl > :nth-child(3)").should("contain.text", adminSection.groupDT);
   });
 
   it("gives access to sub admin/ pages", () => {

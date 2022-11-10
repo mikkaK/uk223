@@ -1,1 +1,16 @@
-{}
+{
+  "user": {
+    "name": "user@example.com",
+    "password": "1234",
+    "id": "233c019c-e0c0-4893-bfc1-d0aab176a8ae"
+  },
+
+  "admin": {
+    "name": "admin@example.com",
+    "password": "1234",
+    "id": "6a46c002-f5d5-4a80-9dac-55f97ed97c7b"
+  },
+  "bearerToken": {
+    "admin": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiVVNFUl9DUkVBVEUifSx7ImF1dGhvcml0eSI6IlVTRVJfUkVBRCJ9LHsiYXV0aG9yaXR5IjoiVVNFUl9NT0RJRlkifSx7ImF1dGhvcml0eSI6IlVTRVJfREVMRVRFIn1dLCJzdWIiOiI2YTQ2YzAwMi1mNWQ1LTRhODAtOWRhYy01NWY5N2VkOTdjN2IiLCJpYXQiOjE2NjgwODM4MzUsImV4cCI6MTY2ODE4MzgzNSwiaXNzIjoidWsyMjMifQ.Dy6UVWD1k7nvQ9of5O8n4PyymNvToa7pPyS-XF6yaDg"
+  }
+}

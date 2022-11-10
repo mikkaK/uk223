@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import Data from "../fixtures/example.json";
+import inputs from "../fixtures/inputs.json";
 describe("operation on group table:", () => {
   it("User tries to access admin/group redirects to unauthorized page", () => {
     cy.loginAsUser();
@@ -15,29 +15,29 @@ describe("operation on group table:", () => {
 
     //Add Group
     addGroup();
-    setLogoText(Data.add.logo);
-    setGroupName(Data.add.name);
-    setGroupMotto(Data.add.motto);
+    setLogoText(inputs.add.logo);
+    setGroupName(inputs.add.name);
+    setGroupMotto(inputs.add.motto);
     clickSave();
     cy.wait(500);
-    checkLastGroupElementForText(Data.add.name);
-    checkLastGroupElementForText(Data.add.motto);
+    checkLastGroupElementForText(inputs.add.name);
+    checkLastGroupElementForText(inputs.add.motto);
 
     //Edit Group
     editLastGroupInList();
     cy.wait(100);
-    setLogoText(Data.edit.logo);
-    setGroupName(Data.edit.name);
-    setGroupMotto(Data.edit.motto);
+    setLogoText(inputs.edit.logo);
+    setGroupName(inputs.edit.name);
+    setGroupMotto(inputs.edit.motto);
     clickSave();
     cy.wait(500);
-    checkLastGroupElementForText(Data.edit.name);
-    checkLastGroupElementForText(Data.edit.motto);
+    checkLastGroupElementForText(inputs.edit.name);
+    checkLastGroupElementForText(inputs.edit.motto);
     //delete group
     deleteLastGroupInList();
     cy.wait(250);
-    checkLastGroupElementForNotContainingText(Data.edit.name);
-    checkLastGroupElementForNotContainingText(Data.edit.motto);
+    checkLastGroupElementForNotContainingText(inputs.edit.name);
+    checkLastGroupElementForNotContainingText(inputs.edit.motto);
   });
 });
 

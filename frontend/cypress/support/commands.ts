@@ -1,29 +1,19 @@
 /// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+
+import loginData from "../fixtures/user.json";
+
 Cypress.Commands.add("loginAsAdmin", () => {
   cy.visit("http://localhost:3000/login");
-  cy.get("[id=email]").type("admin@example.com");
-  cy.get("[id=password]").type("1234");
+  cy.get("[id=email]").type(loginData.admin.name);
+  cy.get("[id=password]").type(loginData.admin.password);
   cy.get("button[type=submit]").click();
   cy.wait(500);
 });
 
 Cypress.Commands.add("loginAsUser", () => {
   cy.visit("http://localhost:3000/login");
-  cy.get("[id=email]").type("user@example.com");
-  cy.get("[id=password]").type("1234");
+  cy.get("[id=email]").type(loginData.user.name);
+  cy.get("[id=password]").type(loginData.user.password);
   cy.get("button[type=submit]").click();
   cy.wait(500);
 });
