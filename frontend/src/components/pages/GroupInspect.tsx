@@ -8,6 +8,7 @@ import { Text } from "../Atoms/Text";
 import { UserDisplay } from "../Molecules/UserDisplay";
 import Navbar from "../Molecules/Navigation/Navbar";
 
+//Allows to inspect a groups details if the user is in the group or is an admin.
 export function GroupInspect() {
   let { groupId } = useParams();
   const [group, setGroup] = useState<Group>();
@@ -17,6 +18,7 @@ export function GroupInspect() {
   let usersElement;
   let errorElement;
 
+  //gets all groups from the server
   async function getGroup() {
     api({
       method: "GET",
@@ -35,6 +37,7 @@ export function GroupInspect() {
       });
   }
 
+  //gets all users from a group with pagination
   async function getUsers() {
     api({
       method: "GET",

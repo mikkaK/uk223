@@ -15,6 +15,7 @@ export function GroupUserPage() {
   const [user, setUser] = useState<User>();
   const navigate = useNavigate();
   useEffect(() => {
+    //gets all groups
     const getGroups = async function () {
       api({
         method: "GET",
@@ -28,6 +29,7 @@ export function GroupUserPage() {
         });
     };
 
+    //gets the logged in user
     const getUser = async function () {
       api({
         method: "GET",
@@ -80,7 +82,10 @@ export function GroupUserPage() {
     return <></>;
   }
 
+  //changes the current group subscription of the user
   function changeSubscription(newgroup: string | null) {
+    //sets the new group to null if the user is allready in the group
+    //this allows the user to leave the group
     if (newgroup === user?.group?.id!) {
       newgroup = null;
     }
@@ -110,6 +115,7 @@ export function GroupUserPage() {
   }
 }
 
+//gets the user id from the token
 function getUserId() {
   const bearerToken = localStorage.getItem(TOKEN_LOCAL_STORAGE_KEY);
   const token = bearerToken?.split(" ")[1];

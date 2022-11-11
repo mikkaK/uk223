@@ -21,6 +21,7 @@ export default function EditUser(props: Props) {
     setUser(props.user);
   }
 
+  //if the user is set show the edit screen
   if (user) {
     return (
       <>
@@ -56,6 +57,7 @@ export default function EditUser(props: Props) {
     return <div>Error</div>;
   }
 
+  //Edits the user specified in the props
   function save() {
     let method;
     let data;
@@ -85,6 +87,7 @@ export default function EditUser(props: Props) {
       });
   }
 
+  //modifies the user indepth
   function modifyUser(newValue: string, field?: string) {
     let modifiedUser: User = {
       id: user?.id,
