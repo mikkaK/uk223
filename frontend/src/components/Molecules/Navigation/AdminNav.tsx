@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function AdminNav() {
   return (
-    <div>
+    <div style={style}>
       <dl>
         <dt>User</dt>
         <dd>
@@ -16,3 +16,7 @@ export default function AdminNav() {
     </div>
   );
 }
+
+const style: React.CSSProperties = {
+  color: "white",
+};

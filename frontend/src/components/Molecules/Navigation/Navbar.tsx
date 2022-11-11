@@ -10,9 +10,6 @@ export default function Navbar() {
         <Link to={"/group"}>Group</Link>
       </div>
       <div style={useMaxWidth}>
-        <Link to={"/profile"}>Profile</Link>
-      </div>
-      <div style={useMaxWidth}>
         <Link to={"/admin"}>Admin</Link>
       </div>
     </div>
