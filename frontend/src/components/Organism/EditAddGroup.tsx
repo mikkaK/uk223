@@ -1,4 +1,3 @@
-//Notes: Finished
 import { Group } from "../../types/Database/Group";
 import { useState, useEffect } from "react";
 import { GroupDisplay } from "../Molecules/GroupDisplay";
@@ -68,7 +67,6 @@ export default function EditAddGroup(props: Props) {
     let data;
     if (props.group) {
       //is Editing group
-
       method = "PUT";
       data = {
         id: props.group.id,

@@ -5,9 +5,6 @@ import { Group } from "../../types/Database/Group";
 import { UserDisplay } from "../Molecules/UserDisplay";
 import AdminPageNav from "../Organism/AdminPageNav";
 import EditUser from "../Organism/EditUser";
-import { typeOf } from "react-is";
-import { IntegrationInstructionsRounded } from "@mui/icons-material";
-import { number } from "prop-types";
 
 export function UserList() {
   const [users, setUsers] = useState<User[]>();

@@ -1,7 +1,4 @@
-//Notes: Finished
-import { Group } from "../../types/Database/Group";
 import { useState, useEffect } from "react";
-import { GroupDisplay } from "../Molecules/GroupDisplay";
 import { TextInput } from "../Atoms/TextInput";
 import api from "../../config/Api";
 import { UserDisplay } from "../Molecules/UserDisplay";
@@ -34,13 +31,13 @@ export default function EditUser(props: Props) {
         />
         <TextInput
           label="First name"
-          setText={modifyGroup}
+          setText={modifyUser}
           field={"firstName"}
           text={user?.firstName!}
         />
         <TextInput
           label="last Name"
-          setText={modifyGroup}
+          setText={modifyUser}
           field={"lastName"}
           text={user?.lastName!}
         />
@@ -59,6 +56,7 @@ export default function EditUser(props: Props) {
   }
 
   function save() {
+    console.log(user);
     let method;
     let data;
     let url;
@@ -70,7 +68,7 @@ export default function EditUser(props: Props) {
       firstName: user?.firstName,
       lastName: user?.lastName,
       email: user?.email,
-      group: user?.group?.id,
+      group: { id: props.user.group?.id },
     };
 
     api({
@@ -87,23 +85,23 @@ export default function EditUser(props: Props) {
       });
   }
 
-  function modifyGroup(newValue: string, field?: string) {
-    let modifiedGroup: User = {
+  function modifyUser(newValue: string, field?: string) {
+    let modifiedUser: User = {
       id: user?.id,
       firstName: user?.firstName!,
       lastName: user?.lastName!,
       email: user?.email!,
     };
-    if (modifiedGroup) {
+    if (modifiedUser) {
       switch (field) {
         case "firstName":
-          modifiedGroup.firstName = newValue;
+          modifiedUser.firstName = newValue;
           break;
         case "lastName":
-          modifiedGroup.lastName = newValue;
+          modifiedUser.lastName = newValue;
           break;
       }
-      setUser(modifiedGroup);
+      setUser(modifiedUser);
     }
   }
 }
