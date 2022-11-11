@@ -43,19 +43,19 @@ If you've set up the project correctly you should be able to access the endpoint
 - You can execute statements at startup by adding them to `AppStartupRunner.run()`
 
 # ERD Diagram 
-This is the ERD Diagram of our application.
+This is the ERD Diagram of our application. \
 <img src="IMG/ERD.png" alt="ERD-Diagram">
 
 # Domain Model
 This is the domain model of our application.\
-<img src="IMG/domain_Model.jpg" alt="Sequence-Diagram">
+<img src="IMG/domain_model.jpg" alt="Domain-Diagram">
 
 # Use Case Describe
-This is a Use Case Describe for creating a group as an admin.
+This is a Use Case Describe for creating a group as an admin. \
 <img src="IMG/use_case_beschreibung.jpg" alt="Sequence-Diagram">
 
 # Sequence Diagram
-This is a sequence diagram of the Administrating_group test in Cypress.
+This is a sequence diagram of the Administrating_group test in Cypress. \
 <img src="IMG/Sequence_diagram.jpg" alt="Sequence-Diagram">
 
 # Testing
