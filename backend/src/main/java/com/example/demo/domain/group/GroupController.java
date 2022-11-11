@@ -13,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.management.InstanceAlreadyExistsException;
-import javax.management.InstanceNotFoundException;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
@@ -89,10 +88,5 @@ public class GroupController {
         groupService.deleteById(groupId);
         logger.info("group deleted");
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @ExceptionHandler(InstanceNotFoundException.class)
-    public void handleInstanceNotFound(){
-
     }
 }
