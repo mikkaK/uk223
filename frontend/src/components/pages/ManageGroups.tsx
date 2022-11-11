@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Group } from "../../types/Database/Group";
 import { GroupDisplay } from "../Molecules/GroupDisplay";
 import { Text } from "../Atoms/Text";
-
 import EditAddGroup from "../Organism/EditAddGroup";
 import AdminPageNav from "../Organism/AdminPageNav";
+
+//Page where an admin can manage groups(View,Add,edit,delete)
 export default function ManageGroups() {
   const [groups, setGroups] = useState<[Group]>();
   const [input, setInput] = useState("");

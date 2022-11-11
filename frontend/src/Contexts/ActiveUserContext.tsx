@@ -89,8 +89,6 @@ export const ActiveUserContextProvider = ({
    * @param updatedUser
    */
   const setActiveUser = (updatedUser: User) => {
-    console.log("set active user");
-    console.log(updatedUser);
     setUser(updatedUser);
     localStorage.setItem(
       USER_DATA_LOCAL_STORAGE_KEY,
@@ -135,13 +133,10 @@ export const ActiveUserContextProvider = ({
    */
   const login = async (email: string, password: string) => {
     await api.post("user/login", { email, password }).then((response: any) => {
-      console.log(response.headers.authorization);
       localStorage.setItem(
         TOKEN_LOCAL_STORAGE_KEY,
         response.headers.authorization
       );
-      console.log("response data login");
-      console.log(response.data);
       setActiveUser(response.data);
       return true;
     });

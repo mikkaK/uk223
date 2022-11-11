@@ -3,7 +3,7 @@ import React from "react";
 interface Props {
   logo: string;
 }
-
+//Displays a round image
 export function RoundImg(props: Props) {
   return <img style={imageStyle} src={props.logo} alt={props.logo}></img>;
 }

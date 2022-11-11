@@ -9,6 +9,7 @@ import { decode } from "jsonwebtoken";
 import Navbar from "../Molecules/Navigation/Navbar";
 import { useNavigate } from "react-router-dom";
 
+//Displays all groups and lets the user switch in which group he is in
 export function GroupUserPage() {
   const [groups, setGroups] = useState<Group[]>();
   const [user, setUser] = useState<User>();

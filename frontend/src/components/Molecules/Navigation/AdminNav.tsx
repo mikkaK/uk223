@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+//Vertical Navbar for the admin section of the website
 export default function AdminNav() {
   return (
     <div style={style}>

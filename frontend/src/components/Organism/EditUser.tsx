@@ -10,6 +10,7 @@ interface Props {
   reload: () => void;
 }
 
+//Element that can edit a the user provided by the props
 export default function EditUser(props: Props) {
   const [user, setUser] = useState<User>();
   useEffect(() => {

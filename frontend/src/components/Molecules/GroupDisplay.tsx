@@ -9,6 +9,7 @@ interface Props {
   otherDisplay?: Boolean;
 }
 
+//Displays the data of a group(name,motto,logo)
 export function GroupDisplay(props: Props) {
   if (props.otherDisplay) {
     return (

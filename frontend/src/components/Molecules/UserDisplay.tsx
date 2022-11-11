@@ -8,7 +8,7 @@ interface Props {
   email?: string;
   group?: string;
 }
-
+//Displays a users Data(Name) and the users id,mail and group if proivded optionally
 export function UserDisplay(props: Props) {
   let userId = <></>;
   let email = <></>;

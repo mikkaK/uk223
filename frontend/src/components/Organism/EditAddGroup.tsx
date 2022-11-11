@@ -10,6 +10,7 @@ interface Props {
   reload: () => void;
 }
 
+//Element that can take in a group to edit it, otherwise a Group can be added to the database
 export default function EditAddGroup(props: Props) {
   const [group, setGroup] = useState<Group>();
   useEffect(() => {
