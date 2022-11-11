@@ -59,12 +59,11 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
       if(groupId!=null){
         user.setGroup(groupService.findById(groupId));
         logger.info("added user to group");
-        return save(user);
       }else{
         user.setGroup(null);
         logger.info("remove user from group");
-        return save(user);
       }
+      return save(user);
 
     }
     throw new InstanceNotFoundException();
