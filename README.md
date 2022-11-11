@@ -5,6 +5,9 @@
 4. [Hints](#Hints)
 5. [ERD Diagram](#ERD-Diagram)
 6. [Domain Model](#Domain-Model)
+7. [Use Case Describe](#Use-Case-Describe)
+8. [Sequence Diagram](#Sequence-Diagram)
+9. [Test](#Test)
 # Prerequisites
 
 This project requires you to use the Java JDK Version 18. \
@@ -39,18 +42,26 @@ If you've set up the project correctly you should be able to access the endpoint
 - You can add mock data to your database on startup using an SQL script named `data.sql` placed in the resources folder
 - You can execute statements at startup by adding them to `AppStartupRunner.run()`
 
-# ERD-Diagram 
-
+# ERD Diagram 
+This is the ERD Diagram of our application.
 <img src="IMG/ERD.png" alt="ERD-Diagram">
 
-# Domain-Model
+# Domain Model
+This is the domain model of our application.\
+<img src="IMG/domain_Model.jpg" alt="Sequence-Diagram">
 
-<img src="IMG/domain_model.jpg" alt="Sequence-Diagram">
+# Use Case Describe
+This is a Use Case Describe for creating a group as an admin.
+<img src="IMG/use_case_beschreibung.jpg" alt="Sequence-Diagram">
+
+# Sequence Diagram
+This is a sequence diagram of the Administrating_group test in Cypress.
+<img src="IMG/Sequence_diagram.jpg" alt="Sequence-Diagram">
 
 # Testing
 
 We tested our application with Cypress & Postman.  
 To run the tests, you need to have the application running on localhost:3000. \
 Then you can run the Cypress tests with the command `npx cypress open` in the frontend terminal.
+For the Postman tests, you can import the collection from the Postman folder and run the tests.
 
-<img src="IMG/Sequence_diagram.jpg" alt="Sequence-Diagram">
