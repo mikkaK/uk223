@@ -1,42 +1,67 @@
+# Table of contents
+1. [Prerequisites](#Prerequisites)
+2. [Setup](#Setup)
+3. [Common Issues & Fixes](#Common-Issues-&-Fixes)
+4. [Hints](#Hints)
+5. [ERD Diagram](#ERD-Diagram)
+6. [Domain Model](#Domain-Model)
+7. [Use Case Describe](#Use-Case-Describe)
+8. [Sequence Diagram](#Sequence-Diagram)
+9. [Test](#Test)
 # Prerequisites
+
 This project requires you to use the Java JDK Version 18. \
 Please select the appropriate JDK in the IntelliJ project settings.
 
-You'll need a Docker container running **PostgreSQL** on port 5432. 
+You'll need a Docker container running **PostgreSQL** on port 5432.
 If you have not already, you can set up such a docker container using the command:
 
 `docker run --name postgres-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres`
 
-The username and password are assumed to be both "postgres". 
+The username and password are assumed to be both "postgres".
 You can change the username and password that hibernate uses in application.properties.
 
-
-
-
 # Setup
-Open the applicaiton in IntelliJ. you should be able to execute the application after IntelliJ has finished indexing all the files and building the gradle project.
-Build & Run the application (e.g. by runnung the bootRun Gradle task).
+
+Open the application in IntelliJ. you should be able to execute the application after IntelliJ has finished indexing all the files and building the gradle project.
+Build & Run the application (e.g. by running the bootRun Gradle task).
 
 the application should start and run now. You should see a message similar to this at the end of a long console log:\
-`2021-09-14 14:31:15.056  INFO 27988 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 4.122 seconds (JVM running for 4.991)`
+`2021-09-14 14:31:15.056 INFO 27988 --- [ main] com.example.demo.DemoApplication : Started DemoApplication in 4.122 seconds (JVM running for 4.991)`
 
+If you've set up the project correctly you should be able to access the endpoint `http://localhost:3000/` after logging in with the following user:
 
-If you've set up the project correctly you should be able to access the endpoint `http://localhost:8080/` after logging in with the following user:
+# Common Issues & Fixes 
 
-
-
-
-# Common Issues & Fixes
-* Restart the PostGreSQL container & check the container is running
-*	Confirm connection to the DB (e.g. in DBeaver)
-*	Restart IntelliJ & your Spring Boot application
-
+- Restart the PostGreSQL container & check the container is running
+- Confirm connection to the DB (e.g. in DBeaver)
+- Restart IntelliJ & your Spring Boot application
 
 # Hints
 
-* You can add mock data to your database on startup using an SQL script named `data.sql` placed in the resources folder
-* You can execute statements at startup by adding them to `AppStartupRunner.run()`
+- You can add mock data to your database on startup using an SQL script named `data.sql` placed in the resources folder
+- You can execute statements at startup by adding them to `AppStartupRunner.run()`
 
+# ERD Diagram 
+This is the ERD Diagram of our application.
+<img src="IMG/ERD.png" alt="ERD-Diagram">
 
+# Domain Model
+This is the domain model of our application.\
+<img src="IMG/domain_Model.jpg" alt="Sequence-Diagram">
 
+# Use Case Describe
+This is a Use Case Describe for creating a group as an admin.
+<img src="IMG/use_case_beschreibung.jpg" alt="Sequence-Diagram">
+
+# Sequence Diagram
+This is a sequence diagram of the Administrating_group test in Cypress.
+<img src="IMG/Sequence_diagram.jpg" alt="Sequence-Diagram">
+
+# Testing
+
+We tested our application with Cypress & Postman.  
+To run the tests, you need to have the application running on localhost:3000. \
+Then you can run the Cypress tests with the command `npx cypress open` in the frontend terminal.
+For the Postman tests, you can import the collection from the Postman folder and run the tests.
 
