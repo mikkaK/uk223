@@ -18,4 +18,6 @@ public interface GroupService extends ExtendedService<Group> {
 
     Set<UserDTO> findMembersOfGroup(UUID id, int page, int size);
 
+    void deleteGroup(UUID groupId) throws InstanceNotFoundException;
+
 }

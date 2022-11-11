@@ -3,6 +3,7 @@ package com.example.demo.domain.user;
 import com.example.demo.core.generic.ExtendedServiceImpl;
 import com.example.demo.domain.group.GroupService;
 import com.example.demo.domain.role.RoleService;
+import com.example.demo.domain.user.dto.UpdateUserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,19 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
         return save(user);
     }
     throw new InstanceNotFoundException();
+  }
+
+  @Override
+  public User updateUser(UUID userId, UpdateUserDTO dto) throws InstanceNotFoundException {
+    if (repository.existsById(userId)) {
+      User user = repository.findById(userId).get();
+      user.setEmail(dto.getEmail());
+      user.setFirstName(dto.getFirstName());
+      user.setLastName(dto.getLastName());
+      user.setGroup(dto.getGroup() != null ? groupService.findById(dto.getGroup().getId()) : null);
+      return save(user);
+    }
+    throw new InstanceNotFoundException("User doesn't exist");
   }
 
 }

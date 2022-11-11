@@ -4,6 +4,7 @@ import com.example.demo.core.security.helpers.AuthorizationSchemas;
 import com.example.demo.core.security.helpers.Credentials;
 import com.example.demo.core.security.helpers.JwtProperties;
 import com.example.demo.domain.user.UserDetailsImpl;
+import com.example.demo.domain.user.dto.UserMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -30,12 +31,14 @@ import java.util.Map;
 public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
     private final JwtProperties jwtProperties;
+    UserMapper userMapper;
     private static final Logger JWT_LOGGER = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
 
     public JWTAuthenticationFilter(RequestMatcher requestMatcher, AuthenticationManager authenticationManager,
             JwtProperties jwtProperties) {
         super(requestMatcher, authenticationManager);
         this.jwtProperties = jwtProperties;
+
     }
 
     private String generateToken(Authentication authResult) {

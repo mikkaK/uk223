@@ -17,4 +17,9 @@ public interface UserRepository extends ExtendedRepository<User> {
   @Query("select u from User u where u.group.id = :id")
   Set<User> findByGroup_Id(UUID id, PageRequest of);
 
+  @Query("select u from User u where u.group.id = :id")
+  Set<User> findByGroup_Id(UUID id);
+
+
+
 }

@@ -56,4 +56,17 @@ public class GroupServiceImpl extends ExtendedServiceImpl<Group> implements Grou
         Set<User> members = userRepository.findByGroup_Id(id, PageRequest.of(page, size));
         return userMapper.toDTOs(members);
     }
+
+    @Override
+    public void deleteGroup(UUID groupId) throws InstanceNotFoundException {
+        if (groupRepository.existsById(groupId)) {
+            Set<User> members = userRepository.findByGroup_Id(groupId);
+            for (User user : members) {
+                userRepository.save(user.setGroup(null));
+            }
+            groupRepository.deleteById(groupId);
+            return;
+        }
+        throw new InstanceNotFoundException("Group with id: " + groupId + " doesn't exist");
+    }
 }
