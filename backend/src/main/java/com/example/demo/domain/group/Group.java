@@ -2,6 +2,7 @@ package com.example.demo.domain.group;
 
 import com.example.demo.core.generic.ExtendedEntity;
 import com.example.demo.domain.user.User;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class Group extends ExtendedEntity {
     @Size(min = 1, max = 100)
     @NotNull
-    @Column(name = "group_name")
+    @Column(name = "group_name", unique = true)
     private String groupName;
     @Size(min = 1, max = 100)
     @NotNull
@@ -25,6 +26,7 @@ public class Group extends ExtendedEntity {
     private String groupMotto;
     @Size(min = 1, max = 255)
     @NotNull
+    @URL
     @Column(name = "group_logo")
     private String groupLogo;
 

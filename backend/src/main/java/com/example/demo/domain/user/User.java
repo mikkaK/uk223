@@ -6,6 +6,8 @@ import com.example.demo.domain.role.Role;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -14,17 +16,17 @@ import java.util.UUID;
 @Table(name = "users")
 public class User extends ExtendedEntity {
 
-
+  @Size(min = 2, max = 50)
   @Column(name = "first_name", nullable = false)
   private String firstName;
-
+  @Size(min = 2, max = 60)
   @Column(name = "last_name", nullable = false)
   private String lastName;
-
-
+  @Size(min = 2, max = 60)
+  @Email
   @Column(name = "email", unique = true, nullable = false)
   private String email;
-
+  @Size(min = 2, max = 80)
   @Column(name = "password", nullable = false)
   private String password;
   @ManyToMany(fetch = FetchType.EAGER)
