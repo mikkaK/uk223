@@ -6,10 +6,11 @@
 5. [Testing](#Testing)
     1. [Cypress Tests](#Cypress-Tests)
     1. [Postman Tests](#Postman-Tests)
-6. [ERD Diagram](#ERD-Diagram)
-7. [Domain Model](#Domain-Model)
+6. [Domain Model](#Domain-Model)
+7. [Use Case Diagram](#Use-Case-Diagram)
 8. [Use Case Describe](#Use-Case-Describe)
 9. [Sequence Diagram](#Sequence-Diagram)
+10. [ERD Diagram](#ERD-Diagram)
 
 
 # Prerequisites
@@ -62,21 +63,25 @@ Our Cypress tests cover the following use cases:
 
 ## Postman Tests
 Our Postman tests cover all our endpoints on authorization and response.
-# ERD Diagram 
-This is the ERD Diagram of our application. \
-<img src="IMG/ERD.png" alt="ERD-Diagram">
 
 # Domain Model
 This is the domain model of our application.\
 <img src="IMG/domain_model.jpg" alt="Domain-Model">
 
+# Use Case Diagram
+<img src="IMG/use_case_diagram.jpg" alt="Use-Case-Describe">
+
 # Use Case Describe
 This is a Use Case Describe for creating a group as an admin. \
-<img src="IMG/use_case_beschreibung.jpg" alt="Sequence-Diagram">
+<img src="IMG/use_case_beschreibung.jpg" alt="Use-Case-Describe">
 
 # Sequence Diagram
 This is a sequence diagram of the Administrating_group test in Cypress. \
 <img src="IMG/Sequence_diagram.jpg" alt="Sequence-Diagram">
+
+# ERD Diagram 
+This is the ERD Diagram of our application. \
+<img src="IMG/ERD.png" alt="ERD-Diagram">
 
 
 
