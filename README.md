@@ -51,7 +51,7 @@ If you've set up the project correctly you should be able to access the endpoint
 We tested our application with **Cypress & Postman**.  
 To run the tests, you need to have the application running on localhost:3000. \
 Then you can run the Cypress tests with the command `npx cypress open` in the frontend terminal. \
-For the Postman tests, you can import the collection from the Postman folder and run the tests. \
+For the Postman tests, you can import the collection from the Postman folder **(backend/src/test/postman)** and run the tests. \
 **You need to restart the backend  every time after running the collection, because it changes the data**
 ## Cypress Tests
 Our Cypress tests cover the following use cases: 
