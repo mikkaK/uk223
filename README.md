@@ -1,14 +1,19 @@
 # Table of contents
 1. [Prerequisites](#Prerequisites)
 2. [Setup](#Setup)
+    1. [Frontend](#Frontend)
+    2. [Backend](#Backend)
+    3. [Users](#Users)
 3. [Common Issues & Fixes](#Common-Issues-&-Fixes)
 4. [Hints](#Hints)
 5. [Testing](#Testing)
-    1. [Cypress Tests](#Cypress-Tests)
-    1. [Postman Tests](#Postman-Tests)
+    1. [cypress Setup](#cypress-Setup)
+    2. [Postman Setup](#Postman-Setup)
+    3. [Cypress Tests](#Cypress-Tests)
+    4. [Postman Tests](#Postman-Tests)
 6. [Domain Model](#Domain-Model)
 7. [Use Case Diagram](#Use-Case-Diagram)
-8. [Use Case Describe](#Use-Case-Describe)
+8. [Use Case Description](#Use-Case-Description)
 9. [Sequence Diagram](#Sequence-Diagram)
 10. [ERD Diagram](#ERD-Diagram)
 
@@ -28,12 +33,17 @@ You can change the username and password that hibernate uses in application.prop
 
 # Setup
 
-Open the application in IntelliJ. you should be able to execute the application after IntelliJ has finished indexing all the files and building the gradle project.
+## Frontend
+Open the frontend folder in Visual Studio Code. Open a Command Prompt Terminal and enter the command `yarn install` and after that `yarn start`. 
+
+## Backend
+Open the backend folder in IntelliJ. you should be able to execute the application after IntelliJ has finished indexing all the files and building the gradle project.
 Build & Run the application (e.g. by running the bootRun Gradle task).
 
 the application should start and run now. You should see a message similar to this at the end of a long console log:\
 `2021-09-14 14:31:15.056 INFO 27988 --- [ main] com.example.demo.DemoApplication : Started DemoApplication in 4.122 seconds (JVM running for 4.991)`
 
+## Users
 If you've set up the project correctly you should be able to access the endpoint `http://localhost:3000/` after logging in with the following user: \
 email: **admin@example.com** (admin) \
 password: **1234** \
@@ -57,9 +67,11 @@ password: **1234**
 
 We tested our application with **Cypress & Postman**.  
 To run the tests, you need to have the application running on localhost:3000. \
+## cypress Setup
 Then you can run the Cypress tests with the command `npx cypress open` in the frontend terminal. \
-For the Postman tests, you can import the collection from the Postman folder **(backend/src/test/postman)** and run the tests. \
-**You need to restart the backend  every time after running the collection, because it changes the data**
+## Postman Setup
+For the Postman tests, you can import the collection from the Postman folder **(backend/src/test/postman)** and run the tests. 
+
 ## Cypress Tests
 Our Cypress tests cover the following use cases: 
 * Only Admin can go to the the admin page (/admin) 
@@ -68,18 +80,18 @@ Our Cypress tests cover the following use cases:
 
 
 ## Postman Tests
-Our Postman tests cover all our endpoints on authorization and response.
+Our Postman tests cover all our endpoints on authorization and response. 
 
 # Domain Model
 This is the domain model of our application.\
-<img src="IMG/domain_model.jpg" alt="Domain-Model">
+<img src="IMG/domain_Model.jpg" alt="Domain-Model">
 
 # Use Case Diagram
 This is our Use Case Diagram.\
 <img src="IMG/use_case_diagram.jpg" alt="Use-Case-Describe">
 
-# Use Case Describe
-This is a Use Case Describe for creating a group as an admin. \
+# Use Case Description
+This is a Use Case Description for creating a group as an admin. \
 <img src="IMG/use_case_beschreibung.jpg" alt="Use-Case-Describe">
 
 # Sequence Diagram
