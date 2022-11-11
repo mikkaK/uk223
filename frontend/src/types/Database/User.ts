@@ -1,11 +1,10 @@
-type groupData={
-  id:string;
-}
+type groupData = {
+  id: string | null;
+};
 export type User = {
-    id: string;
-    firstName: string;
-    lastName:string;
-    email:string;
-    group?:groupData;
-  };
-  
+  id?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  group?: groupData;
+};

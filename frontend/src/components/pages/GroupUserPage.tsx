@@ -83,25 +83,9 @@ export function GroupUserPage() {
     return <></>;
   }
 
-  //note needs to be tested
-  function changeSubscription(newgroup: string) {
-    let url;
-    let data;
+  function changeSubscription(newgroup: string | null) {
     if (newgroup === user?.group?.id!) {
-      url = "http://localhost:8080/user/" + user?.id;
-      newgroup = "";
-      data = {
-        id: user?.id,
-        firstName: user?.firstName,
-        lastName: user?.lastName,
-        email: user?.email,
-      };
-    } else {
-      url = "http://localhost:8080/user/";
-      data = {
-        userId: user?.id,
-        groupId: newgroup,
-      };
+      newgroup = null;
     }
 
     let userCopy: User = {
@@ -114,8 +98,11 @@ export function GroupUserPage() {
 
     api({
       method: "PUT",
-      url: url,
-      data: data,
+      url: "http://localhost:8080/user/",
+      data: {
+        userId: user?.id,
+        groupId: newgroup,
+      },
     })
       .then((res) => {
         setUser(userCopy);

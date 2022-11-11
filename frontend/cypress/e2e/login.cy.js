@@ -20,9 +20,7 @@ describe("Login as admin", () => {
     cy.visit("http://localhost:3000/admin");
     cy.get("dl > :nth-child(2) > a").click();
     cy.url().should("eq", "http://localhost:3000/admin/user");
-    cy.get(
-      '[style="display: flex; box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 16px 0px, rgba(0, 0, 0, 0.19) 0px 6px 20px 0px; padding: 5px;"] > :nth-child(4) > a'
-    ).click();
+    cy.get(":nth-child(4) > a").click();
     cy.get("dl > :nth-child(4) > a").click();
     cy.url().should("eq", "http://localhost:3000/admin/group");
   });
