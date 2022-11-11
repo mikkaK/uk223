@@ -6,6 +6,7 @@ import { UserDisplay } from "../Molecules/UserDisplay";
 import AdminPageNav from "../Organism/AdminPageNav";
 import EditUser from "../Organism/EditUser";
 
+//Page where an admin can view and edit limit userdata.
 export function UserList() {
   const [users, setUsers] = useState<User[]>();
   const [groupMap, setGroupMap] = useState<Map<string, Group>>();

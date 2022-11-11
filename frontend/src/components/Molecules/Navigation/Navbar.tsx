@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+//Simple navbar to navigate to all important pages
 export default function Navbar() {
   return (
     <div style={flex}>

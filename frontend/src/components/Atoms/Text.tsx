@@ -6,6 +6,7 @@ interface Props {
   isBold?: Boolean;
 }
 
+//A Text display field to show some text depnding on settigs in the props
 export function Text(props: Props) {
   let styleToUse = styleNormal;
   if (props.isBold && props.isTitle) {

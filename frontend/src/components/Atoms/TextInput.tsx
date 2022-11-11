@@ -5,6 +5,7 @@ interface Props {
   field?: string;
 }
 
+//Simple text input field with a name for forms
 export function TextInput(props: Props) {
   return (
     <div>
