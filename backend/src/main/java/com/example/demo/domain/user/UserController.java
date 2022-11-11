@@ -1,9 +1,6 @@
 package com.example.demo.domain.user;
 
-import com.example.demo.domain.user.dto.JoinGroupDTO;
-import com.example.demo.domain.user.dto.UserDTO;
-import com.example.demo.domain.user.dto.UserMapper;
-import com.example.demo.domain.user.dto.UserRegisterDTO;
+import com.example.demo.domain.user.dto.*;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,9 +71,9 @@ public class UserController {
   @PutMapping("/{id}")
   @PreAuthorize(
       "hasAuthority('USER_MODIFY') || @userPermissionEvaluator.hasSameId(authentication.principal.user, #id)")
-  public ResponseEntity<UserDTO> updateById(@PathVariable UUID id, @Valid @RequestBody UserDTO userDTO) {
+  public ResponseEntity<UserDTO> updateById(@PathVariable UUID id, @Valid @RequestBody UpdateUserDTO userDTO) {
     logger.trace("updating user with id: {}", userDTO.getId());
-    User user = userService.updateById(id, userMapper.fromDTO(userDTO));
+    User user = userService.updateById(id, userMapper.updateUserDTOToUser(userDTO));
     logger.info("updated user with id: {}", user.getId());
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }
