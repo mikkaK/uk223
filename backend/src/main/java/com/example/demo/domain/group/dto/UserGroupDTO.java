@@ -1,12 +1,12 @@
 package com.example.demo.domain.group.dto;
 
+import com.example.demo.core.generic.ExtendedDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * A DTO for the {@link com.example.demo.domain.user.User} entity
@@ -15,8 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class UserGroupDTO implements Serializable {
-    private UUID id;
+public class UserGroupDTO extends ExtendedDTO implements Serializable {
     private String firstName;
     private String lastName;
     private String email;

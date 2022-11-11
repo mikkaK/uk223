@@ -34,29 +34,48 @@ public class GroupServiceImpl extends ExtendedServiceImpl<Group> implements Grou
         this.userMapper = userMapper;
     }
 
+    //method that gets the group of a user by the users ID
     @Override
-    public Group findByUserId(UUID userId) {
+    public Group findByUserId(UUID userId) throws InstanceNotFoundException {
         logger.trace("Searching group from user: {}", userId);
-        return groupRepository.findByMembers_Id(userId);
+        if (userRepository.existsById(userId)) {
+            Group group = groupRepository.findByMembers_Id(userId);
+            if (group == null){
+                throw new InstanceNotFoundException("user isn't a member of any group");
+            }
+            return group;
+        }
+        throw new InstanceNotFoundException("User with id: " + userId + " not found");
     }
 
+    //method which returns group by groups' ID
     @Override
     public Optional<Group> findByGroupId(UUID groupId) throws InstanceNotFoundException {
         logger.trace("Searching group with id: {}", groupId);
-        return groupRepository.findById(groupId);
+        if (groupRepository.existsById(groupId)) {
+            return groupRepository.findById(groupId);
+        }
+        throw new InstanceNotFoundException("Group with id: " + groupId + " not found");
     }
 
+    //method which creates and returns a new group
     @Override
     public Group createGroup(Group group) throws InstanceAlreadyExistsException {
-        return save(group);
+        if (!(groupRepository.existsById(group.getId()))) {
+            return save(group);
+        }
+        throw new InstanceAlreadyExistsException("Group already exists");
     }
-
+    //method which returns all members of given group by groups' ID
     @Override
-    public Set<UserDTO> findMembersOfGroup(UUID id, int page, int size) {
-        Set<User> members = userRepository.findByGroup_Id(id, PageRequest.of(page, size));
-        return userMapper.toDTOs(members);
+    public Set<UserDTO> findMembersOfGroup(UUID id, int page, int size) throws InstanceNotFoundException {
+        if (groupRepository.existsById(id)) {
+            Set<User> members = userRepository.findByGroup_Id(id, PageRequest.of(page, size));
+            return userMapper.toDTOs(members);
+        }
+        throw new InstanceNotFoundException("Group with id: " +id + " doesn't exist");
     }
-
+    //method which handles and deletes a group by groups' ID
     @Override
     public void deleteGroup(UUID groupId) throws InstanceNotFoundException {
         if (groupRepository.existsById(groupId)) {
