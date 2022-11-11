@@ -66,7 +66,10 @@ password: **1234**
 # Testing
 
 We tested our application with **Cypress & Postman**.  
-To run the tests, you need to have the application running on localhost:3000. \
+We chose **postman** for testing because it is simple, quickly done & effective. \
+The reason we chose **cypress** is because it is a very good & intuitive tool for testing the frontend. It was also new for Manuel, so he could learn something new. \
+We decided to not use JUnit because it's harder to implement and use than Cypress & Postman. \
+To run the tests, you need to have the application running on localhost:3000. 
 ## cypress Setup
 Then you can run the Cypress tests with the command `npx cypress open` in the frontend terminal. \
 ## Postman Setup
