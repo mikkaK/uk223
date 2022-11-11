@@ -53,7 +53,7 @@ public class GroupController {
     @GetMapping("/members/{id}")
     public ResponseEntity<Set<UserDTO>> retrieveAllMembers(@PathVariable UUID id,
                                                            @RequestParam(required = false, defaultValue = "0") int page,
-                                                           @RequestParam(required = false, defaultValue = "5") int size){
+                                                           @RequestParam(required = false, defaultValue = "5") int size) throws InstanceNotFoundException {
         logger.trace("fetching {} members of group {} on page {}", size,id, page);
         Set<UserDTO> members = groupService.findMembersOfGroup(id, page, size);
         logger.trace("returning {} members of group: {}", size, id);

@@ -5,18 +5,19 @@ import com.example.demo.domain.user.User;
 import com.example.demo.domain.user.UserRepository;
 import com.example.demo.domain.user.dto.UserDTO;
 import com.example.demo.domain.user.dto.UserMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class GroupServiceImpl extends ExtendedServiceImpl<Group> implements GroupService {
     GroupRepository groupRepository;
     UserRepository userRepository;
@@ -39,7 +40,7 @@ public class GroupServiceImpl extends ExtendedServiceImpl<Group> implements Grou
     public Group findByUserId(UUID userId) throws InstanceNotFoundException {
         logger.trace("Searching group from user: {}", userId);
         if (userRepository.existsById(userId)) {
-            Group group = groupRepository.findByMembers_Id(userId);
+            Group group = groupRepository.findByMembersId(userId);
             if (group == null){
                 throw new InstanceNotFoundException("user isn't a member of any group");
             }
@@ -60,17 +61,14 @@ public class GroupServiceImpl extends ExtendedServiceImpl<Group> implements Grou
 
     //method which creates and returns a new group
     @Override
-    public Group createGroup(Group group) throws InstanceAlreadyExistsException {
-        if (!(groupRepository.existsById(group.getId()))) {
+    public Group createGroup(Group group) {
             return save(group);
-        }
-        throw new InstanceAlreadyExistsException("Group already exists");
     }
     //method which returns all members of given group by groups' ID
     @Override
     public Set<UserDTO> findMembersOfGroup(UUID id, int page, int size) throws InstanceNotFoundException {
         if (groupRepository.existsById(id)) {
-            Set<User> members = userRepository.findByGroup_Id(id, PageRequest.of(page, size));
+            Set<User> members = userRepository.findByGroupId(id, PageRequest.of(page, size));
             return userMapper.toDTOs(members);
         }
         throw new InstanceNotFoundException("Group with id: " +id + " doesn't exist");
@@ -79,7 +77,7 @@ public class GroupServiceImpl extends ExtendedServiceImpl<Group> implements Grou
     @Override
     public void deleteGroup(UUID groupId) throws InstanceNotFoundException {
         if (groupRepository.existsById(groupId)) {
-            Set<User> members = userRepository.findByGroup_Id(groupId);
+            Set<User> members = userRepository.findByGroupId(groupId);
             for (User user : members) {
                 userRepository.save(user.setGroup(null));
             }

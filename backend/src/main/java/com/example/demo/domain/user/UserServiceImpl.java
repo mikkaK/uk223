@@ -24,21 +24,16 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
   private final GroupService groupService;
   private final RoleService roleService;
 
-  private final UserRepository userRepository;
-  private final Logger logger;
-
   @Autowired
   public UserServiceImpl(UserRepository repository,
                          BCryptPasswordEncoder passwordEncoder,
                          GroupService groupService,
                          RoleService roleService,
-                         UserRepository userRepository, Logger logger) {
+                         Logger logger) {
     super(repository,logger);
     this.passwordEncoder = passwordEncoder;
     this.groupService = groupService;
     this.roleService = roleService;
-    this.userRepository = userRepository;
-    this.logger = logger;
   }
 
   @Override
