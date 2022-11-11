@@ -56,7 +56,6 @@ export default function EditUser(props: Props) {
   }
 
   function save() {
-    console.log(user);
     let method;
     let data;
     let url;

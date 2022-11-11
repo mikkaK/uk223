@@ -1,19 +1,15 @@
-import { Authority } from '../types/models/Authority.model';
-import { Role } from '../types/models/Role.model';
+import { Authority } from "../types/models/Authority.model";
+import { Role } from "../types/models/Role.model";
 
 const authoritySet = new Set();
 
 const AuthorityService = {
   initAuthoritySet: (
-    
-    user = JSON.parse(localStorage.getItem('user') || '{}')
+    user = JSON.parse(localStorage.getItem("user") || "{}")
   ) => {
-    console.log("authority");
-    console.log(user)
     const roles = user && user.roles ? user.roles : [];
     roles.forEach((role: Role) => {
       role.authorities.forEach((authority: Authority) => {
-        
         authoritySet.add(authority.name);
       });
     });
@@ -21,7 +17,7 @@ const AuthorityService = {
   hasAuthority: (authority: string) => {
     AuthorityService.initAuthoritySet();
     return authoritySet.has(authority);
-  }, 
+  },
   hasAuthorities: (authorities: Authority[]) => {
     AuthorityService.initAuthoritySet();
     for (const element of authorities) {

@@ -48,10 +48,6 @@ export function GroupUserPage() {
     getGroups();
   }, []);
 
-  useEffect(() => {
-    console.log("user changed");
-  }, [user]);
-
   if (groups && user) {
     return (
       <div>

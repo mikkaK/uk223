@@ -25,7 +25,6 @@ const Router = () => {
   //const { checkRole } = useContext(ActiveUserContext);
 
   /** navigate to different "home"-locations depending on Role the user have */
-  console.log(localStorage.getItem(TOKEN_LOCAL_STORAGE_KEY));
   return (
     <Routes>
       <Route path={"/"} element={<HomePage />} />
