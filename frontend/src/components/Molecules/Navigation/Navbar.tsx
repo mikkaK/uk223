@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <div style={flex}>
       <div style={useMaxWidth}>
-        <Link to={"/Login"}>Login</Link>
+        <Link to={"/login"}>Login</Link>
       </div>
       <div style={useMaxWidth}>
         <Link to={"/group"}>Group</Link>

@@ -13,11 +13,11 @@ export function GroupInspect() {
   const [group, setGroup] = useState<Group>();
   const [users, setUsers] = useState<User[]>();
   const [page, setPage] = useState<number>(1);
-  const [imagesPerPage, setImagesPerPage] = useState<number>(10);
-  const [errorOccured, setErrorHasOccured] = useState(false);
+  const [imagesPerPage, setImagesPerPage] = useState<number>(5);
   let usersElement;
   let errorElement;
-  const getGroup = async function () {
+
+  async function getGroup() {
     api({
       method: "GET",
       url: "http://localhost:8080/group/" + groupId,
@@ -32,11 +32,10 @@ export function GroupInspect() {
       })
       .catch((e) => {
         console.log(e);
-        setErrorHasOccured(true);
       });
-  };
+  }
 
-  const getUsers = async function () {
+  async function getUsers() {
     api({
       method: "GET",
       url:
@@ -52,9 +51,9 @@ export function GroupInspect() {
       })
       .catch((e) => {
         console.log(e);
-        setErrorHasOccured(true);
       });
-  };
+  }
+
   useEffect(() => {
     getGroup();
     getUsers();
