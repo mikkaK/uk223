@@ -17,12 +17,14 @@ export default function EditAddGroup(props: Props) {
     setGroup(undefined);
   }, [props]);
 
+  //sets the group to some standart values
   if (props.group && !group) {
     setGroup(props.group);
   } else if (!group) {
     setGroup({ groupLogo: "", groupName: "", groupMotto: "" });
   }
 
+  //if the editable group is set show the editable elements
   if (group) {
     return (
       <>
@@ -63,6 +65,7 @@ export default function EditAddGroup(props: Props) {
     return <div>Error</div>;
   }
 
+  //sends a PUT or POST request to add/modify a group, this depends on if the props.group is set or not
   function save() {
     let method;
     let data;
@@ -84,7 +87,6 @@ export default function EditAddGroup(props: Props) {
         groupMotto: group?.groupMotto,
       };
     }
-
     api({
       method: method,
       url: "http://localhost:8080/group",
@@ -98,6 +100,7 @@ export default function EditAddGroup(props: Props) {
       });
   }
 
+  //function to modify the Group indepth
   function modifyGroup(newValue: string, field?: string) {
     let modifiedGroup: Group = {
       groupLogo: group?.groupLogo!,
