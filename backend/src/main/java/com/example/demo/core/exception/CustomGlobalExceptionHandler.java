@@ -29,7 +29,7 @@ public class CustomGlobalExceptionHandler {
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
   public ResponseError handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest request) {
     return new ResponseError().setTimeStamp(LocalDate.now())
                               .setErrors(ex.getBindingResult()
@@ -41,14 +41,20 @@ public class CustomGlobalExceptionHandler {
   }
 
   @ExceptionHandler(InstanceNotFoundException.class)
-  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  @ResponseStatus(value = HttpStatus.NOT_FOUND)
   public ResponseError handleInstanceNotFound(InstanceNotFoundException ex, HttpServletRequest request){
     return new ResponseError().setTimeStamp(LocalDate.now()).build();
   }
 
   @ExceptionHandler(InstanceAlreadyExistsException.class)
-  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  @ResponseStatus(value = HttpStatus.ALREADY_REPORTED)
   public ResponseError handleInstanceAlreadyExists(InstanceAlreadyExistsException ex){
+    return new ResponseError().setTimeStamp(LocalDate.now()).build();
+  }
+
+  @ExceptionHandler(Exception.class)
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  public ResponseError handleException(Exception ex){
     return new ResponseError().setTimeStamp(LocalDate.now()).build();
   }
 
