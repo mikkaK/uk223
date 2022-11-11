@@ -66,7 +66,7 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
         return save(user);
       }else{
         user.setGroup(null);
-        logger.info("added user to group");
+        logger.info("remove user from group");
         return save(user);
       }
 
