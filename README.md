@@ -69,6 +69,7 @@ This is the domain model of our application.\
 <img src="IMG/domain_model.jpg" alt="Domain-Model">
 
 # Use Case Diagram
+This is our Use Case Diagram.\
 <img src="IMG/use_case_diagram.jpg" alt="Use-Case-Describe">
 
 # Use Case Describe
