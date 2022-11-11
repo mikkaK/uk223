@@ -84,7 +84,7 @@ Our Postman tests cover all our endpoints on authorization and response.
 
 # Domain Model
 This is the domain model of our application.\
-<img src="IMG/domain_Model.jpg" alt="Domain-Model">
+<img src="IMG/domain_model.jpg" alt="Domain-Model">
 
 # Use Case Diagram
 This is our Use Case Diagram.\
