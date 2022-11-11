@@ -1,0 +1,1194 @@
+{
+	"info": {
+		"_postman_id": "af42779a-2de1-4f9a-ab5a-d5828f69907b",
+		"name": "Uek233 Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20292233"
+	},
+	"item": [
+		{
+			"name": "Login admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response contains user Object\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.expect(jsonData).to.have.property(\"firstName\");\r",
+							"    pm.expect(jsonData).to.have.property(\"lastName\");\r",
+							"    pm.expect(jsonData).to.have.property(\"email\");\r",
+							"    pm.expect(jsonData).to.have.property(\"roles\");\r",
+							"});\r",
+							"pm.test(\"JWT is present\", function () {\r",
+							"    pm.response.to.have.header(\"Authorization\");\r",
+							"    pm.environment.set(\"adminToken\", pm.response.headers.get(\"Authorization\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"admin@example.com\",\r\n    \"password\" : \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$baseURL}}/user/login",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response contains user Object\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"        pm.environment.set(\"userId\", jsonData.id);\r",
+							"    pm.expect(jsonData).to.have.property(\"firstName\");\r",
+							"        pm.environment.set(\"userFirstName\", jsonData.firstName);\r",
+							"    pm.expect(jsonData).to.have.property(\"lastName\");\r",
+							"        pm.environment.set(\"userLastName\", jsonData.lastname);\r",
+							"    pm.expect(jsonData).to.have.property(\"email\");\r",
+							"        pm.environment.set(\"userEmail\", jsonData.email);\r",
+							"    pm.expect(jsonData).to.have.property(\"roles\");\r",
+							"});\r",
+							"pm.test(\"JWT is present\", function () {\r",
+							"    pm.response.to.have.header(\"Authorization\");\r",
+							"    pm.environment.set(\"userToken\", pm.response.headers.get(\"Authorization\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"user@example.com\",\r\n    \"password\" : \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$baseURL}}/user/login",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new user as admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains user Object\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.environment.set(\"testUserID\", jsonData.id);\r",
+							"    pm.expect(jsonData).to.have.property(\"firstName\");\r",
+							"    pm.environment.set(\"testUserFirstname\", jsonData.firstName);\r",
+							"    pm.expect(jsonData).to.have.property(\"lastName\");\r",
+							"    pm.environment.set(\"testUserLastName\", jsonData.lastName);\r",
+							"    pm.expect(jsonData).to.have.property(\"email\");\r",
+							"    pm.environment.set(\"testUserEmail\", jsonData.email);\r",
+							"    pm.expect(jsonData).to.have.property(\"roles\");\r",
+							"    pm.environment.set(\"testUserGroup\", jsonData.group);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastName\" : \"{{$randomLastName}}\",\r\n    \"email\" : \"{{$randomExampleEmail}}\",\r\n    \"password\" : \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$baseURL}}/user/register",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new Group as admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains Group object\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.environment.set(\"testGroupID\", jsonData.id);\r",
+							"    pm.expect(jsonData).to.have.property(\"groupName\");\r",
+							"        pm.environment.set(\"testGroupName\", jsonData.groupName);\r",
+							"    pm.expect(jsonData).to.have.property(\"groupMotto\");\r",
+							"        pm.environment.set(\"testGroupMotto\", jsonData.groupMotto);\r",
+							"    pm.expect(jsonData).to.have.property(\"groupLogo\");\r",
+							"        pm.environment.set(\"testGroupLogo\", jsonData.groupLogo);\r",
+							"    pm.expect(jsonData).to.have.property(\"members\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"groupName\": \"{{$randomWord}}\",\r\n    \"groupMotto\": \"{{$randomCatchPhrase}}\",\r\n    \"groupLogo\": \"{{$randomImageUrl}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$baseURL}}/group/",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"group",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modifiy user as admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Successfully updated last name of user\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.lastName).to.eql(\"Updated User for testing\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains user Object\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.environment.set(\"testUserID\", jsonData.id);\r",
+							"    pm.expect(jsonData).to.have.property(\"firstName\");\r",
+							"    pm.environment.set(\"testUserFirstname\", jsonData.firstName);\r",
+							"    pm.expect(jsonData).to.have.property(\"lastName\");\r",
+							"    pm.environment.set(\"testUserLastName\", jsonData.lastName);\r",
+							"    pm.expect(jsonData).to.have.property(\"email\");\r",
+							"    pm.environment.set(\"testUserEmail\", jsonData.email);\r",
+							"    pm.expect(jsonData).to.have.property(\"roles\");\r",
+							"    pm.environment.set(\"testUserGroup\", jsonData.group);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"{{testUserID}}\",\r\n    \"firstName\" : \"{{testUserFirstname}}\",\r\n    \"lastName\" : \"Updated User for testing\",\r\n    \"email\" : \"{{testUserEmail}}\",\r\n    \"group\" : null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$baseURL}}/user/{{testUserID}}",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"user",
+						"{{testUserID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modifiy user as user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Successfully updated last name of user\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.lastName).to.eql(\"Updated User for testing\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains user Object\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.environment.set(\"userId\", jsonData.id);\r",
+							"    pm.expect(jsonData).to.have.property(\"firstName\");\r",
+							"    pm.environment.set(\"userFirstName\", jsonData.firstName);\r",
+							"    pm.expect(jsonData).to.have.property(\"lastName\");\r",
+							"    pm.environment.set(\"userLastName\", jsonData.lastName);\r",
+							"    pm.expect(jsonData).to.have.property(\"email\");\r",
+							"    pm.environment.set(\"userEmail\", jsonData.email);\r",
+							"    pm.expect(jsonData).to.have.property(\"roles\");\r",
+							"    pm.environment.set(\"userGroup\", jsonData.group);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{userToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"{{userId}}\",\r\n    \"firstName\" : \"{{userFirstName}}\",\r\n    \"lastName\" : \"Updated User for testing\",\r\n    \"email\" : \"{{userEmail}}\",\r\n    \"group\" : null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$baseURL}}/user/{{userId}}",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"user",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modifiy user as foreign user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{userToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"{{testUserID}}\",\r\n    \"firstName\" : \"{{testUserFirstname}}\",\r\n    \"lastName\" : \"Updated User for testing\",\r\n    \"email\" : \"{{testUserEmail}}\",\r\n    \"group\" : {{testUserGroup}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$baseURL}}/user/{{testUserID}}",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"user",
+						"{{testUserID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modify Group as admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains Group object\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.expect(jsonData).to.have.property(\"groupName\");\r",
+							"    pm.expect(jsonData).to.have.property(\"groupMotto\");\r",
+							"    pm.expect(jsonData).to.have.property(\"groupLogo\");\r",
+							"    pm.expect(jsonData).to.have.property(\"members\");\r",
+							"\r",
+							"\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"{{testGroupID}}\",\r\n    \"groupName\" : \"{{testGroupName}}\",\r\n    \"groupMotto\" : \"Updated group Motto\",\r\n    \"groupLogo\" : \"{{testGroupLogo}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$baseURL}}/group/",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"group",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modify Group as user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{userToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"{{testGroupID}}\",\r\n    \"groupName\" : \"{{testGroupName}}\",\r\n    \"groupMotto\" : \"Updated group Motto\",\r\n    \"groupLogo\" : \"{{testGroupLogo}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$baseURL}}/group/",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"group",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add user to group as admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains user Object\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.environment.set(\"testUserID\", jsonData.id);\r",
+							"    pm.expect(jsonData).to.have.property(\"firstName\");\r",
+							"    pm.environment.set(\"testUserFirstname\", jsonData.firstName);\r",
+							"    pm.expect(jsonData).to.have.property(\"lastName\");\r",
+							"    pm.environment.set(\"testUserLastName\", jsonData.lastName);\r",
+							"    pm.expect(jsonData).to.have.property(\"email\");\r",
+							"    pm.environment.set(\"testUserEmail\", jsonData.email);\r",
+							"    pm.expect(jsonData).to.have.property(\"roles\");\r",
+							"    pm.environment.set(\"testUserGroup\", jsonData.group);\r",
+							"    pm.expect(jsonData.group).to.have.property(\"id\")\r",
+							"    pm.environment.set(\"userGroup\", jsonData.group.id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\" : \"{{testUserID}}\",\r\n    \"groupId\" : \"{{testGroupID}}\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$baseURL}}/user/",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all groups as admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Groups are present in body\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.be.greaterThan(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$baseURL}}/group/",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"group",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all groups as User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Groups are present in body\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.be.greaterThan(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{userToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$baseURL}}/group/",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"group",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all users as admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.be.greaterThan(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$baseURL}}/user/",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users as user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response object amount is greater than 0\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.be.greaterThan(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{userToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$baseURL}}/user/",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all members of group as admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response object amount is greater than 0\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.be.greaterThan(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$baseURL}}/group/members/{{testGroupID}}",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"group",
+						"members",
+						"{{testGroupID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all members of group as non member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{userToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$baseURL}}/group/members/{{testGroupID}}",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"group",
+						"members",
+						"{{testGroupID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add user to group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains user Object\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.environment.set(\"testUserID\", jsonData.id);\r",
+							"    pm.expect(jsonData).to.have.property(\"firstName\");\r",
+							"    pm.environment.set(\"testUserFirstname\", jsonData.firstName);\r",
+							"    pm.expect(jsonData).to.have.property(\"lastName\");\r",
+							"    pm.environment.set(\"testUserLastName\", jsonData.lastName);\r",
+							"    pm.expect(jsonData).to.have.property(\"email\");\r",
+							"    pm.environment.set(\"testUserEmail\", jsonData.email);\r",
+							"    pm.expect(jsonData).to.have.property(\"roles\");\r",
+							"    pm.environment.set(\"testUserGroup\", jsonData.group);\r",
+							"    pm.expect(jsonData.group).to.have.property(\"id\")\r",
+							"    pm.environment.set(\"userGroup\", jsonData.group.id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\" : \"{{userId}}\",\r\n    \"groupId\" : \"{{testGroupID}}\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$baseURL}}/user/",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all members of group as member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response object amount is greater than 0\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.be.greaterThan(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{userToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$baseURL}}/group/members/{{testGroupID}}",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"group",
+						"members",
+						"{{testGroupID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete test user as user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{userToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{$baseURL}}/user/{{testUserID}}",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"user",
+						"{{testUserID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Group as user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{userToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{$baseURL}}/group/{{testGroupID}}",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"group",
+						"{{testGroupID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete test user as admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{$baseURL}}/user/{{testUserID}}",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"user",
+						"{{testUserID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Group as admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{$baseURL}}/group/{{testGroupID}}",
+					"host": [
+						"{{$baseURL}}"
+					],
+					"path": [
+						"group",
+						"{{testGroupID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "$baseURL",
+			"value": "http://localhost:8080"
+		}
+	]
+}
