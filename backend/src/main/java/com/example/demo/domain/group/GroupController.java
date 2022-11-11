@@ -42,6 +42,7 @@ public class GroupController {
         return new ResponseEntity<>(groupMapper.toDTOs(groups), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('USER_READ') || @userPermissionEvaluator.isMemberOfGroup(#id, authentication.principal.user)")
     @GetMapping("/members/{id}")
     public ResponseEntity<Set<UserDTO>> retrieveAllMembers(@PathVariable UUID id,
                                                            @RequestParam(required = false, defaultValue = "0") int page,
@@ -52,7 +53,7 @@ public class GroupController {
        return new ResponseEntity<>(members,HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('USER_READ') || @userPermissionEvaluator.isMemberOfGroup(groupId, authentication.principal.user)")
+    @PreAuthorize("hasAuthority('USER_READ') || @userPermissionEvaluator.isMemberOfGroup(#groupId, authentication.principal.user)")
     @GetMapping("/{groupId}")
     public ResponseEntity<GroupDTO> retrieveGroupById(@PathVariable UUID groupId){
         logger.trace("fetching group by id: {}", groupId);

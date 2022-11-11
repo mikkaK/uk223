@@ -29,56 +29,54 @@ import java.util.Map;
 
 public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
-  private final JwtProperties jwtProperties;
-  private static final Logger JWT_LOGGER = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
+    private final JwtProperties jwtProperties;
+    private static final Logger JWT_LOGGER = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
 
-
-  public JWTAuthenticationFilter(RequestMatcher requestMatcher, AuthenticationManager authenticationManager,
-                                 JwtProperties jwtProperties) {
-    super(requestMatcher, authenticationManager);
-    this.jwtProperties = jwtProperties;
-  }
-
-  private String generateToken(Authentication authResult) {
-    UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authResult.getPrincipal();
-    byte[] keyBytes = Decoders.BASE64.decode(jwtProperties.getSecret());
-
-    return Jwts.builder()
-               .setClaims(Map.of("sub", userDetailsImpl.user()
-                                                       .getId(), "authorities", userDetailsImpl.getAuthorities()))
-               .setIssuedAt(new Date())
-               .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getExpirationMillis()))
-               .setIssuer(jwtProperties.getIssuer())
-               .signWith(Keys.hmacShaKeyFor(keyBytes))
-               .compact();
-  }
-
-  @Override
-  public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-      throws AuthenticationException, IOException {
-    try {
-      Credentials credentials = new ObjectMapper().readValue(request.getInputStream(), Credentials.class);
-      return getAuthenticationManager().authenticate(
-          new UsernamePasswordAuthenticationToken(credentials.getEmail(), credentials.getPassword()));
+    public JWTAuthenticationFilter(RequestMatcher requestMatcher, AuthenticationManager authenticationManager,
+            JwtProperties jwtProperties) {
+        super(requestMatcher, authenticationManager);
+        this.jwtProperties = jwtProperties;
     }
-    catch (IOException e) {
-      JWT_LOGGER.error("Exception while Authentication thrown.", e);
-      return null;
+
+    private String generateToken(Authentication authResult) {
+        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authResult.getPrincipal();
+        byte[] keyBytes = Decoders.BASE64.decode(jwtProperties.getSecret());
+
+        return Jwts.builder()
+                .setClaims(Map.of("sub", userDetailsImpl.user()
+                        .getId(), "authorities", userDetailsImpl.getAuthorities()))
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getExpirationMillis()))
+                .setIssuer(jwtProperties.getIssuer())
+                .signWith(Keys.hmacShaKeyFor(keyBytes))
+                .compact();
     }
-  }
 
-  @Override
-  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-                                          Authentication authResult) throws IOException {
-    response.addHeader(HttpHeaders.AUTHORIZATION, AuthorizationSchemas.BEARER + " " + generateToken(authResult));
-    UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authResult.getPrincipal();
-    response.getWriter().write(new ObjectMapper().writeValueAsString(userDetailsImpl.user().setPassword("")));
-  }
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException, IOException {
+        try {
+            Credentials credentials = new ObjectMapper().readValue(request.getInputStream(), Credentials.class);
+            return getAuthenticationManager().authenticate(
+                    new UsernamePasswordAuthenticationToken(credentials.getEmail(), credentials.getPassword()));
+        } catch (IOException e) {
+            JWT_LOGGER.error("Exception while Authentication thrown.", e);
+            return null;
+        }
+    }
 
-  @Override
-  protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-                                            AuthenticationException failed) {
-    SecurityContextHolder.clearContext();
-    response.setStatus(HttpStatus.UNAUTHORIZED.value());
-  }
+    @Override
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+            Authentication authResult) throws IOException {
+        response.addHeader(HttpHeaders.AUTHORIZATION, AuthorizationSchemas.BEARER + " " + generateToken(authResult));
+        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authResult.getPrincipal();
+        response.getWriter().write(new ObjectMapper().writeValueAsString(userDetailsImpl.user().setPassword("")));
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException failed) {
+        SecurityContextHolder.clearContext();
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+    }
 }

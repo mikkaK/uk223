@@ -1,6 +1,5 @@
 package com.example.demo.domain.group;
 
-
 import com.example.demo.core.generic.ExtendedServiceImpl;
 import com.example.demo.domain.user.User;
 import com.example.demo.domain.user.UserRepository;
@@ -11,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,12 +21,13 @@ public class GroupServiceImpl extends ExtendedServiceImpl<Group> implements Grou
     GroupRepository groupRepository;
     UserRepository userRepository;
     UserMapper userMapper;
+
     @Autowired
     protected GroupServiceImpl(GroupRepository repository,
-                               Logger logger,
-                               GroupRepository groupRepository,
-                               UserRepository userRepository,
-                               UserMapper userMapper) {
+            Logger logger,
+            GroupRepository groupRepository,
+            UserRepository userRepository,
+            UserMapper userMapper) {
         super(repository, logger);
         this.groupRepository = groupRepository;
         this.userRepository = userRepository;
@@ -32,13 +35,19 @@ public class GroupServiceImpl extends ExtendedServiceImpl<Group> implements Grou
     }
 
     @Override
-    public Group findByUserId(UUID userId){
+    public Group findByUserId(UUID userId) {
         logger.trace("Searching group from user: {}", userId);
         return groupRepository.findByMembers_Id(userId);
     }
 
     @Override
-    public Group createGroup(Group group){
+    public Optional<Group> findByGroupId(UUID groupId) throws InstanceNotFoundException {
+        logger.trace("Searching group with id: {}", groupId);
+        return groupRepository.findById(groupId);
+    }
+
+    @Override
+    public Group createGroup(Group group) throws InstanceAlreadyExistsException {
         return save(group);
     }
 

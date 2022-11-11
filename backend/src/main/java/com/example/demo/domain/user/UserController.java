@@ -38,7 +38,7 @@ public class UserController {
     this.logger = logger;
   }
   @PreAuthorize(
-          "hasAuthority('USER_READ') || @userPermissionEvaluator.hasSameId(authentication.principal.user, id)")
+          "hasAuthority('USER_READ') || @userPermissionEvaluator.hasSameId(authentication.principal.user, #id)")
   @GetMapping("/{id}")
   public ResponseEntity<UserDTO> retrieveById(@PathVariable UUID id) {
     logger.trace("fetching user with id: {}", id);
@@ -73,7 +73,7 @@ public class UserController {
   @Transactional
   @PutMapping("/{id}")
   @PreAuthorize(
-      "hasAuthority('USER_MODIFY') || @userPermissionEvaluator.hasSameId(authentication.principal.user, id)")
+      "hasAuthority('USER_MODIFY') || @userPermissionEvaluator.hasSameId(authentication.principal.user, #id)")
   public ResponseEntity<UserDTO> updateById(@PathVariable UUID id, @Valid @RequestBody UserDTO userDTO) {
     logger.trace("updating user with id: {}", userDTO.getId());
     User user = userService.updateById(id, userMapper.fromDTO(userDTO));
