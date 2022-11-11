@@ -1,16 +1,9 @@
-import React from 'react';
-import logo from '../../logo1.png';
+import Navbar from "../Molecules/Navigation/Navbar";
 
 export default function HomePage() {
   return (
     <div>
-      <img
-        src={logo}
-        style={{ filter: 'invert(100%)' }}
-        className='App-logo'
-        alt='logo'
-      />
-      <p>PlaceHolder</p>
+      <Navbar />
     </div>
   );
 }

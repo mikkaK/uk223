@@ -1,49 +1,62 @@
 package com.example.demo.domain.user;
 
 import com.example.demo.core.generic.ExtendedEntity;
+import com.example.demo.domain.group.Group;
 import com.example.demo.domain.role.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
 public class User extends ExtendedEntity {
 
-  @Column(name = "first_name")
+  @Size(min = 2, max = 50)
+  @Column(name = "first_name", nullable = false)
   private String firstName;
-
-  @Column(name = "last_name")
+  @Size(min = 2, max = 60)
+  @Column(name = "last_name", nullable = false)
   private String lastName;
-
+  @Size(min = 2, max = 60)
+  @Email
   @Column(name = "email", unique = true, nullable = false)
   private String email;
-
-  @Column(name = "password")
+  @Size(min = 2, max = 80)
+  @Column(name = "password", nullable = false)
   private String password;
-
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
              inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
   private Set<Role> roles = new HashSet<>();
 
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "group_id")
+  @JsonBackReference
+  private Group group;
+
+  public void addRole(Role role){
+    if (this.roles == null){
+      this.roles = new HashSet<>();
+    }
+    this.roles.add(role);
+  }
+
   public User() {
   }
 
-  public User(UUID id, String firstName, String lastName, String email, String password, Set<Role> roles) {
+  public User(UUID id, String firstName, String lastName, String email, String password, Set<Role> roles, Group group) {
     super(id);
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.password = password;
     this.roles = roles;
+    this.group = group;
   }
 
   public String getFirstName() {
@@ -90,4 +103,14 @@ public class User extends ExtendedEntity {
     this.roles = roles;
     return this;
   }
+
+  public Group getGroup() {
+    return group;
+  }
+
+  public User setGroup(Group group) {
+    this.group = group;
+    return this;
+  }
+
 }
