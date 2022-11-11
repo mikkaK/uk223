@@ -4,24 +4,21 @@ import com.example.demo.core.generic.ExtendedDTO;
 import com.example.demo.domain.role.dto.RoleDTO;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.Set;
 import java.util.UUID;
 
 public class UserRegisterDTO extends ExtendedDTO {
-  @Min(1)
-  @Max(40)
+
+  @Size(min = 1, max = 60)
   private String firstName;
-  @Min(1)
-  @Max(40)
+  @Size(min = 1, max = 60)
+
   private String lastName;
-  @Min(1)
-  @Max(50)
+  @Size(min = 1, max = 80)
   @Email
   private String email;
-  @Min(1)
-  @Max(40)
+  @Size(min = 1, max = 80)
   private String password;
 
   private Set<RoleDTO> roles;

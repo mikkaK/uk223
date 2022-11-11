@@ -71,9 +71,9 @@ public class UserController {
   @PutMapping("/{id}")
   @PreAuthorize(
       "hasAuthority('USER_MODIFY') || @userPermissionEvaluator.hasSameId(authentication.principal.user, #id)")
-  public ResponseEntity<UserDTO> updateById(@PathVariable UUID id, @Valid @RequestBody UpdateUserDTO userDTO) {
+  public ResponseEntity<UserDTO> updateById(@PathVariable UUID id, @Valid @RequestBody UpdateUserDTO userDTO) throws InstanceNotFoundException {
     logger.trace("updating user with id: {}", userDTO.getId());
-    User user = userService.updateById(id, userMapper.updateUserDTOToUser(userDTO));
+    User user = userService.updateUser(id, userDTO);
     logger.info("updated user with id: {}", user.getId());
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }

@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
@@ -69,7 +70,7 @@ public class GroupController {
         Group group = groupMapper.fromDTO(groupDTO);
         groupService.createGroup(group);
         logger.info("created new group '{}' with id: {}", group.getGroupName(), group.getId());
-        return new ResponseEntity<>(group, HttpStatus.OK);
+        return new ResponseEntity<>(group, HttpStatus.CREATED);
     }
     @Transactional
     @PreAuthorize("hasAuthority('USER_MODIFY')")
@@ -84,9 +85,9 @@ public class GroupController {
     @Transactional
     @PreAuthorize("hasAuthority('USER_DELETE')")
     @DeleteMapping("/{groupId}")
-    public ResponseEntity<Void> deleteGroup(@PathVariable UUID groupId){
+    public ResponseEntity<Void> deleteGroup(@PathVariable UUID groupId) throws InstanceNotFoundException {
         logger.trace("deleting group with id: {}", groupId);
-        groupService.deleteById(groupId);
+        groupService.deleteGroup(groupId);
         logger.info("group deleted");
         return new ResponseEntity<>(HttpStatus.OK);
     }
