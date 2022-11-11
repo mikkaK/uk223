@@ -1,3 +1,10 @@
+# Table of contents
+1. [Prerequisites](#Prerequisites)
+2. [Setup](#Setup)
+3. [Common Issues & Fixes](#Common-Issues-&-Fixes)
+4. [Hints](#Hints)
+5. [ERD Diagram](#ERD-Diagram)
+6. [Domain Model](#Domain-Model)
 # Prerequisites
 
 This project requires you to use the Java JDK Version 18. \
@@ -19,9 +26,9 @@ Build & Run the application (e.g. by running the bootRun Gradle task).
 the application should start and run now. You should see a message similar to this at the end of a long console log:\
 `2021-09-14 14:31:15.056 INFO 27988 --- [ main] com.example.demo.DemoApplication : Started DemoApplication in 4.122 seconds (JVM running for 4.991)`
 
-If you've set up the project correctly you should be able to access the endpoint `http://localhost:8080/` after logging in with the following user:
+If you've set up the project correctly you should be able to access the endpoint `http://localhost:3000/` after logging in with the following user:
 
-# Common Issues & Fixes
+# Common Issues & Fixes 
 
 - Restart the PostGreSQL container & check the container is running
 - Confirm connection to the DB (e.g. in DBeaver)
@@ -32,16 +39,18 @@ If you've set up the project correctly you should be able to access the endpoint
 - You can add mock data to your database on startup using an SQL script named `data.sql` placed in the resources folder
 - You can execute statements at startup by adding them to `AppStartupRunner.run()`
 
-# ERD Diagram
+# ERD-Diagram 
 
 <img src="IMG/ERD.png" alt="ERD-Diagram">
 
-# Domain Model
+# Domain-Model
 
-<img src="IMG/Domänenmodell.jpg" alt="Domain-Model">
+<img src="IMG/domain_model.jpg" alt="Sequence-Diagram">
 
 # Testing
 
-We tested out application with Cypress.  
-To run the tests, you need to have the application running on localhost:8080. \
-Then you can run the tests with the command `npm run cypress:open` in the frontend terminal. 
+We tested our application with Cypress & Postman.  
+To run the tests, you need to have the application running on localhost:3000. \
+Then you can run the Cypress tests with the command `npx cypress open` in the frontend terminal.
+
+<img src="IMG/Sequence_diagram.jpg" alt="Sequence-Diagram">
