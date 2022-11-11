@@ -16,7 +16,7 @@ public interface GroupService extends ExtendedService<Group> {
 
     Group createGroup(Group group) throws InstanceAlreadyExistsException;
 
-    Set<UserDTO> findMembersOfGroup(UUID id, int page, int size);
+    Set<UserDTO> findMembersOfGroup(UUID id, int page, int size) throws InstanceNotFoundException;
 
     void deleteGroup(UUID groupId) throws InstanceNotFoundException;
 
