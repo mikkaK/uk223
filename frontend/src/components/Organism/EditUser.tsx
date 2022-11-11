@@ -79,6 +79,7 @@ export default function EditUser(props: Props) {
       data: data,
     })
       .then((res) => {
+        props.quit();
         props.reload();
       })
       .catch((e) => {

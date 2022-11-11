@@ -64,7 +64,7 @@ export function GroupInspect() {
   }, [page, imagesPerPage]);
 
   usersElement = generateUsersElement();
-  errorElement = <div>Error has occured</div>;
+  errorElement = <h1 style={white}>You do not have access to this group</h1>;
   if (group) {
     return (
       <div>
@@ -133,4 +133,8 @@ export function GroupInspect() {
 
 const pageStyle: React.CSSProperties = {
   width: "5vw",
+};
+
+const white: React.CSSProperties = {
+  color: "white",
 };
