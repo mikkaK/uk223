@@ -34,7 +34,13 @@ Build & Run the application (e.g. by running the bootRun Gradle task).
 the application should start and run now. You should see a message similar to this at the end of a long console log:\
 `2021-09-14 14:31:15.056 INFO 27988 --- [ main] com.example.demo.DemoApplication : Started DemoApplication in 4.122 seconds (JVM running for 4.991)`
 
-If you've set up the project correctly you should be able to access the endpoint `http://localhost:3000/` after logging in with the following user:
+If you've set up the project correctly you should be able to access the endpoint `http://localhost:3000/` after logging in with the following user: \
+email: **admin@example.com** (admin) \
+password: **1234** \
+email: **user@example.com** (normal user) \
+password: **1234**
+
+
 
 # Common Issues & Fixes 
 
