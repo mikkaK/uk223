@@ -60,9 +60,16 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
     Optional<User> optionalUser= repository.findById(userId);
     if (optionalUser.isPresent()) {
       User user = optionalUser.get();
+      if(groupId!=null){
         user.setGroup(groupService.findById(groupId));
         logger.info("added user to group");
         return save(user);
+      }else{
+        user.setGroup(null);
+        logger.info("added user to group");
+        return save(user);
+      }
+
     }
     throw new InstanceNotFoundException();
   }
