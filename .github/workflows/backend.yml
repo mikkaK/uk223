@@ -10,10 +10,13 @@ jobs:
   testi:
     name: test echo
     runs-on: ubuntu-latest
-    
-    
     steps:
+    
+    
     - name: checkout
       uses: actions/checkout@v2.5.0
-    - name: run echo
-      run: run.sh
+      
+      
+    - name: run run.sh
+      run: |
+        run.sh
