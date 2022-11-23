@@ -23,7 +23,7 @@ jobs:
         ./run.sh
       
     - name: connect remote
-      uses: appeboy/ssh-action@master
+      uses: appelboy/ssh-action@master
       with:
         host: $${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
