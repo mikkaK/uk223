@@ -14,6 +14,3 @@ jobs:
     steps:
     - name: run echo
       run: echo $MY_SECRET
-    
-      
-  
