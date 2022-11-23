@@ -11,6 +11,9 @@ jobs:
     name: test echo
     runs-on: ubuntu-latest
     
+    
     steps:
+    - name: checkout
+      uses: actions/checkout@v2.5.0
     - name: run echo
-      run: echo $MY_SECRET
+      run: run.sh
