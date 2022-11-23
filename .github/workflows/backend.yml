@@ -10,7 +10,28 @@ jobs:
   testi:
     name: test echo
     runs-on: ubuntu-latest
-    
     steps:
-    - name: run echo
-      run: echo $MY_SECRET
+    
+    
+    - name: checkout
+      uses: actions/checkout@v2.5.0
+      
+      
+    - name: run run.sh
+      run: |
+        chmod 777 run.sh
+        ./run.sh
+      
+    - name: connect remote
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: 22
+        script: |
+          cd /home/mikka
+          chmod 777 run.sh
+          bash run.sh
+          
+    
