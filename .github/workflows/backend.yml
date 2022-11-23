@@ -1,0 +1,19 @@
+name: test-pipeline
+
+on:
+  push:
+    branches:
+    - main
+    - feature/*
+    - dev
+jobs:
+  testi:
+    name: test echo
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: run echo
+      run: echo $MY_SECRET
+    
+      
+  
