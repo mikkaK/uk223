@@ -33,12 +33,6 @@ jobs:
       with:
         arguments: build
         build-root-directory: ./backend/
-        
-  checkSonar:
-  
-    runs-on: ubuntu-latest
-    
-    steps:
     - name: sonarStuff
       run: |
         ./gradlew sonarqube --info -Dsonar.projectKey=uk223
