@@ -5,8 +5,6 @@ services:
   pgdb:
     image: postgres
     restart: unless-stopped
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -18,3 +16,11 @@ services:
       - "8091:8080"
     env_file:
       - .env
+
+  uk223_frontend:
+      image: mikkak/frontend:1.1
+      restart: unless-stopped
+      ports:
+        - "8006:80"
+      env_file:
+        - .env
