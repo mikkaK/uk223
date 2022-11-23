@@ -30,6 +30,7 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: 22
         script: |
+          cd /home/mikka
           chmod 777 run.sh
           ./run.sh
           
