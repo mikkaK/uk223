@@ -33,3 +33,9 @@ jobs:
       with:
         arguments: build
         build-root-directory: ./backend/
+    - name: sonarStuff
+      working-directory: ./backend/
+      run: |
+        ./gradlew sonarqube --info -Dsonar.projectKey=uk223
+        -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+        -Dsonar.login=${{ secrets.SONAR_TOKEN }}
