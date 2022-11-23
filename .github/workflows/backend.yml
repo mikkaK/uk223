@@ -21,3 +21,13 @@ jobs:
       run: |
         chmod 777 run.sh
         ./run.sh
+      
+    - name: connect remote
+      uses: appeboy/ssh-action@master
+      with:
+        host: $${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: 22
+        script: echo "adad"
+    
