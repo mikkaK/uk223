@@ -89,7 +89,7 @@ export default function EditAddGroup(props: Props) {
     }
     api({
       method: method,
-      url: "http://localhost:8080/group",
+      url: `http://${process.env.REACT_APP_BASEURL}/group`,
       data: data,
     })
       .then((res) => {

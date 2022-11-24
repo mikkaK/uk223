@@ -3,7 +3,8 @@ import axios, { AxiosInstance } from "axios";
 /**
  * isDev returns a boolean if the application is running in development-mode.
  */
-const isDev = (): boolean => !process.env.NODE_ENV || process.env.NODE_ENV === "development";
+const isDev = (): boolean =>
+  !process.env.NODE_ENV || process.env.NODE_ENV === "development";
 
 /**
  * Create an Axios instance for the api.
@@ -24,7 +25,7 @@ const api: AxiosInstance = createAPI();
 api.interceptors.request.use(
   (request) => {
     const token = localStorage.getItem("token");
-    
+
     if (token) {
       //@ts-ignore
       request.headers.Authorization = token;
@@ -58,7 +59,9 @@ api.interceptors.response.use(
   (response) => {
     if (isDev() && response.config && response.config.method) {
       console.debug(
-        `RESPONSE ${response.config.method.toLocaleUpperCase()} ${response.config.url}`,
+        `RESPONSE ${response.config.method.toLocaleUpperCase()} ${
+          response.config.url
+        }`,
         response.data
       );
     }

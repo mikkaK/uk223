@@ -104,7 +104,7 @@ export default function ManageGroups() {
   async function getGroups() {
     api({
       method: "GET",
-      url: "http://localhost:8080/group",
+      url: "http://${process.env.REACT_APP_BASEURL}/group",
     })
       .then((res) => {
         setGroups(res.data);
@@ -117,7 +117,7 @@ export default function ManageGroups() {
   function deleteGroup(groupId: string) {
     api({
       method: "DELETE",
-      url: "http://localhost:8080/group/" + groupId,
+      url: "http://${process.env.REACT_APP_BASEURL}/group/" + groupId,
     })
       .then((res) => {
         getGroups();
