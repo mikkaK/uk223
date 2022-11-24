@@ -18,7 +18,7 @@ services:
       - .env
 
   uk223_frontend:
-      image: mikkak/frontend:1.1
+      image: mikkak/frontend
       restart: unless-stopped
       ports:
         - "8006:80"
