@@ -108,48 +108,18 @@ jobs:
         run: |
           postman collection run "20292233-af42779a-2de1-4f9a-ab5a-d5828f69907b" -e "20292233-51f685e1-3e70-4922-ae03-2dc794bac023"
           
-  install-cypress:
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node12.18.3-chrome87-ff82
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Save build folder
-        uses: actions/upload-artifact@v2
-        with:
-          name: build
-          if-no-files-found: error
-          path: ./frontend/build
-
-      - name: Cypress install
-        uses: cypress-io/github-action@v4.2.0
-        with:
-          # Disable running of tests within install job
-          runTests: false
-          build: yarn build
-          path: ./frontend/
-          
   cypress-run:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node12.18.3-chrome87-ff82
-    needs: install-cypress
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Download the build folders
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: ./frontend/build
-
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
+        uses: actions/checkout@v3
+        
+      - name: workdir
+        working-directory: ./frontend/
+        run: echo "changed workdir"
       - name: Cypress run
-        uses: cypress-io/github-action@v4.2.0
+        uses: cypress-io/github-action@v1
         with:
-          # Specify Browser since container image is compile with Firefox
-          browser: firefox
-          build: yarn build
-          path: ./frontend/
+          build: yarn run build
+          start: yarn start
+          wait-on: http://213.167.227.84:8006
