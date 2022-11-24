@@ -13,13 +13,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: checkout repo
     - uses: actions/checkout@v3
+    
     - name: Build the backend Docker image
       run: docker build . --file ./backend/Dockerfile --tag mikkak/backend:latest
+    
     - name: Build the frontent Docker image
       run: docker build . --file ./frontend/Dockerfile --tag mikkak/frontend:latest
+    
     - name: Push backend
       run: docker push mikkak/backend:latest
+    
     - name: Push frontend
       run: docker push mikkak/frontend:latest
       
@@ -29,7 +34,7 @@ jobs:
     
     steps:
     - name: dockerstuff
-    - uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
