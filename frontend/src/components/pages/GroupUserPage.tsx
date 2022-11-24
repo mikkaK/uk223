@@ -19,7 +19,7 @@ export function GroupUserPage() {
     const getGroups = async function () {
       api({
         method: "GET",
-        url: `http://${process.env.REACT_APP_BASEURL}/group`,
+        url:  `${process.env.REACT_APP_BASEURL}/group`,
       })
         .then((res) => {
           setGroups(res.data);
@@ -33,7 +33,7 @@ export function GroupUserPage() {
     const getUser = async function () {
       api({
         method: "GET",
-        url: `http://${process.env.REACT_APP_BASEURL}/user/` + getUserId(),
+        url:  `${process.env.REACT_APP_BASEURL}/user/` + getUserId(),
       })
         .then((res) => {
           if (typeof res.data == "string") {
@@ -100,7 +100,7 @@ export function GroupUserPage() {
 
     api({
       method: "PUT",
-      url: `http://${process.env.REACT_APP_BASEURL}/user/`,
+      url: `${process.env.REACT_APP_BASEURL}/user/`,
       data: {
         userId: user?.id,
         groupId: newgroup,

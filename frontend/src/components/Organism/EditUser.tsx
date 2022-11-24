@@ -64,7 +64,7 @@ export default function EditUser(props: Props) {
     let url;
 
     method = "PUT";
-    url = `http://${process.env.REACT_APP_BASEURL}/user/` + props.user.id;
+    url =  `${process.env.REACT_APP_BASEURL}/user/` + props.user.id;
     data = {
       id: user?.id,
       firstName: user?.firstName,

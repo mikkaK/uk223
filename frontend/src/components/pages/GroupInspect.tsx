@@ -22,7 +22,7 @@ export function GroupInspect() {
   async function getGroup() {
     api({
       method: "GET",
-      url: `http://${process.env.REACT_APP_BASEURL}/group/` + groupId,
+      url:  `${process.env.REACT_APP_BASEURL}/group/` + groupId,
     })
       .then((res) => {
         setGroup({
@@ -42,7 +42,7 @@ export function GroupInspect() {
     api({
       method: "GET",
       url:
-        `http://${process.env.REACT_APP_BASEURL}/group/members/` +
+         `${process.env.REACT_APP_BASEURL}/group/members/` +
         groupId +
         "?page=" +
         (page - 1) +
