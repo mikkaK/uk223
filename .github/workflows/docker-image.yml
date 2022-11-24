@@ -36,6 +36,9 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: 22
         script: |
+          docker-compose down
+          docker rmi mikkak/frontend --force
+          docker rmi mikkak/backend --force
           docker pull mikkak/frontend:latest
           docker pull mikkak/backend:latest
           docker-compose up -d
