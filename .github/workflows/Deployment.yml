@@ -31,7 +31,7 @@ jobs:
     
     steps:
     - name: checkout repo
-    - uses: actions/checkout@v3
+      uses: actions/checkout@v3
     - name: sonarStuff
       working-directory: ./backend/
       env: 
@@ -93,7 +93,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
-      - uses: actions/checkout@v3
+      - name: checkout repo
+        uses: actions/checkout@v3
       - name: Install Postman CLI
         run: |
           curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
