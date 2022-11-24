@@ -18,7 +18,7 @@ export function UserList() {
     const getGroups = async function () {
       api({
         method: "GET",
-        url: "http://${process.env.REACT_APP_BASEURL}/group",
+        url: `http://${process.env.REACT_APP_BASEURL}/group`,
       })
         .then((res) => {
           let map = new Map<string, Group>();
@@ -68,7 +68,7 @@ export function UserList() {
   async function getUsers() {
     api({
       method: "GET",
-      url: "http://${process.env.REACT_APP_BASEURL}/user",
+      url: `http://${process.env.REACT_APP_BASEURL}/user`,
     })
       .then((res) => {
         setUsers(res.data);
