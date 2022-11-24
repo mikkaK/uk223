@@ -17,9 +17,11 @@ jobs:
       uses: actions/checkout@v3
     
     - name: Build the backend Docker image
+      working-directory: ./backend/
       run: docker build . --file ./backend/Dockerfile --tag mikkak/backend:latest
     
     - name: Build the frontent Docker image
+      working-directory: ./frontend/
       run: docker build . --file ./frontend/Dockerfile --tag mikkak/frontend:latest
     
     - name: Push backend
