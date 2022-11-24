@@ -111,6 +111,8 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     steps:
+      - name: change directory
+        working-directory: ./frontend/
       - name: Checkout
         uses: actions/checkout@v2
       - name: Cypress run
