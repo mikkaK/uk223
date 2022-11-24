@@ -113,14 +113,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
-      - name: workdir
-        working-directory: ./frontend/
-        run: echo "changed workdir"
       - name: Cypress run
         uses: cypress-io/github-action@v1
         with:
-          path: ./frontend/
+          working-directory: frontend
           build: yarn run build
           start: yarn start
           wait-on: http://213.167.227.84:8006
