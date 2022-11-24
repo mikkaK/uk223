@@ -9,12 +9,12 @@ on:
 jobs:
 
   build:
-
+    name: dockerify
     runs-on: ubuntu-latest
 
     steps:
     - name: checkout repo
-    - uses: actions/checkout@v3
+      uses: actions/checkout@v3
     
     - name: Build the backend Docker image
       run: docker build . --file ./backend/Dockerfile --tag mikkak/backend:latest
